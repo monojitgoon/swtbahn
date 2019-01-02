@@ -27,12 +27,6 @@
       canvasId="flotLine1"
       title="New Users"
     ></info-chart-two>
-
-    <RealTime title="Real time"/>
-    <Traffic title="Real time"/>
-    <EarningStats/>
-    <Download/>
-    <Revenue/>
   </div>
 </template>
 
@@ -40,23 +34,13 @@
 import Info from "./trackboard/InfoBox.vue";
 import InfoChart from "./trackboard/InfoBoxChart.vue";
 import InfoChartTwo from "./trackboard/InfoBoxChart2.vue";
-import RealTime from "./trackboard/RealTime.vue";
-import Traffic from "./trackboard/Traffic.vue";
-import EarningStats from "./trackboard/EarningStats.vue";
-import Download from "./trackboard/Download.vue";
-import Revenue from "./trackboard/Revenue.vue";
 
 export default {
   name: "trackboard",
   components: {
     Info,
     InfoChart,
-    InfoChartTwo,
-    RealTime,
-    Traffic,
-    EarningStats,
-    Download,
-    Revenue
+    InfoChartTwo
   }
 };
 </script>
