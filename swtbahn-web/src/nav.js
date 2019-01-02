@@ -3,7 +3,7 @@ export default {
     {
       name: "Trackboard",
       url: "/trackboard",
-      icon: "fa fa-dashboard"
+      icon: "fa fa-road"
     },
     {
       title: true,
@@ -17,82 +17,52 @@ export default {
 
     {
       name: "Aspects",
-      url: "/components",
+      url: "/",
       icon: "fa fa-eye",
       children: [
         {
-          name: "Buttons",
-          url: "/components/buttons",
+          name: "Trains",
+          url: "/trains",
+          icon: "fa fa-train"
+        },
+        {
+          name: "Signals",
+          url: "/trains",
+          icon: "fa fa-signal"
+        },
+        {
+          name: "Segments",
+          url: "/trains",
           icon: "fa fa-puzzle-piece"
         },
         {
-          name: "Badges",
-          url: "/components/badges",
-          icon: "fa fa-id-badge"
-        },
-        {
-          name: "Alerts",
-          url: "/components/alerts",
-          icon: "fa fa-exclamation-triangle"
-        },
-        {
-          name: "Progress Bars",
-          url: "/components/progressbars",
-          icon: "fa fa-spinner"
-        },
-        {
-          name: "Grids",
-          url: "/components/grids",
-          icon: "fa fa-th"
-        },
-        {
-          name: "Typography",
-          url: "/components/typography",
-          icon: "fa fa-file-word-o"
+          name: "Points",
+          url: "/trains",
+          icon: "fa fa-location-arrow"
         }
       ]
     },
     {
-      name: "Tables",
-      url: "/components/tables",
-      icon: "fa fa-table"
-    },
-    {
-      name: "Forms",
-      url: "/components/basic-form",
-      icon: "fa fa-pencil-square-o",
-      badge: {
-        variant: "warning",
-        text: "NEW"
-      }
-    },
-    {
-      name: "Chart JS",
-      url: "/components/chartjs",
-      icon: "fa fa-pie-chart",
-      badge: {
-        variant: "info",
-        text: "NEW"
-      }
-    },
-    {
-      name: "Maps",
-      url: "/components/maps/",
-      icon: "fa fa-map-marker",
-      badge: {
-        variant: "info",
-        text: "NEW"
-      },
+      name: "Driver",
+      url: "/",
+      icon: "fa fa-train",
       children: [
         {
-          name: "Google Maps",
-          url: "/components/maps/google-maps",
-          icon: "fa fa-map-o"
-        },
+          name: "DriverBoard",
+          url: "/driverboard",
+          icon: "fa fa-train"
+        }
+      ]
+    },
+    {
+      name: "Stellwerk",
+      url: "/",
+      icon: "fa fa-compass",
+      children: [
         {
-          name: "Leaflet Maps",
-          url: "/components/maps/leaflet-maps",
-          icon: "fa fa-street-view"
+          name: "Stellwerk",
+          url: "/trains",
+          icon: "fa fa-compass"
         }
       ]
     },

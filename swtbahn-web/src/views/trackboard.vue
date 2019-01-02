@@ -5,9 +5,9 @@
       <div class="col-md-6 col-lg-3">
         <div class="card">
           <div class="p-0 clearfix">
-            <i class="fa fa-signal bg-primary p-4 px-5 font-2xl mr-3 float-left text-light"></i>
-            <div class="h5 text-primary mb-0 pt-3">10</div>
-            <div class="text-muted text-uppercase font-weight-bold font-xs small">Active Signals</div>
+            <i class="fa fa-train bg-info p-4 px-5 font-2xl mr-3 float-left text-light"></i>
+            <div class="h5 text-info mb-0 pt-3">2</div>
+            <div class="text-muted text-uppercase font-weight-bold font-xs small">Active Trains</div>
           </div>
         </div>
       </div>
@@ -15,9 +15,9 @@
       <div class="col-md-6 col-lg-3">
         <div class="card">
           <div class="p-0 clearfix">
-            <i class="fa fa-train bg-info p-4 px-5 font-2xl mr-3 float-left text-light"></i>
-            <div class="h5 text-info mb-0 pt-3">2</div>
-            <div class="text-muted text-uppercase font-weight-bold font-xs small">Active Trains</div>
+            <i class="fa fa-signal bg-primary p-4 px-5 font-2xl mr-3 float-left text-light"></i>
+            <div class="h5 text-primary mb-0 pt-3">10</div>
+            <div class="text-muted text-uppercase font-weight-bold font-xs small">Active Signals</div>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@
       <div class="col-md-6 col-lg-3">
         <div class="card">
           <div class="p-0 clearfix">
-            <i class="fa fa-road bg-danger p-4 px-5 font-2xl mr-3 float-left text-light"></i>
+            <i class="fa fa-location-arrow bg-danger p-4 px-5 font-2xl mr-3 float-left text-light"></i>
             <div class="h5 text-danger mb-0 pt-3">7</div>
             <div class="text-muted text-uppercase font-weight-bold font-xs small">Active Points</div>
           </div>

@@ -6,6 +6,16 @@ const Trackboard = resolve => {
     resolve(require("../views/trackboard.vue"));
   });
 };
+const Trains = resolve => {
+  require.ensure(["../views/trains.vue"], () => {
+    resolve(require("../views/trains.vue"));
+  });
+};
+const Driverboard = resolve => {
+  require.ensure(["../views/driverboard.vue"], () => {
+    resolve(require("../views/driverboard.vue"));
+  });
+};
 
 // UI Components
 const Buttons = resolve => {
@@ -64,29 +74,6 @@ const Tables = resolve => {
     resolve(require("../components/tables/Tables.vue"));
   });
 };
-
-//Charts
-const ChartJS = resolve => {
-  require.ensure(["../components/charts/ChartJS.vue"], () => {
-    resolve(require("../components/charts/ChartJS.vue"));
-  });
-};
-
-//Maps
-const GoogleMapsPage = resolve => {
-  require.ensure(["../components/maps/google-maps/GoogleMapsPage.vue"], () => {
-    resolve(require("../components/maps/google-maps/GoogleMapsPage.vue"));
-  });
-};
-const LeafletMapsPage = resolve => {
-  require.ensure(
-    ["../components/maps/leaflet-maps/LeafletMapsPage.vue"],
-    () => {
-      resolve(require("../components/maps/leaflet-maps/LeafletMapsPage.vue"));
-    }
-  );
-};
-
 // // User Info
 // const User = resolve => { require.ensure(['../layouts/User.vue'], ()=>{ resolve(require('../layouts/User.vue')); }); };
 
@@ -126,6 +113,8 @@ export const routes = [
       default: Trackboard
     }
   },
+  { path: "/trains", name: "trains", component: Trains },
+  { path: "/driverboard", name: "driverboard", component: Driverboard },
 
   // // UI Components
   { path: "/components/buttons", name: "buttons", component: Buttons },
@@ -157,43 +146,7 @@ export const routes = [
       }
     ]
   },
-  {
-    path: "/components/charts",
-    name: "Charts",
-    component: {
-      render(c) {
-        return c("router-view");
-      }
-    },
-    children: [
-      {
-        path: "/components/chartjs",
-        component: ChartJS,
-        name: "chart-js"
-      }
-    ]
-  },
-  {
-    path: "/components/maps",
-    name: "Maps",
-    component: {
-      render(c) {
-        return c("router-view");
-      }
-    },
-    children: [
-      {
-        path: "/components/maps/google-maps",
-        component: GoogleMapsPage,
-        name: "google-maps-page"
-      },
-      {
-        path: "/components/maps/leaflet-maps",
-        component: LeafletMapsPage,
-        name: "leaflet-maps-page"
-      }
-    ]
-  },
+
   {
     path: "/components/auth",
     name: "auth",
