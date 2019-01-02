@@ -39,11 +39,6 @@ const Grids = resolve => {
     resolve(require("../components/Grids.vue"));
   });
 };
-const Widgets = resolve => {
-  require.ensure(["../components/Widgets.vue"], () => {
-    resolve(require("../components/Widgets.vue"));
-  });
-};
 const Typography = resolve => {
   require.ensure(["../components/Typography.vue"], () => {
     resolve(require("../components/Typography.vue"));
@@ -143,7 +138,6 @@ export const routes = [
   },
   { path: "/components/basic-form", name: "basic-form", component: BasicForms },
   { path: "/components/grids", name: "grids", component: Grids },
-  { path: "/components/widgets", name: "widgets", component: Widgets },
   { path: "/components/typography", name: "typography", component: Typography },
   { path: "/components/tables", name: "tables", component: Tables },
 

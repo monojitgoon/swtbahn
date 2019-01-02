@@ -1,47 +1,55 @@
 <template>
-  <div class="row">
-    <info
-      icon="icon-lg pe-7f-cart"
-      bgclass="bg-flat-color-1"
-      symbol="$"
-      counter="23569"
-      title="Revenue"
-    ></info>
-
-    <info-chart
-      icon="icon-lg pe-7f-cart"
-      symbol="%"
-      hasPercentage="yes"
-      bgclass="bg-flat-color-6"
-      counter="85"
-      canvasId="flotBar1"
-      title="Sales Increase"
-    ></info-chart>
-
-    <info icon="icon-lg pe-7f-users" bgclass="bg-flat-color-3" counter="6596" title="Total Clients"></info>
-
-    <info-chart-two
-      icon="icon-lg pe-7f-cart"
-      bgclass="bg-flat-color-2"
-      counter="1490"
-      canvasId="flotLine1"
-      title="New Users"
-    ></info-chart-two>
+  <div class="animated fadeIn">
+    <div class="row">
+      <!--/.col-->
+      <div class="col-md-6 col-lg-3">
+        <div class="card">
+          <div class="p-0 clearfix">
+            <i class="fa fa-signal bg-primary p-4 px-5 font-2xl mr-3 float-left text-light"></i>
+            <div class="h5 text-primary mb-0 pt-3">10</div>
+            <div class="text-muted text-uppercase font-weight-bold font-xs small">Active Signals</div>
+          </div>
+        </div>
+      </div>
+      <!--/.col-->
+      <div class="col-md-6 col-lg-3">
+        <div class="card">
+          <div class="p-0 clearfix">
+            <i class="fa fa-train bg-info p-4 px-5 font-2xl mr-3 float-left text-light"></i>
+            <div class="h5 text-info mb-0 pt-3">2</div>
+            <div class="text-muted text-uppercase font-weight-bold font-xs small">Active Trains</div>
+          </div>
+        </div>
+      </div>
+      <!--/.col-->
+      <div class="col-md-6 col-lg-3">
+        <div class="card">
+          <div class="p-0 clearfix">
+            <i class="fa fa-puzzle-piece bg-warning p-4 px-5 font-2xl mr-3 float-left text-light"></i>
+            <div class="h5 text-warning mb-0 pt-3">29</div>
+            <div class="text-muted text-uppercase font-weight-bold font-xs small">Active Segments</div>
+          </div>
+        </div>
+      </div>
+      <!--/.col-->
+      <div class="col-md-6 col-lg-3">
+        <div class="card">
+          <div class="p-0 clearfix">
+            <i class="fa fa-road bg-danger p-4 px-5 font-2xl mr-3 float-left text-light"></i>
+            <div class="h5 text-danger mb-0 pt-3">7</div>
+            <div class="text-muted text-uppercase font-weight-bold font-xs small">Active Points</div>
+          </div>
+        </div>
+      </div>
+      <!--/.col-->
+    </div>
   </div>
 </template>
 
 <script>
-import Info from "./trackboard/InfoBox.vue";
-import InfoChart from "./trackboard/InfoBoxChart.vue";
-import InfoChartTwo from "./trackboard/InfoBoxChart2.vue";
-
 export default {
   name: "trackboard",
-  components: {
-    Info,
-    InfoChart,
-    InfoChartTwo
-  }
+  components: {}
 };
 </script>
 
