@@ -24,6 +24,7 @@
     "leaflet-map": "^0.2.1",
     "normalize.css": "^8.0.0",
     "progressbar.js": "^1.0.1",
+    "svg.js": "^2.7.1",
     "vue": "^2.5.11",
     "vue-animate-number": "^0.4.2",
     "vue-chartjs": "^3.2.1",

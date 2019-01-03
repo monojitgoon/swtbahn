@@ -43,13 +43,20 @@
       </div>
       <!--/.col-->
     </div>
+    <div class="row">
+      <Track/>
+    </div>
   </div>
 </template>
 
 <script>
+import Track from "./track.vue";
+
 export default {
   name: "trackboard",
-  components: {}
+  components: {
+    Track
+  }
 };
 </script>
 
