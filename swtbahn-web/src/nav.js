@@ -27,17 +27,17 @@ export default {
         },
         {
           name: "Signals",
-          url: "/trains",
+          url: "/signals",
           icon: "fa fa-signal"
         },
         {
           name: "Segments",
-          url: "/trains",
+          url: "/segments",
           icon: "fa fa-puzzle-piece"
         },
         {
           name: "Points",
-          url: "/trains",
+          url: "/points",
           icon: "fa fa-location-arrow"
         }
       ]
@@ -60,8 +60,13 @@ export default {
       icon: "fa fa-compass",
       children: [
         {
-          name: "Stellwerk",
-          url: "/trains",
+          name: "Set Points",
+          url: "/setpoints",
+          icon: "fa fa-compass"
+        },
+        {
+          name: "Set Signals",
+          url: "/setsignals",
           icon: "fa fa-compass"
         }
       ]
@@ -72,33 +77,33 @@ export default {
     {
       title: true,
       name: "Administritive"
-    },
-    {
-      name: "Pages",
-      url: "/auth",
-      icon: "fa fa-paperclip",
-      children: [
-        {
-          name: "Login",
-          url: "/auth/login",
-          icon: "fa fa-sign-in"
-        },
-        {
-          name: "Register",
-          url: "/auth/register",
-          icon: "fa fa-sign-in"
-        },
-        {
-          name: "Error 404",
-          url: "/auth/Page404",
-          icon: "fa fa-paper-plane"
-        },
-        {
-          name: "Error 500",
-          url: "/auth/Page500",
-          icon: "fa fa-paper-plane"
-        }
-      ]
     }
+    // {
+    //   name: "Pages",
+    //   url: "/auth",
+    //   icon: "fa fa-paperclip",
+    //   children: [
+    //     {
+    //       name: "Login",
+    //       url: "/auth/login",
+    //       icon: "fa fa-sign-in"
+    //     },
+    //     {
+    //       name: "Register",
+    //       url: "/auth/register",
+    //       icon: "fa fa-sign-in"
+    //     },
+    //     {
+    //       name: "Error 404",
+    //       url: "/auth/Page404",
+    //       icon: "fa fa-paper-plane"
+    //     },
+    //     {
+    //       name: "Error 500",
+    //       url: "/auth/Page500",
+    //       icon: "fa fa-paper-plane"
+    //     }
+    //   ]
+    // }
   ]
 };

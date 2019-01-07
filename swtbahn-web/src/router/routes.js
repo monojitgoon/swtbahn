@@ -11,12 +11,36 @@ const Trains = resolve => {
     resolve(require("../views/trains.vue"));
   });
 };
+const Signals = resolve => {
+  require.ensure(["../views/signals.vue"], () => {
+    resolve(require("../views/signals.vue"));
+  });
+};
+const Segments = resolve => {
+  require.ensure(["../views/segments.vue"], () => {
+    resolve(require("../views/segments.vue"));
+  });
+};
+const Points = resolve => {
+  require.ensure(["../views/points.vue"], () => {
+    resolve(require("../views/points.vue"));
+  });
+};
 const Driverboard = resolve => {
   require.ensure(["../views/driverboard.vue"], () => {
     resolve(require("../views/driverboard.vue"));
   });
 };
-
+const SetPoints = resolve => {
+  require.ensure(["../views/SetPoints.vue"], () => {
+    resolve(require("../views/SetPoints.vue"));
+  });
+};
+const SetSignals = resolve => {
+  require.ensure(["../views/SetSignals.vue"], () => {
+    resolve(require("../views/SetSignals.vue"));
+  });
+};
 // UI Components
 const Buttons = resolve => {
   require.ensure(["../components/Buttons.vue"], () => {
@@ -109,7 +133,12 @@ export const routes = [
     }
   },
   { path: "/trains", name: "trains", component: Trains },
+  { path: "/signals", name: "signals", component: Signals },
+  { path: "/segments", name: "segments", component: Segments },
+  { path: "/points", name: "points", component: Points },
   { path: "/driverboard", name: "driverboard", component: Driverboard },
+  { path: "/setpoints", name: "setpoints", component: SetPoints },
+  { path: "/setsignals", name: "setsignals", component: SetSignals },
 
   // // UI Components
   { path: "/components/buttons", name: "buttons", component: Buttons },

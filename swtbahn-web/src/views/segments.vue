@@ -1,22 +1,22 @@
 <template>
   <div class="row">
     <div class="col-xs-12 col-md-12">
-      <card header-text="Trains">
+      <card header-text="Segments">
         <div class="table-responsive">
           <table class="table table-striped first-td-padding">
             <thead>
               <tr>
-                <td>Train Name</td>
-                <td>State</td>
-                <td>Peripherals</td>
+                <td>ID</td>
+                <td>Address</td>
+                <td align="right">Occupied</td>
                 <td></td>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>train1</td>
-                <td>train on track seg1 speed 5 direction forward</td>
-                <td>light on, horn on</td>
+                <td>Seg1</td>
+                <td>0*00</td>
+                <td align="right">Y</td>
                 <td></td>
               </tr>
             </tbody>
@@ -27,12 +27,8 @@
   </div>
 </template>
 
-
-
 <script>
-import Api from "../API";
-
 export default {
-  name: "trains"
+  name: "track",
+  components: {}
 };
-</script>

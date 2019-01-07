@@ -20,7 +20,11 @@
             <h4>Grab Train</h4>
           </div>
           <div class="card-body">
-            <button type="button" class="btn btn-outline-primary btn-lg btn-block">Grab Train</button>
+            <button
+              type="button"
+              class="btn btn-outline-primary btn-lg btn-block"
+              @click="grabTrain()"
+            >Grab Train</button>
             <button
               type="button"
               class="btn btn-outline-warning btn-lg btn-block"
@@ -113,9 +117,34 @@
 </template>
 
 <script>
+import Api from "../API";
+
 export default {
   name: "trains",
-  components: {}
+  data() {
+    return {
+      postBody: null,
+      postTitle: null
+    };
+  },
+
+  created() {},
+
+  methods: {
+    grabTrain() {
+      let formData = new FormData();
+      formData.append("train", "train1");
+
+      Api()
+        .post("driver/grab-train", formData)
+        .then(response => {
+          this.postTitle = response.data;
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    }
+  }
 };
 </script>
 
