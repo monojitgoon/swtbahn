@@ -1,13 +1,13 @@
 <template>
   <div class="hello">
-    <input type="button" @click="createPost()" value="submit">
+    <input type="button" @click="grabTrain()" value="submit">
   </div>
 </template>
 
 
 
 <script>
-import axios from "axios";
+import Api from "../API";
 
 export default {
   name: "trains",
@@ -15,7 +15,6 @@ export default {
   data() {
     return {
       postBody: null,
-
       postTitle: null
     };
   },
@@ -23,27 +22,15 @@ export default {
   created() {},
 
   methods: {
-    createPost() {
-      var config = {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      };
-
+    grabTrain() {
       let formData = new FormData();
-
       formData.append("train", "train1");
 
-      axios
-        .post(
-          "http://localhost:8080/driver/grab-train",
-
-          formData, // the data to post
-
-          config
-        )
-        .then(response => {})
-
+      Api()
+        .post("driver/grab-train", formData)
+        .then(response => {
+          this.postTitle = response.data;
+        })
         .catch(e => {
           console.error(e);
         });

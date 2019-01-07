@@ -23,19 +23,14 @@ const Buttons = resolve => {
     resolve(require("../components/Buttons.vue"));
   });
 };
-const Badges = resolve => {
-  require.ensure(["../components/Badges.vue"], () => {
-    resolve(require("../components/Badges.vue"));
+const Switches = resolve => {
+  require.ensure(["../components/switch/switches.vue"], () => {
+    resolve(require("../components/switch/switches.vue"));
   });
 };
 const Alerts = resolve => {
   require.ensure(["../components/Alerts.vue"], () => {
     resolve(require("../components/Alerts.vue"));
-  });
-};
-const ProgressBars = resolve => {
-  require.ensure(["../components/ProgressBars.vue"], () => {
-    resolve(require("../components/ProgressBars.vue"));
   });
 };
 
@@ -118,13 +113,12 @@ export const routes = [
 
   // // UI Components
   { path: "/components/buttons", name: "buttons", component: Buttons },
-  { path: "/components/badges", name: "badges", component: Badges },
-  { path: "/components/alerts", name: "alerts", component: Alerts },
   {
-    path: "/components/progressbars",
-    name: "progressbars",
-    component: ProgressBars
+    path: "/components/switch/switches",
+    name: "switches",
+    component: Switches
   },
+  { path: "/components/alerts", name: "alerts", component: Alerts },
   { path: "/components/basic-form", name: "basic-form", component: BasicForms },
   { path: "/components/grids", name: "grids", component: Grids },
   { path: "/components/typography", name: "typography", component: Typography },
