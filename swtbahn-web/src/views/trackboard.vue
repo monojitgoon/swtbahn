@@ -7,7 +7,7 @@
           <div class="card-body">
             <div class="clearfix">
               <i class="fa fa-train bg-info p-3 font-2xl mr-3 float-left text-light"></i>
-              <div class="h5 text-secondary mb-0 mt-1">4</div>
+              <div class="h5 text-secondary mb-0 mt-1">{{ ActiveTrains }}</div>
               <div class="text-muted text-uppercase font-weight-bold font-xs small">Active trains</div>
             </div>
           </div>
@@ -52,15 +52,17 @@
       <!--/.col-->
       <div class="col">
         <section class="card">
-          <div class="card-body text-secondary">To Start/Stop Swtbahn Server&nbsp;&nbsp;
+          <div class="card-body text-secondary">
+            {{ ServerStatus }}&nbsp;&nbsp;
             <basix-switch
               type="text"
               on="On"
               off="Off"
               variant="success"
               :pill="true"
-              :checked="true"
+              :checked="false"
               size="lg"
+              @change="SwitchChange"
             />
           </div>
         </section>
@@ -68,18 +70,84 @@
       <!--/.col-->
     </div>
     <div class="row">
-      <Track/>
+      <Trackpanel/>
     </div>
   </div>
 </template>
 
 <script>
-import Track from "./track.vue";
+import Trackpanel from "./trackpanel.vue";
+import Api from "../API";
 
 export default {
   name: "trackboard",
   components: {
-    Track
+    Trackpanel
+  },
+  data() {
+    testvalue: false;
+    return {
+      ServerStatus: null,
+      ActiveTrains: null,
+      offersData: {}
+    };
+  },
+  mounted() {},
+  created() {
+    this.checkServerState();
+  },
+  computed: {},
+  methods: {
+    checkServerState() {
+      if (localStorage.getItem("serverState") == "true") {
+      }
+    },
+    SwitchChange(e) {
+      if (e == true) {
+        localStorage.setItem("serverState", "true");
+        this.StartServer();
+      } else {
+        localStorage.setItem("serverState", "false");
+        this.StopServer();
+      }
+    },
+    StartServer() {
+      Api()
+        .post("admin/startup")
+        .then(response => {
+          if (response.status == 200) this.ServerStatus = "starting";
+          else this.ServerStatus = "running";
+        })
+        .catch(e => {
+          console.error(e);
+        });
+      this.GetTrainCount();
+    },
+    StopServer() {
+      Api()
+        .post("admin/shutdown")
+        .then(response => {
+          if (response.status == 200) this.ServerStatus = "stopping";
+          else this.ServerStatus = "not running";
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    },
+    GetTrainCount() {
+      Api()
+        .post("monitor/trains")
+        .then(response => {
+          if (response.status == 200) {
+            this.offersData = response.data;
+            // alert(this.offersData.length);
+            //this.ActiveTrains = reponse.data.data;
+          } else this.ActiveTrains = "0";
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    }
   }
 };
 </script>

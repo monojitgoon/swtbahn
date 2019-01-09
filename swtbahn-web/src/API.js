@@ -5,7 +5,7 @@ export default () => {
     baseURL: "http://localhost:8080/",
     withCredentials: false,
     headers: {
-      "Content-Type": "multipart/form-data"
+      "Content-Type": "text"
     }
   });
 };

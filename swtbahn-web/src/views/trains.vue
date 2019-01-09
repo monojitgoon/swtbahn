@@ -2,26 +2,21 @@
   <div class="row">
     <div class="col-xs-12 col-md-12">
       <card header-text="Trains">
-        <div class="table-responsive">
-          <table class="table table-striped first-td-padding">
-            <thead>
-              <tr>
-                <td>Train Name</td>
-                <td>State</td>
-                <td>Peripherals</td>
-                <td></td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>train1</td>
-                <td>train on track seg1 speed 5 direction forward</td>
-                <td>light on, horn on</td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <td>Train Name</td>
+              <td>Grab Status</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="train in trains" :key="train.trainid">
+              <td>{{ train.trainid }}</td>
+              <td>{{ train.grabbed }}</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
       </card>
     </div>
   </div>
@@ -31,8 +26,34 @@
 
 <script>
 import Api from "../API";
-
 export default {
-  name: "trains"
+  name: "trains",
+  data() {
+    return {
+      ActiveTrains: null,
+      thirdbracketdata: [],
+      trains: []
+    };
+  },
+  mounted() {
+    //this.GetTrainStatus();
+  },
+  created() {
+    this.GetTrainStatus();
+  },
+  methods: {
+    GetTrainStatus() {
+      Api()
+        .post("monitor/trains")
+        .then(response => {
+          if (response.status == 200) {
+            this.trains = response.data;
+          }
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    }
+  }
 };
 </script>
