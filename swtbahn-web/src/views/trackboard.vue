@@ -104,11 +104,13 @@ export default {
     },
     SwitchChange(e) {
       if (e == true) {
-        localStorage.setItem("serverState", "true");
-        this.StartServer();
+        // this.$emit("change", data.unit);
+        alert("test");
+        //  localStorage.setItem("serverState", "true");
+        //   this.StartServer();
       } else {
-        localStorage.setItem("serverState", "false");
-        this.StopServer();
+        //  localStorage.setItem("serverState", "false");
+        //  this.StopServer();
       }
     },
     StartServer() {
@@ -136,7 +138,8 @@ export default {
     },
     GetTrainCount() {
       Api()
-        .post("monitor/trains")
+        // .post("monitor/trains")
+        .get("https://dog.ceo/api/breeds/list/all")
         .then(response => {
           if (response.status == 200) {
             this.offersData = response.data;

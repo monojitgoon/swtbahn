@@ -2,7 +2,21 @@
   <div class="row">
     <div class="col-xs-12 col-md-12">
       <card header-text="Trains">
-        <table class="table table-hover">
+        <div>{{Object.keys(results).length}}</div>
+        <div v-for="(result, index) in results">
+          <div class="card">
+            <div class="card-section">
+              <p>{{ index }}</p>
+            </div>
+            <div class="card-divider">
+              <p>$ {{ result.USD }}</p>
+            </div>
+            <div class="card-section">
+              <p>{{ result.EUR }}</p>
+            </div>
+          </div>
+        </div>
+        <!-- <table class="table table-hover">
           <thead>
             <tr>
               <td>Train Name</td>
@@ -16,7 +30,7 @@
               <td></td>
             </tr>
           </tbody>
-        </table>
+        </table>-->
       </card>
     </div>
   </div>
@@ -32,11 +46,13 @@ export default {
     return {
       ActiveTrains: null,
       thirdbracketdata: [],
-      trains: []
+      trains: [],
+      results: [],
+      numberOfContacts: 0
     };
   },
   mounted() {
-    //this.GetTrainStatus();
+    this.GetTrainStatus();
   },
   created() {
     this.GetTrainStatus();
@@ -44,10 +60,15 @@ export default {
   methods: {
     GetTrainStatus() {
       Api()
-        .post("monitor/trains")
+        .get(
+          "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD,EUR"
+        )
         .then(response => {
           if (response.status == 200) {
-            this.trains = response.data;
+            // this.trains = response.data;
+            this.results = response.data;
+            this.numberOfContacts = response.data.length;
+            console.log(response.data);
           }
         })
         .catch(e => {
