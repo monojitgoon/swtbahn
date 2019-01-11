@@ -5,7 +5,7 @@
       class="switch-input"
       :value="value"
       :checked="isChecked"
-      @change="handleChange"
+      @change="e => isChecked = e.target.checked"
     >
     <template v-if="isOn">
       <span class="switch-label" :data-on="on" :data-off="off"></span>
@@ -89,8 +89,8 @@ export default {
   },
   methods: {
     handleChange({ target: { checked } }) {
-      // this.$emit('change', checked ? this.value : this.uncheckedValue)
-      e.target.parentElement.classList.toggle("close");
+      this.$emit("change", checked ? this.value : this.uncheckedValue);
+      // e.target.parentElement.classList.toggle("close");
     }
   }
 };

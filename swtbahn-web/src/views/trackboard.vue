@@ -60,7 +60,7 @@
               off="Off"
               variant="success"
               :pill="true"
-              :checked="false"
+              :checked="checkedServerSwitch"
               size="lg"
               @change="SwitchChange"
             />
@@ -85,8 +85,8 @@ export default {
     Trackpanel
   },
   data() {
-    testvalue: false;
     return {
+      checkedServerSwitch: false,
       ServerStatus: null,
       ActiveTrains: null,
       trainsArray: []
@@ -100,11 +100,13 @@ export default {
   methods: {
     checkServerState() {
       if (localStorage.getItem("serverState") == "true") {
+        this.checkedServerSwitch = true;
+      } else {
+        this.checkedServerSwitch = false;
       }
     },
     SwitchChange(e) {
       if (e == true) {
-        // this.$emit("change", data.unit);
         localStorage.setItem("serverState", "true");
         this.StartServer();
       } else {
