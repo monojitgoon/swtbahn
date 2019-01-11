@@ -7,7 +7,7 @@
           <div class="card-body">
             <div class="clearfix">
               <i class="fa fa-train bg-info p-3 font-2xl mr-3 float-left text-light"></i>
-              <div class="h5 text-secondary mb-0 mt-1">{{ ActiveTrains }}</div>
+              <div class="h5 text-secondary mb-0 mt-1">{{Object.keys(trainsArray).length}}</div>
               <div class="text-muted text-uppercase font-weight-bold font-xs small">Active trains</div>
             </div>
           </div>
@@ -89,13 +89,13 @@ export default {
     return {
       ServerStatus: null,
       ActiveTrains: null,
-      offersData: {}
+      trainsArray: []
     };
   },
-  mounted() {},
-  created() {
+  mounted() {
     this.checkServerState();
   },
+  created() {},
   computed: {},
   methods: {
     checkServerState() {
@@ -105,12 +105,11 @@ export default {
     SwitchChange(e) {
       if (e == true) {
         // this.$emit("change", data.unit);
-        alert("test");
-        //  localStorage.setItem("serverState", "true");
-        //   this.StartServer();
+        localStorage.setItem("serverState", "true");
+        this.StartServer();
       } else {
-        //  localStorage.setItem("serverState", "false");
-        //  this.StopServer();
+        localStorage.setItem("serverState", "false");
+        this.StopServer();
       }
     },
     StartServer() {
@@ -138,13 +137,10 @@ export default {
     },
     GetTrainCount() {
       Api()
-        // .post("monitor/trains")
-        .get("https://dog.ceo/api/breeds/list/all")
+        .post("monitor/trains")
         .then(response => {
           if (response.status == 200) {
-            this.offersData = response.data;
-            // alert(this.offersData.length);
-            //this.ActiveTrains = reponse.data.data;
+            this.trainsArray = response.data;
           } else this.ActiveTrains = "0";
         })
         .catch(e => {
