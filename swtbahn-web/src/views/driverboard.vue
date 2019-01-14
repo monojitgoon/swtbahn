@@ -2,13 +2,21 @@
   <div class="animated fadeIn">
     <div class="row">
       <div class="col-md-6">
-        <basix-alert type="success" :withCloseBtn="true" :hidden="successAlertHidden">
+        <basix-alert
+          type="success"
+          :withCloseBtn="true"
+          :message="alertSuccessMessage"
+          :show="showSuccessAlert"
+        >
           <span class="badge badge-pill badge-success">Success</span>
-          {{successAlertMsg}}
         </basix-alert>
-        <basix-alert type="warning" :withCloseBtn="true" :hidden="warningAlertHidden">
+        <basix-alert
+          type="warning"
+          :withCloseBtn="true"
+          :message="alertWarningMessage"
+          :show="showWarningAlert"
+        >
           <span class="badge badge-pill badge-warning">Warning</span>
-          {{warningsAlertMsg}}
         </basix-alert>
       </div>
     </div>
@@ -32,29 +40,18 @@
           <div class="card-header">
             <h4>Train Options</h4>
           </div>
-          <div class="card-body">Grab Train&nbsp;&nbsp;
-            <basix-switch
-              type="text"
-              on="Yes"
-              off="No"
-              variant="success"
-              :pill="true"
-              :checked="checkedGrabTrainSwitch"
-              size="lg"
-              @change="SwitchChange"
-            />
+          <div class="card-body">
+            Grab Train&nbsp;&nbsp;
+            <v-switch
+              v-model="checkedGrabTrain"
+              color="success"
+              value="checkedGrabTrain"
+              @change="SwitchChange($event !== null,selectedTrain)"
+            ></v-switch>
             {{ GrabStatus }}&nbsp;&nbsp;
-            <br>Peripheral Status&nbsp;&nbsp;
-            <basix-switch
-              type="text"
-              on="On"
-              off="Off"
-              variant="success"
-              :pill="true"
-              :checked="checkedGrabTrainSwitch"
-              size="lg"
-              @change="SwitchChange"
-            />
+            <br>
+            Peripheral Status&nbsp;&nbsp;
+            checkedGrabTrain: {{checkedGrabTrain}}
             {{ GrabStatus }}&nbsp;&nbsp;
           </div>
         </div>
@@ -62,7 +59,7 @@
           <div class="card-header">
             <h4>Currrent State</h4>
           </div>
-          <div class="card-body">{{postTitle}}</div>
+          <div class="card-body"></div>
         </div>
       </div>
       <!-- /# column -->
@@ -114,17 +111,19 @@ export default {
   name: "trains",
   data() {
     return {
-      checkedGrabTrainSwitch: false,
+      checkedGrabTrain: false,
+      checkedPeripheralSwitch: false,
+      check: false,
       trainsArray: [],
       selectedTrain: null,
       GrabStatus: null,
-      speed: 21,
+      speed: 0,
       interval: null,
       isPlaying: false,
-      successAlertHidden: true,
-      warningAlertHidden: true,
-      successAlertMsg: null,
-      warningAlertMsg: null
+      alertSuccessMessage: null,
+      alertWarningMessage: null,
+      showWarningAlert: false,
+      showSuccessAlert: false
     };
   },
   computed: {
@@ -146,24 +145,24 @@ export default {
   methods: {
     UpdateSessionStorage(session_id, grab_id) {
       if (session_id != 0 && grab_id == 1) {
-        warningAlertHidden = true;
+        this.showWarningAlert = false;
         alert(session_id);
         sessionStorage.setItem("session_id", session_id);
         sessionStorage.setItem("grab_id", grab_id);
         GrabStatus = selectedTrain + "grabbed";
-        successAlertHidden = false;
-        successAlertMsg = "Succesfully grabbed" + selectedTrain;
-        this.checkedGrabTrainSwitch = true;
+        this.showSuccessAlert = true;
+        this.alertSuccessMessage = "Succesfully grabbed" + selectedTrain;
+        this.checkedGrabTrain = true;
       } else if (session_id == 0 && grab_id == -1) {
         alert(session_id);
-        warningAlertHidden = false;
-        warningAlertMsg = "Already Grabbed One Train";
-        this.checkedGrabTrainSwitch = false;
+        this.showWarningAlert = true;
+        this.alertWarningMessage = "Already Grabbed One Train";
+        this.checkedGrabTrain = false;
       } else {
         alert(session_id);
-        warningAlertHidden = false;
-        warningAlertMsg = "No train has been grabbed";
-        this.checkedGrabTrainSwitch = false;
+        this.showWarningAlert = true;
+        this.alertWarningMessage = "No train has been grabbed";
+        this.checkedGrabTrain = false;
       }
     },
     decrement() {
@@ -175,14 +174,13 @@ export default {
     toggle() {
       this.isPlaying = !this.isPlaying;
     },
-    SwitchChange(e) {
-      if (e == true) {
-        alert(selectedTrain);
+    SwitchChange: function(event, selectedTrain) {
+      if (event == true) {
         if (selectedTrain == null) {
-          alert(selectedTrain);
-          warningAlertHidden = false;
-          warningAlertMsg = "No train has been selected";
-        } else this.GrabTrain(selectedTrain);
+          this.showWarningAlert = true;
+          this.alertWarningMessage = "No train has been selected";
+          this.checkedGrabTrain = false;
+        } //else this.GrabTrain(selectedTrain);
       }
     },
     GrabTrain(trainid) {
@@ -192,7 +190,9 @@ export default {
       Api()
         .post("driver/grab-train", formData)
         .then(response => {
-          var grabResponseArray = response.data.split(",");
+          //   var grabResponseArray = response.data.split(",");
+          var grabResponseArray = "0,0";
+          alert("here");
           this.UpdateSessionStorage(grabResponseArray[0], grabResponseArray[1]);
         })
         .catch(e => {
@@ -200,6 +200,7 @@ export default {
         });
     },
     GetTrainList() {
+      this.trainsArray = { "0": { trainid: "train1", grabbed: "yes" } };
       Api()
         .get("monitor/trains")
         .then(response => {
