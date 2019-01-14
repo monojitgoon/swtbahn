@@ -32,7 +32,7 @@
 #include <glib.h>
 #include <string.h>
 #include <syslog.h>
-
+#include <stdio.h>
 #include "server.h"
 #include "handler_driver.h"
 #include "param_verification.h"
@@ -44,7 +44,6 @@ onion_connection_status handler_get_trains(void *_, onion_request *req,
 		build_response_header(res);
 										   
 	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
-		GString *trains = g_string_new("");
 		t_bidib_id_list_query query = bidib_get_trains();
 
 
@@ -62,16 +61,8 @@ onion_connection_status handler_get_trains(void *_, onion_request *req,
 		}
 
 		bidib_free_id_list_query(query);
-		char response[trains->len + 1];
-		strcpy(response, trains->str);
-		g_string_free(trains, true);
-		//onion_response_printf(res, response);
 		syslog(LOG_NOTICE, "Request: Get available trains");
-		
-		onion_dict_add(dict, "result", subd, OD_DICT | OD_FREE_VALUE);
 		return onion_shortcut_response_json(dict, req, res);
-		
-		//return OCS_PROCESSED;
 	} else {
 		syslog(LOG_ERR, "Request: Get available trains - system not running or "
 		       "wrong request type");
@@ -81,6 +72,8 @@ onion_connection_status handler_get_trains(void *_, onion_request *req,
 
 onion_connection_status handler_get_train_state(void *_, onion_request *req,
                                                 onion_response *res) {
+	build_response_header(res);
+
 	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
 		const char *data_train = onion_request_get_post(req, "train");
 		if (data_train == NULL) {
@@ -218,26 +211,28 @@ onion_connection_status handler_get_track_outputs(void *_, onion_request *req,
 
 onion_connection_status handler_get_points(void *_, onion_request *req,
                                            onion_response *res) {
+	build_response_header(res);
+
 	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
-		GString *points = g_string_new("");
 		t_bidib_id_list_query query = bidib_get_connected_points();
+		onion_dict *dict = onion_dict_new();
 		for (size_t i = 0; i < query.length; i++) {
 			t_bidib_unified_accessory_state_query point_state =
 				bidib_get_point_state(query.ids[i]);
-			g_string_append_printf(points, "%s%s - state: %s",
-			                       i != 0 ? "\n" : "", query.ids[i],
-			                       point_state.type == BIDIB_ACCESSORY_BOARD ?
-			                       point_state.board_accessory_state.state_id :
-			                       point_state.dcc_accessory_state.state_id);
+			char *id = malloc(6);
+			sprintf(id, "%d", i);
+			onion_dict *subd = onion_dict_new();
+
+			onion_dict_add(subd, "pointid", convertme(query.ids[i]), 0);
+			onion_dict_add(subd, "state", point_state.type == BIDIB_ACCESSORY_BOARD ?
+										  convertme(point_state.board_accessory_state.state_id) :
+										  convertme(point_state.dcc_accessory_state.state_id), 0);
+			onion_dict_add(dict, id, subd, OD_DICT | OD_FREE_VALUE);
 			bidib_free_unified_accessory_state_query(point_state);
 		}
 		bidib_free_id_list_query(query);
-		char response[points->len + 1];
-		strcpy(response, points->str);
-		g_string_free(points, true);
-		onion_response_printf(res, response);
 		syslog(LOG_NOTICE, "Request: Get points");
-		return OCS_PROCESSED;
+		return onion_shortcut_response_json(dict, req, res);
 	} else {
 		syslog(LOG_ERR, "Request: Get points - system not running or wrong "
 			   "request type");
@@ -247,33 +242,35 @@ onion_connection_status handler_get_points(void *_, onion_request *req,
 
 onion_connection_status handler_get_signals(void *_, onion_request *req,
                                             onion_response *res) {
+	build_response_header(res);
+
 	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
-		GString *signals = g_string_new("");
 		t_bidib_id_list_query query = bidib_get_connected_signals();
+		onion_dict *dict = onion_dict_new();
+
 		for (size_t i = 0; i < query.length; i++) {
 			t_bidib_unified_accessory_state_query signal_state =
 				bidib_get_signal_state(query.ids[i]);
-			g_string_append_printf(signals, "%s%s - state: %s",
-			                       i != 0 ? "\n" : "", query.ids[i],
-			                       signal_state.type == BIDIB_ACCESSORY_BOARD ?
-			                       signal_state.board_accessory_state.state_id :
-			                       signal_state.dcc_accessory_state.state_id);
+			char *id = malloc(6);
+			sprintf(id, "%d", i);
+			onion_dict *subd = onion_dict_new();
+
+			onion_dict_add(subd, "signalid", convertme(query.ids[i]), 0);
+			onion_dict_add(subd, "state", signal_state.type == BIDIB_ACCESSORY_BOARD ?
+										  convertme(signal_state.board_accessory_state.state_id) :
+										  convertme(signal_state.dcc_accessory_state.state_id) , 0);
+			onion_dict_add(dict, id, subd, OD_DICT | OD_FREE_VALUE);
 			bidib_free_unified_accessory_state_query(signal_state);
 		}
 		bidib_free_id_list_query(query);
-		char response[signals->len + 1];
-		strcpy(response, signals->str);
-		g_string_free(signals, true);
-		onion_response_printf(res, response);
 		syslog(LOG_NOTICE, "Request: Get signals");
-		return OCS_PROCESSED;
+		return onion_shortcut_response_json(dict, req, res);
 	} else {
 		syslog(LOG_ERR, "Request: Get signals - system not running or wrong "
 			   "request type");
 		return OCS_NOT_IMPLEMENTED;
 	}
 }
-
 
 onion_connection_status handler_get_point_aspects(void *_, onion_request *req,
                                                   onion_response *res) {
@@ -347,39 +344,40 @@ onion_connection_status handler_get_signal_aspects(void *_, onion_request *req,
 
 onion_connection_status handler_get_segments(void *_, onion_request *req,
                                              onion_response *res) {
+	build_response_header(res);
+
 	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
-		GString *segments = g_string_new("");
 		t_bidib_id_list_query seg_query = bidib_get_connected_segments();
+		onion_dict *dict = onion_dict_new();
 		for (size_t i = 0; i < seg_query.length; i++) {
 			t_bidib_segment_state_query seg_state_query =
 				bidib_get_segment_state(seg_query.ids[i]);
-			g_string_append_printf(segments, "%s%s - occupied: %s",
-			                       i != 0 ? "\n" : "", seg_query.ids[i],
-			                       seg_state_query.data.occupied ? "yes" : "no");
+
+			char *id = malloc(6);
+			sprintf(id, "%d", i);
+			onion_dict *subd = onion_dict_new();
+
+			onion_dict_add(subd, "segmentid", convertme(seg_query.ids[i]), 0);
+			onion_dict_add(subd, "occupied", seg_state_query.data.occupied ? "yes" : "no", 0);
+
 			if (seg_state_query.data.dcc_address_cnt > 0) {
-				g_string_append_printf(segments, " trains: ");
 				t_bidib_id_query id_query;
 				for (size_t j = 0; j < seg_state_query.data.dcc_address_cnt; j++) {
 					id_query = bidib_get_train_id(seg_state_query.data.dcc_addresses[j]);
 					if (id_query.known) {
-						g_string_append_printf(segments, "%s%s",
-						                       i != 0 ? ", " : "", id_query.id);
+						onion_dict_add(subd, "trains", convertme(id_query.id), 0);
 					} else {
-						g_string_append_printf(segments, "%s%s",
-						                       i != 0 ? ", " : "", "unkown");
+						onion_dict_add(subd, "trains", "unknown", 0);
 					}
 					bidib_free_id_query(id_query);
 				}
 			}
+			onion_dict_add(dict, id, subd, OD_DICT | OD_FREE_VALUE);
 			bidib_free_segment_state_query(seg_state_query);
 		}
 		bidib_free_id_list_query(seg_query);
-		char response[segments->len + 1];
-		strcpy(response, segments->str);
-		g_string_free(segments, true);
-		onion_response_printf(res, response);
 		syslog(LOG_NOTICE, "Request: Get segments");
-		return OCS_PROCESSED;
+		return onion_shortcut_response_json(dict, req, res);
 	} else {
 		syslog(LOG_ERR, "Request: Get segments - system not running or "
 		       "wrong request type");

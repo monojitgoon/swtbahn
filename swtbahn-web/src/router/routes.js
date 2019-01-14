@@ -47,11 +47,7 @@ const Buttons = resolve => {
     resolve(require("../components/Buttons.vue"));
   });
 };
-const Switches = resolve => {
-  require.ensure(["../components/switch/switches.vue"], () => {
-    resolve(require("../components/switch/switches.vue"));
-  });
-};
+
 const Alerts = resolve => {
   require.ensure(["../components/Alerts.vue"], () => {
     resolve(require("../components/Alerts.vue"));
@@ -68,11 +64,7 @@ const Grids = resolve => {
     resolve(require("../components/Grids.vue"));
   });
 };
-const Typography = resolve => {
-  require.ensure(["../components/Typography.vue"], () => {
-    resolve(require("../components/Typography.vue"));
-  });
-};
+
 const Icons = resolve => {
   require.ensure(["../components/icons/Icons.vue"], () => {
     resolve(require("../components/icons/Icons.vue"));
@@ -142,15 +134,10 @@ export const routes = [
 
   // // UI Components
   { path: "/components/buttons", name: "buttons", component: Buttons },
-  {
-    path: "/components/switch/switches",
-    name: "switches",
-    component: Switches
-  },
+
   { path: "/components/alerts", name: "alerts", component: Alerts },
   { path: "/components/basic-form", name: "basic-form", component: BasicForms },
   { path: "/components/grids", name: "grids", component: Grids },
-  { path: "/components/typography", name: "typography", component: Typography },
   { path: "/components/tables", name: "tables", component: Tables },
 
   {

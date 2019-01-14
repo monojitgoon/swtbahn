@@ -6,17 +6,17 @@
           <table class="table table-striped first-td-padding">
             <thead>
               <tr>
-                <td>ID</td>
-                <td>Address</td>
-                <td align="right">Occupied</td>
+                <td>Segement Name</td>
+                <td>Occupied</td>
+                <td>Trains</td>
                 <td></td>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Seg1</td>
-                <td>0*00</td>
-                <td align="right">Y</td>
+              <tr v-for="segment in segmentsArray" :key="segment.segmentid">
+                <td>{{ segment.segmentid }}</td>
+                <td>{{ segment.occupied }}</td>
+                <td>{{ segment.trains }}</td>
                 <td></td>
               </tr>
             </tbody>
@@ -28,7 +28,32 @@
 </template>
 
 <script>
+import Api from "../API";
+
 export default {
-  name: "track",
-  components: {}
+  name: "segments",
+  components: {},
+  data() {
+    return {
+      segmentsArray: []
+    };
+  },
+  mounted() {
+    this.GetSegmentsList();
+  },
+  methods: {
+    GetSegmentsList() {
+      Api()
+        .get("monitor/segments")
+        .then(response => {
+          if (response.status == 200) {
+            this.segmentsArray = response.data;
+          }
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    }
+  }
 };
+</script>

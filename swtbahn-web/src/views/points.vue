@@ -6,17 +6,15 @@
           <table class="table table-striped first-td-padding">
             <thead>
               <tr>
-                <td>ID</td>
-                <td>Number</td>
-                <td align="right">Direction</td>
+                <td>Point name</td>
+                <td>State</td>
                 <td></td>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Point1</td>
-                <td>0*00</td>
-                <td align="right">Normal</td>
+              <tr v-for="point in pointsArray" :key="point.pointid">
+                <td>{{ point.pointid }}</td>
+                <td>{{ point.state }}</td>
                 <td></td>
               </tr>
             </tbody>
@@ -28,7 +26,32 @@
 </template>
 
 <script>
+import Api from "../API";
+
 export default {
   name: "points",
-  components: {}
+  components: {},
+  data() {
+    return {
+      pointsArray: []
+    };
+  },
+  mounted() {
+    this.GetPointList();
+  },
+  methods: {
+    GetPointList() {
+      Api()
+        .get("monitor/points")
+        .then(response => {
+          if (response.status == 200) {
+            this.pointsArray = response.data;
+          }
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    }
+  }
 };
+</script>

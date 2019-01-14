@@ -1,112 +1,103 @@
 <template>
   <div class="animated fadeIn">
     <div class="row">
+      <div class="col-md-6">
+        <basix-alert type="success" :withCloseBtn="true" :hidden="successAlertHidden">
+          <span class="badge badge-pill badge-success">Success</span>
+          {{successAlertMsg}}
+        </basix-alert>
+        <basix-alert type="warning" :withCloseBtn="true" :hidden="warningAlertHidden">
+          <span class="badge badge-pill badge-warning">Warning</span>
+          {{warningsAlertMsg}}
+        </basix-alert>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-6">
         <div class="row form-group">
           <div class="col col-md-3">
             <label for="select" class="form-control-label">Select Train</label>
           </div>
           <div class="col-12 col-md-9">
-            <select name="select" id="select" class="form-control">
-              <option value="0">Please select train</option>
-              <option value="1">Train1</option>
-              <option value="2">Train2</option>
-              <option value="3">Train3</option>
+            <select id="trainList" class="form-control" v-model="selectedTrain">
+              <option
+                v-for="train in trainsArray"
+                v-bind:value="train.trainid"
+                v-bind:key="train.trainid"
+              >{{train.trainid}}</option>
             </select>
           </div>
         </div>
         <div class="card">
           <div class="card-header">
-            <h4>Grab Train</h4>
+            <h4>Train Options</h4>
           </div>
-          <div class="card-body">
-            <button
-              type="button"
-              class="btn btn-outline-primary btn-lg btn-block"
-              @click="grabTrain()"
-            >Grab Train</button>
-            <button
-              type="button"
-              class="btn btn-outline-warning btn-lg btn-block"
-            >Turn on Peripherals</button>
+          <div class="card-body">Grab Train&nbsp;&nbsp;
+            <basix-switch
+              type="text"
+              on="Yes"
+              off="No"
+              variant="success"
+              :pill="true"
+              :checked="checkedGrabTrainSwitch"
+              size="lg"
+              @change="SwitchChange"
+            />
+            {{ GrabStatus }}&nbsp;&nbsp;
+            <br>Peripheral Status&nbsp;&nbsp;
+            <basix-switch
+              type="text"
+              on="On"
+              off="Off"
+              variant="success"
+              :pill="true"
+              :checked="checkedGrabTrainSwitch"
+              size="lg"
+              @change="SwitchChange"
+            />
+            {{ GrabStatus }}&nbsp;&nbsp;
           </div>
         </div>
         <div class="card">
           <div class="card-header">
             <h4>Currrent State</h4>
           </div>
-          <div class="card-body">Segment Name</div>
+          <div class="card-body">{{postTitle}}</div>
         </div>
       </div>
       <!-- /# column -->
       <div class="col-lg-6">
         <div class="card">
           <div class="card-header">
-            <h4>Train Status</h4>
+            <h4>Train Control</h4>
           </div>
-          <div class="card-body">
-            <canvas
-              onload="draw(100);"
-              class="canvas"
-              id="myCanvas"
-              width="500"
-              height="200"
-            >Your browser does not support the HTML5 canvas tag.</canvas>
-          </div>
-        </div>
-      </div>
-      <!-- /# column -->
-    </div>
+          <div class="card-body text-secondary">
+            <vue-slider :speedValue="speed">
+              <h4 slot="subheading">TrainName</h4>
+              <template slot="transition">
+                <v-avatar
+                  v-if="isPlaying"
+                  :color="color"
+                  :style="{
+                animationDuration: animationDuration
+              }"
+                  class="mb-1 v-avatar--metronome"
+                  size="12"
+                ></v-avatar>
+              </template>
+              <template slot="playOrPauseButton">
+                <v-btn :color="color" dark depressed fab @click="toggle">
+                  <v-icon large>{{ isPlaying ? 'mdi-pause' : 'mdi-play' }}</v-icon>
+                </v-btn>
+              </template>
+              <template slot="sliderdiv">
+                <v-slider v-model="speed" :color="color" always-dirty min="0" max="127">
+                  <v-icon slot="prepend" :color="color" @click="decrement">mdi-minus</v-icon>
 
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="card">
-          <div class="card-header">
-            <h4>Set DCC Speed</h4>
-          </div>
-          <div class="card-body">
-            <div id="slider">
-              0mph
-              <input
-                style="width:400px"
-                id="slide"
-                type="range"
-                min="0"
-                max="127"
-                step="2"
-                value="10"
-                onchange="draw(this.value)"
-              >
-              127mph
-            </div>
-            <div class="row form-group">
-              <div class="col col-md-3">
-                <label for="select" class="form-control-label">Select Train</label>
-              </div>
-              <div class="col-12 col-md-9">
-                <select id="myList" onchange="redraw();" name="select" class="form-control">
-                  <option value="10">Speed = 10</option>
-                  <option value="20">Speed = 20</option>
-                  <option value="30">Speed = 30</option>
-                  <option value="40">Speed = 40</option>
-                  <option value="50">Speed = 50</option>
-                  <option value="60">Speed = 60</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- /# column -->
-      <div class="col-lg-6">
-        <div class="card">
-          <div class="card-header">
-            <h4>Train Name : {}</h4>
-          </div>
-          <div class="card-body">
-            <button type="button" class="btn btn-outline-success btn-lg btn-block">Start Train</button>
-            
-            <button type="button" class="btn btn-outline-danger btn-lg btn-block">Stop Train</button>
+                  <v-icon slot="append" :color="color" @click="increment">mdi-plus</v-icon>
+                </v-slider>
+              </template>
+            </vue-slider>
           </div>
         </div>
       </div>
@@ -123,22 +114,98 @@ export default {
   name: "trains",
   data() {
     return {
-      postBody: null,
-      postTitle: null
+      checkedGrabTrainSwitch: false,
+      trainsArray: [],
+      selectedTrain: null,
+      GrabStatus: null,
+      speed: 21,
+      interval: null,
+      isPlaying: false,
+      successAlertHidden: true,
+      warningAlertHidden: true,
+      successAlertMsg: null,
+      warningAlertMsg: null
     };
   },
-
+  computed: {
+    color() {
+      if (this.speed < 20) return "indigo";
+      if (this.speed < 40) return "teal";
+      if (this.speed < 70) return "green";
+      if (this.speed < 100) return "orange";
+      return "red";
+    },
+    animationDuration() {
+      return `${20 / this.speed}s`;
+    }
+  },
   created() {},
-
+  mounted() {
+    this.GetTrainList();
+  },
   methods: {
-    grabTrain() {
+    UpdateSessionStorage(session_id, grab_id) {
+      if (session_id != 0 && grab_id == 1) {
+        warningAlertHidden = true;
+        alert(session_id);
+        sessionStorage.setItem("session_id", session_id);
+        sessionStorage.setItem("grab_id", grab_id);
+        GrabStatus = selectedTrain + "grabbed";
+        successAlertHidden = false;
+        successAlertMsg = "Succesfully grabbed" + selectedTrain;
+        this.checkedGrabTrainSwitch = true;
+      } else if (session_id == 0 && grab_id == -1) {
+        alert(session_id);
+        warningAlertHidden = false;
+        warningAlertMsg = "Already Grabbed One Train";
+        this.checkedGrabTrainSwitch = false;
+      } else {
+        alert(session_id);
+        warningAlertHidden = false;
+        warningAlertMsg = "No train has been grabbed";
+        this.checkedGrabTrainSwitch = false;
+      }
+    },
+    decrement() {
+      this.speed--;
+    },
+    increment() {
+      this.speed++;
+    },
+    toggle() {
+      this.isPlaying = !this.isPlaying;
+    },
+    SwitchChange(e) {
+      if (e == true) {
+        alert(selectedTrain);
+        if (selectedTrain == null) {
+          alert(selectedTrain);
+          warningAlertHidden = false;
+          warningAlertMsg = "No train has been selected";
+        } else this.GrabTrain(selectedTrain);
+      }
+    },
+    GrabTrain(trainid) {
       let formData = new FormData();
-      formData.append("train", "train1");
+      formData.append("train", trainid);
 
       Api()
         .post("driver/grab-train", formData)
         .then(response => {
-          this.postTitle = response.data;
+          var grabResponseArray = response.data.split(",");
+          this.UpdateSessionStorage(grabResponseArray[0], grabResponseArray[1]);
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    },
+    GetTrainList() {
+      Api()
+        .get("monitor/trains")
+        .then(response => {
+          if (response.status == 200) {
+            this.trainsArray = response.data;
+          }
         })
         .catch(e => {
           console.error(e);

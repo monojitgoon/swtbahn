@@ -19,7 +19,7 @@
           <div class="card-body">
             <div class="clearfix">
               <i class="fa fa-signal bg-primary p-3 font-2xl mr-3 float-left text-light"></i>
-              <div class="h5 text-secondary mb-0 mt-1">20</div>
+              <div class="h5 text-secondary mb-0 mt-1">{{Object.keys(signalsArray).length}}</div>
               <div class="text-muted text-uppercase font-weight-bold font-xs small">Signals</div>
             </div>
           </div>
@@ -31,7 +31,7 @@
           <div class="card-body">
             <div class="clearfix">
               <i class="fa fa-puzzle-piece bg-warning p-3 font-2xl mr-3 float-left text-light"></i>
-              <div class="h5 text-secondary mb-0 mt-1">30</div>
+              <div class="h5 text-secondary mb-0 mt-1">{{Object.keys(segmentsArray).length}}</div>
               <div class="text-muted text-uppercase font-weight-bold font-xs small">Segments</div>
             </div>
           </div>
@@ -43,7 +43,7 @@
           <div class="card-body">
             <div class="clearfix">
               <i class="fa fa-location-arrow bg-danger p-3 font-2xl mr-3 float-left text-light"></i>
-              <div class="h5 text-secondary mb-0 mt-1">7</div>
+              <div class="h5 text-secondary mb-0 mt-1">{{Object.keys(pointsArray).length}}</div>
               <div class="text-muted text-uppercase font-weight-bold font-xs small">Points</div>
             </div>
           </div>
@@ -87,20 +87,29 @@ export default {
   data() {
     return {
       checkedServerSwitch: false,
-      ServerStatus: null,
-      ActiveTrains: null,
-      trainsArray: []
+      serverStatus: null,
+      trainsArray: [],
+      pointsArray: [],
+      signalsArray: [],
+      segmentsArray: []
     };
   },
   mounted() {
-    this.checkServerState();
+    this.CheckServerState();
   },
   created() {},
   computed: {},
   methods: {
-    checkServerState() {
+    LoadStatistics() {
+      this.GetTrainCount();
+      this.GetSignalCount();
+      this.GetSegmentCount();
+      this.GetPointCount();
+    },
+    CheckServerState() {
       if (localStorage.getItem("serverState") == "true") {
         this.checkedServerSwitch = true;
+        this.LoadStatistics();
       } else {
         this.checkedServerSwitch = false;
       }
@@ -109,14 +118,16 @@ export default {
       if (e == true) {
         localStorage.setItem("serverState", "true");
         this.StartServer();
+        this.LoadStatistics();
       } else {
         localStorage.setItem("serverState", "false");
         this.StopServer();
+        this.LoadStatistics();
       }
     },
     StartServer() {
       Api()
-        .post("admin/startup")
+        .get("admin/startup")
         .then(response => {
           if (response.status == 200) this.ServerStatus = "starting";
           else this.ServerStatus = "running";
@@ -124,11 +135,10 @@ export default {
         .catch(e => {
           console.error(e);
         });
-      this.GetTrainCount();
     },
     StopServer() {
       Api()
-        .post("admin/shutdown")
+        .get("admin/shutdown")
         .then(response => {
           if (response.status == 200) this.ServerStatus = "stopping";
           else this.ServerStatus = "not running";
@@ -139,11 +149,47 @@ export default {
     },
     GetTrainCount() {
       Api()
-        .post("monitor/trains")
+        .get("monitor/trains")
         .then(response => {
           if (response.status == 200) {
             this.trainsArray = response.data;
-          } else this.ActiveTrains = "0";
+          }
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    },
+    GetSignalCount() {
+      Api()
+        .get("monitor/signals")
+        .then(response => {
+          if (response.status == 200) {
+            this.signalsArray = response.data;
+          }
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    },
+    GetSegmentCount() {
+      Api()
+        .get("monitor/segments")
+        .then(response => {
+          if (response.status == 200) {
+            this.segmentsArray = response.data;
+          }
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    },
+    GetPointCount() {
+      Api()
+        .get("monitor/points")
+        .then(response => {
+          if (response.status == 200) {
+            this.pointsArray = response.data;
+          }
         })
         .catch(e => {
           console.error(e);

@@ -10,6 +10,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "@mdi/font": "^3.3.92",
     "animate.css": "^3.6.1",
     "axios": "^0.18.0",
     "is-url-external": "^1.0.3",
@@ -19,6 +20,7 @@
     "vue": "^2.5.11",
     "vue-animate-number": "^0.4.2",
     "vue-router": "^3.0.1",
+    "vuetify": "^1.4.1",
     "vuex": "^3.0.1"
   },
   "browserslist": [

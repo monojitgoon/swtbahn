@@ -27,7 +27,7 @@
 
 #include <stdlib.h>
 #include <onion/onion.h>
-
+#include <string.h>
 
 int params_check_session_id(const char *data_session_id) {
 	int client_session_id;
@@ -87,4 +87,8 @@ void build_response_header(onion_response *res)
 	onion_response_set_header(res, "Access-Control-Allow-Origin", "*");
 	onion_response_set_header(res, "Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	onion_response_set_header(res, "Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+}
+
+char* convertme(const char* str) {
+	return strdup(str);
 }

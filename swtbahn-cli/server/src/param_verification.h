@@ -41,6 +41,6 @@ int params_check_state(const char *data_state);
 
 void build_response_header(onion_response *res);
 
-
+char* convertme(const char* str);
 #endif
 

@@ -6,17 +6,15 @@
           <table class="table table-striped first-td-padding">
             <thead>
               <tr>
-                <td>Red</td>
-                <td>Green</td>
-                <td>Yellow</td>
+                <td>SignalName</td>
+                <td>State</td>
                 <td></td>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>signal1</td>
-                <td>signal3</td>
-                <td>signal5</td>
+              <tr v-for="signal in signalsArray" :key="signal.signalid">
+                <td>{{ signal.signalid }}</td>
+                <td>{{ signal.state }}</td>
                 <td></td>
               </tr>
             </tbody>
@@ -28,7 +26,33 @@
 </template>
 
 <script>
+import Api from "../API";
+
 export default {
   name: "signals",
-  components: {}
+  components: {},
+  data() {
+    return {
+      signalsArray: []
+    };
+  },
+  mounted() {
+    this.GetSignalsList();
+  },
+  methods: {
+    GetSignalsList() {
+      Api()
+        .get("monitor/signals")
+        .then(response => {
+          if (response.status == 200) {
+            this.signalsArray = response.data;
+          }
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    }
+  }
 };
+</script>
+
