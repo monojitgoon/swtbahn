@@ -154,24 +154,17 @@ export default {
     },
     UpdateSessionStorage(session_id, grab_id) {
       if (session_id != 0 && grab_id == 1) {
-        this.showWarningAlert = false;
-        alert(session_id);
         sessionStorage.setItem("session_id", session_id);
         sessionStorage.setItem("grab_id", grab_id);
-        GrabStatus = selectedTrain + "grabbed";
+        this.GrabStatus = this.selectedTrain + "grabbed";
         this.showSuccessAlert = true;
-        this.alertSuccessMessage = "Succesfully grabbed" + selectedTrain;
-        this.checkedGrabTrain = true;
+        this.alertSuccessMessage = "Succesfully grabbed " + this.selectedTrain;
       } else if (session_id == 0 && grab_id == -1) {
-        alert(session_id);
         this.showWarningAlert = true;
         this.alertWarningMessage = "Already Grabbed One Train";
-        this.checkedGrabTrain = false;
       } else {
-        alert(session_id);
         this.showWarningAlert = true;
         this.alertWarningMessage = "No train has been grabbed";
-        this.checkedGrabTrain = false;
       }
     },
     decrement() {
@@ -186,15 +179,15 @@ export default {
     PeripheralSwitchChange() {},
 
     GrabTrain(trainid) {
+      // const grabResponseArray = "12,1".split(",");
+      // this.UpdateSessionStorage(grabResponseArray[0], grabResponseArray[1]);
+
       let formData = new FormData();
       formData.append("train", trainid);
-      alert("here");
       Api()
         .post("driver/grab-train", formData)
         .then(response => {
-          //   var grabResponseArray = response.data.split(",");
-          var grabResponseArray = "0,0";
-
+          var grabResponseArray = response.data.split(",");
           this.UpdateSessionStorage(grabResponseArray[0], grabResponseArray[1]);
         })
         .catch(e => {
