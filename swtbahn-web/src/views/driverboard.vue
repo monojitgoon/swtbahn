@@ -41,18 +41,21 @@
             <h4>Train Options</h4>
           </div>
           <div class="card-body">
-            Grab Train&nbsp;&nbsp;
-            <v-switch
-              v-model="checkedGrabTrain"
-              color="success"
-              value="checkedGrabTrain"
-              @change="SwitchChange($event !== null,selectedTrain)"
-            ></v-switch>
-            {{ GrabStatus }}&nbsp;&nbsp;
-            <br>
-            Peripheral Status&nbsp;&nbsp;
-            checkedGrabTrain: {{checkedGrabTrain}}
-            {{ GrabStatus }}&nbsp;&nbsp;
+            <div class="col-md-6">
+              Grab Train&nbsp;&nbsp;
+              <input
+                class="btn btn-success"
+                type="submit"
+                value="Grab"
+                @click="GrabTrainClicked(selectedTrain)"
+              >
+              <input class="btn btn-outline-success" type="submit" value="Release">
+            </div>
+            <div class="col-md-6">
+              <br>Peripheral Status&nbsp;&nbsp;
+              <input class="btn btn-warning" type="reset" value="On">
+              <input class="btn btn-outline-warning" type="reset" value="Off">
+            </div>
           </div>
         </div>
         <div class="card">
@@ -111,9 +114,6 @@ export default {
   name: "trains",
   data() {
     return {
-      checkedGrabTrain: false,
-      checkedPeripheralSwitch: false,
-      check: false,
       trainsArray: [],
       selectedTrain: null,
       GrabStatus: null,
@@ -143,6 +143,15 @@ export default {
     this.GetTrainList();
   },
   methods: {
+    GrabTrainClicked: function(selection) {
+      if (selection == null) {
+        this.showWarningAlert = true;
+        this.alertWarningMessage = "No train has been selected";
+      } else {
+        this.showWarningAlert = false;
+        this.GrabTrain(selection);
+      }
+    },
     UpdateSessionStorage(session_id, grab_id) {
       if (session_id != 0 && grab_id == 1) {
         this.showWarningAlert = false;
@@ -174,25 +183,18 @@ export default {
     toggle() {
       this.isPlaying = !this.isPlaying;
     },
-    SwitchChange: function(event, selectedTrain) {
-      if (event == true) {
-        if (selectedTrain == null) {
-          this.showWarningAlert = true;
-          this.alertWarningMessage = "No train has been selected";
-          this.checkedGrabTrain = false;
-        } //else this.GrabTrain(selectedTrain);
-      }
-    },
+    PeripheralSwitchChange() {},
+
     GrabTrain(trainid) {
       let formData = new FormData();
       formData.append("train", trainid);
-
+      alert("here");
       Api()
         .post("driver/grab-train", formData)
         .then(response => {
           //   var grabResponseArray = response.data.split(",");
           var grabResponseArray = "0,0";
-          alert("here");
+
           this.UpdateSessionStorage(grabResponseArray[0], grabResponseArray[1]);
         })
         .catch(e => {

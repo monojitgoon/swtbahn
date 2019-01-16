@@ -10,203 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d40d49da-2ec6-4e81-aa95-322b20d12058" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handler_monitor.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/handler_monitor.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/param_verification.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/param_verification.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/param_verification.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/param_verification.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/0.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/0.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/0.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/0.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/1.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/1.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/1.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/1.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/10.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/10.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/10.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/10.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/11.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/11.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/11.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/11.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/12.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/12.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/12.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/12.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/13.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/13.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/13.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/13.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/14.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/14.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/14.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/14.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/15.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/15.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/15.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/15.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/16.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/16.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/16.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/16.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/17.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/17.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/17.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/17.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/18.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/18.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/18.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/18.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/19.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/19.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/19.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/19.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/2.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/2.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/2.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/2.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/3.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/3.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/3.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/3.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/4.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/4.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/4.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/4.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/5.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/5.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/5.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/5.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/6.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/6.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/6.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/6.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/7.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/7.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/7.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/7.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/8.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/8.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/8.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/8.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/9.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/9.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/9.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/9.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ae.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ae.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/af.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/af.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ag.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ag.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ai.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ai.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/am.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/am.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/as.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/as.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/au.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/au.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ax.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ax.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/az.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/az.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/be.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/be.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/bf.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/bf.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/bh.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/bh.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/bi.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/bi.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/bj.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/bj.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/bm.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/bm.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/bt.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/bt.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/bv.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/bv.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/cc.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/cc.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/cd.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/cd.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/cf.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/cf.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ch.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ch.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/cl.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/cl.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/cm.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/cm.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/cn.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/cn.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/cr.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/cr.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/cv.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/cv.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/cx.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/cx.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/dk.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/dk.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/dz.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/dz.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ee.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ee.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/eg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/eg.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/eh.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/eh.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/er.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/er.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/fi.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/fi.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/fk.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/fk.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/fm.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/fm.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/fo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/fo.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/fr.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/fr.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ga.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ga.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/gd.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/gd.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/gi.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/gi.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/gn.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/gn.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/gr.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/gr.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/gs.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/gs.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/gu.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/gu.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/gw.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/gw.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/gy.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/gy.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/hk.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/hk.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ht.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ht.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/hu.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/hu.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ie.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ie.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/io.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/io.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ir.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ir.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/is.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/is.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/it.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/it.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/jm.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/jm.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/jp.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/jp.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ke.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ke.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/kg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/kg.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/kh.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/kh.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/km.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/km.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/kn.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/kn.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ky.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ky.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/kz.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/kz.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/lb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/lb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/lc.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/lc.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ls.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ls.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/lt.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/lt.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/mc.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/mc.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/mf.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/mf.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/mk.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/mk.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ml.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ml.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/mm.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/mm.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/mn.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/mn.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ms.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ms.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/mt.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/mt.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/mv.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/mv.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/mx.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/mx.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/my.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/my.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/na.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/na.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/nc.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/nc.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ne.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ne.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/nf.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/nf.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ng.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ng.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ni.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ni.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/nl.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/nl.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/no.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/no.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/nr.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/nr.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/nu.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/nu.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/om.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/om.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/pa.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/pa.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/pe.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/pe.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/pf.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/pf.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ph.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ph.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/pk.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/pk.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/pm.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/pm.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/pn.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/pn.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/pr.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/pr.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/pt.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/pt.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/pw.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/pw.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/py.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/py.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/rs.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/rs.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/sa.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/sa.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/sd.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/sd.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/sg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/sg.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/si.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/si.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/sj.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/sj.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/sk.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/sk.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/sl.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/sl.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/sn.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/sn.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/so.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/so.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ss.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ss.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/tc.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/tc.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/td.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/td.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/tf.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/tf.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/th.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/th.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/tj.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/tj.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/tk.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/tk.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/tl.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/tl.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/tm.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/tm.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/tn.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/tn.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/tr.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/tr.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/tt.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/tt.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/tz.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/tz.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/ug.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/ug.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/um.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/um.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/us.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/us.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/uz.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/uz.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/va.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/va.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/vc.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/vc.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/vg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/vg.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/vu.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/vu.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/yt.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/yt.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/zm.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/zm.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/zw.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/zw.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/components/Typography.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/components/basix-modal/BasixModal.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/components/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/src/components/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/router/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/src/router/routes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/views/driverboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/src/views/driverboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/views/points.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/src/views/points.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/views/segments.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/src/views/segments.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/views/signals.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/src/views/signals.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/views/trackboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/src/views/trackboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/views/trains.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/src/views/trains.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -219,6 +23,7 @@
     <session id="1670732963">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
@@ -391,7 +196,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22483222" />

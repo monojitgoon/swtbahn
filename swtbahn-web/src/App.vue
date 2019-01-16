@@ -7,9 +7,7 @@
         <Header/>
         <div class="content pb-0">
           <transition enter-active-class="animated fadeIn">
-            <v-app id="app">
-              <router-view></router-view>
-            </v-app>
+            <router-view></router-view>
           </transition>
         </div>
       </div>

@@ -88,11 +88,10 @@ export default {
     }
   },
   methods: {
-    handleChange() {
+    handleChange({ target: { checked } }) {
+      //  this.$emit("input", event.target.value);
       this.$emit("change", event.target.checked);
-      this.$emit("input", event.target.value);
 
-      event.target.checked = false;
       //target.parentElement.classList.toggle("close");
     }
   }
