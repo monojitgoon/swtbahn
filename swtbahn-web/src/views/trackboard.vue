@@ -53,17 +53,10 @@
       <div class="col">
         <section class="card">
           <div class="card-body text-secondary">
-            {{ ServerStatus }}&nbsp;&nbsp;
-            <basix-switch
-              type="text"
-              on="On"
-              off="Off"
-              variant="success"
-              :pill="true"
-              :checked="checkedServerSwitch"
-              size="lg"
-              @change="SwitchChange"
-            />
+            <span>Server State : {{ ServerStatus }}</span>
+            <br>
+            <input class="btn btn-success" type="submit" value="Start" @click="SwitchServer(true)">
+            <input class="btn btn-danger" type="submit" value="Stop" @click="SwitchServer(false)">
           </div>
         </section>
       </div>
@@ -107,20 +100,20 @@ export default {
       this.GetPointCount();
     },
     CheckServerState() {
-      if (localStorage.getItem("serverState") == "true") {
+      if (sessionStorage.getItem("serverState") == "true") {
         this.checkedServerSwitch = true;
         this.LoadStatistics();
       } else {
         this.checkedServerSwitch = false;
       }
     },
-    SwitchChange(e) {
+    SwitchServer(e) {
       if (e == true) {
-        localStorage.setItem("serverState", "true");
+        sessionStorage.setItem("serverState", "true");
         this.StartServer();
         this.LoadStatistics();
       } else {
-        localStorage.setItem("serverState", "false");
+        sessionStorage.setItem("serverState", "false");
         this.StopServer();
         this.LoadStatistics();
       }

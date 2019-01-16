@@ -91,8 +91,6 @@ export default {
     handleChange({ target: { checked } }) {
       //  this.$emit("input", event.target.value);
       this.$emit("change", event.target.checked);
-
-      //target.parentElement.classList.toggle("close");
     }
   }
 };

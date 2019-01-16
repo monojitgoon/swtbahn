@@ -49,12 +49,27 @@
                 value="Grab"
                 @click="GrabTrainClicked(selectedTrain)"
               >
-              <input class="btn btn-outline-success" type="submit" value="Release">
+              <input
+                class="btn btn-outline-success"
+                type="submit"
+                value="Release"
+                @click="ReleaseTrain"
+              >
             </div>
             <div class="col-md-6">
               <br>Peripheral Status&nbsp;&nbsp;
-              <input class="btn btn-warning" type="reset" value="On">
-              <input class="btn btn-outline-warning" type="reset" value="Off">
+              <input
+                class="btn btn-warning"
+                type="reset"
+                value="On"
+                @click="TurnPeripheralOn"
+              >
+              <input
+                class="btn btn-outline-warning"
+                type="reset"
+                value="Off"
+                @click="TurnPeripheralOff"
+              >
             </div>
           </div>
         </div>
@@ -73,7 +88,7 @@
           </div>
           <div class="card-body text-secondary">
             <vue-slider :speedValue="speed">
-              <h4 slot="subheading">TrainName</h4>
+              <h4 slot="subheading">{{grabbedTrain}}</h4>
               <template slot="transition">
                 <v-avatar
                   v-if="isPlaying"
@@ -91,7 +106,14 @@
                 </v-btn>
               </template>
               <template slot="sliderdiv">
-                <v-slider v-model="speed" :color="color" always-dirty min="0" max="127">
+                <v-slider
+                  v-model="speed"
+                  :color="color"
+                  always-dirty
+                  min="0"
+                  max="127"
+                  @change="SliderSpeedChange"
+                >
                   <v-icon slot="prepend" :color="color" @click="decrement">mdi-minus</v-icon>
 
                   <v-icon slot="append" :color="color" @click="increment">mdi-plus</v-icon>
@@ -114,6 +136,7 @@ export default {
   name: "trains",
   data() {
     return {
+      grabbedTrain: null,
       trainsArray: [],
       selectedTrain: null,
       GrabStatus: null,
@@ -145,10 +168,8 @@ export default {
   methods: {
     GrabTrainClicked: function(selection) {
       if (selection == null) {
-        this.showWarningAlert = true;
-        this.alertWarningMessage = "No train has been selected";
+        this.TriggerWarningAlert("No train has been selected");
       } else {
-        this.showWarningAlert = false;
         this.GrabTrain(selection);
       }
     },
@@ -156,43 +177,113 @@ export default {
       if (session_id != 0 && grab_id == 1) {
         sessionStorage.setItem("session_id", session_id);
         sessionStorage.setItem("grab_id", grab_id);
-        this.GrabStatus = this.selectedTrain + "grabbed";
-        this.showSuccessAlert = true;
-        this.alertSuccessMessage = "Succesfully grabbed " + this.selectedTrain;
+        sessionStorage.setItem("grab_train", this.grabbedTrain);
+        this.TriggerSuccessAlert("Successfully Grabbed : " + this.grabbedTrain);
       } else if (session_id == 0 && grab_id == -1) {
-        this.showWarningAlert = true;
-        this.alertWarningMessage = "Already Grabbed One Train";
+        this.TriggerWarningAlert("Already Grabbed One Train");
       } else {
-        this.showWarningAlert = true;
-        this.alertWarningMessage = "No train has been grabbed";
+        this.TriggerWarningAlert("No train has been grabbed");
       }
+    },
+    SliderSpeedChange() {
+      if (this.isPlaying) this.SetDCCSpeed(this.speed);
     },
     decrement() {
       this.speed--;
+      if (this.isPlaying) this.SetDCCSpeed(this.speed);
     },
     increment() {
       this.speed++;
+      if (this.isPlaying) this.SetDCCSpeed(this.speed);
     },
     toggle() {
       this.isPlaying = !this.isPlaying;
+      if (this.isPlaying) {
+        this.speed = this.speed == 0 ? 1 : this.speed;
+        this.SetDCCSpeed(this.speed);
+      } else {
+        this.speed = 0;
+        this.SetDCCSpeed(this.speed);
+      }
     },
-    PeripheralSwitchChange() {},
+    SetDCCSpeed(spd) {
+      if (spd > 0) {
+        alert(spd);
+        this.TriggerSuccessAlert(
+          this.selectedTrain + " running: " + " with speed: " + spd
+        );
+      } else {
+        this.TriggerSuccessAlert(
+          "Succesfully stopped: " + this.selectedTrain + " with speed:" + spd
+        );
+      }
 
+      // Api()
+      //   .post("driver/release-train")
+      //   .then(response => {
+      //     var grabResponseArray = response.data.split(",");
+      //     this.UpdateSessionStorage(grabResponseArray[0], grabResponseArray[1]);
+      //   })
+      //   .catch(e => {
+      //     console.error(e);
+      //   });
+    },
+    TurnPeripheralOn() {
+      this.TriggerSuccessAlert(
+        "Succesfully turned on Peripherals of " + this.selectedTrain
+      );
+      // Api()
+      //   .post("driver/release-train")
+      //   .then(response => {
+      //     var grabResponseArray = response.data.split(",");
+      //     this.UpdateSessionStorage(grabResponseArray[0], grabResponseArray[1]);
+      //   })
+      //   .catch(e => {
+      //     console.error(e);
+      //   });
+    },
+    TurnPeripheralOff() {
+      this.TriggerSuccessAlert(
+        "Succesfully turned Off the Peripherals of " + this.selectedTrain
+      );
+      // Api()
+      //   .post("driver/release-train")
+      //   .then(response => {
+      //     var grabResponseArray = response.data.split(",");
+      //     this.UpdateSessionStorage(grabResponseArray[0], grabResponseArray[1]);
+      //   })
+      //   .catch(e => {
+      //     console.error(e);
+      //   });
+    },
+    ReleaseTrain() {
+      this.TriggerSuccessAlert("Succesfully released " + this.selectedTrain);
+      // Api()
+      //   .post("driver/release-train")
+      //   .then(response => {
+      //     var grabResponseArray = response.data.split(",");
+      //     this.UpdateSessionStorage(grabResponseArray[0], grabResponseArray[1]);
+      //   })
+      //   .catch(e => {
+      //     console.error(e);
+      //   });
+    },
     GrabTrain(trainid) {
-      // const grabResponseArray = "12,1".split(",");
-      // this.UpdateSessionStorage(grabResponseArray[0], grabResponseArray[1]);
+      this.grabbedTrain = trainid;
+      const grabResponseArray = "12,1".split(",");
+      this.UpdateSessionStorage(grabResponseArray[0], grabResponseArray[1]);
 
-      let formData = new FormData();
-      formData.append("train", trainid);
-      Api()
-        .post("driver/grab-train", formData)
-        .then(response => {
-          var grabResponseArray = response.data.split(",");
-          this.UpdateSessionStorage(grabResponseArray[0], grabResponseArray[1]);
-        })
-        .catch(e => {
-          console.error(e);
-        });
+      // let formData = new FormData();
+      // formData.append("train", trainid);
+      // Api()
+      //   .post("driver/grab-train", formData)
+      //   .then(response => {
+      //     var grabResponseArray = response.data.split(",");
+      //     this.UpdateSessionStorage(grabResponseArray[0], grabResponseArray[1]);
+      //   })
+      //   .catch(e => {
+      //     console.error(e);
+      //   });
     },
     GetTrainList() {
       this.trainsArray = { "0": { trainid: "train1", grabbed: "yes" } };
@@ -206,6 +297,26 @@ export default {
         .catch(e => {
           console.error(e);
         });
+    },
+    TriggerSuccessAlert: function(msg) {
+      this.showSuccessAlert = true;
+      this.alertSuccessMessage = msg;
+      setTimeout(
+        function() {
+          this.showSuccessAlert = false;
+        }.bind(this),
+        2000
+      );
+    },
+    TriggerWarningAlert: function(msg) {
+      this.showWarningAlert = true;
+      this.alertWarningMessage = msg;
+      setTimeout(
+        function() {
+          this.showWarningAlert = false;
+        }.bind(this),
+        2000
+      );
     }
   }
 };

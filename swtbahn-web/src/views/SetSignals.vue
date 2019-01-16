@@ -6,50 +6,42 @@
           <table class="table table-striped first-td-padding">
             <thead>
               <tr>
-                <td>ID</td>
+                <td>SignalName</td>
+                <td>Current State</td>
                 <td>Red</td>
                 <td>Green</td>
                 <td>Yellow</td>
-                <td></td>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>signal1</td>
+              <tr></tr>
+              <tr v-for="signal in signalsArray" :key="signal.signalid">
+                <td>{{ signal.signalid }}</td>
+                <td>{{ signal.state }}</td>
                 <td>
-                  <basix-switch
-                    type="text"
-                    on="On"
-                    off="Off"
-                    variant="success"
-                    :pill="true"
-                    :checked="true"
-                    size="lg"
-                  />
+                  <input
+                    class="btn btn-danger"
+                    type="submit"
+                    value="Turn Red"
+                    @click="ChangeSignalState(signal.signalid,'red')"
+                  >
                 </td>
                 <td>
-                  <basix-switch
-                    type="text"
-                    on="On"
-                    off="Off"
-                    variant="success"
-                    :pill="true"
-                    :checked="true"
-                    size="lg"
-                  />
+                  <input
+                    class="btn btn-success"
+                    type="submit"
+                    value="Turn Green"
+                    @click="ChangeSignalState(signal.signalid,'green')"
+                  >
                 </td>
                 <td>
-                  <basix-switch
-                    type="text"
-                    on="On"
-                    off="Off"
-                    variant="success"
-                    :pill="true"
-                    :checked="true"
-                    size="lg"
-                  />
+                  <input
+                    class="btn btn-warning"
+                    type="submit"
+                    value="Turn Yellow"
+                    @click="ChangeSignalState(signal.signalid,'yellow')"
+                  >
                 </td>
-                <td></td>
               </tr>
             </tbody>
           </table>
@@ -60,7 +52,46 @@
 </template>
 
 <script>
+import Api from "../API";
+
 export default {
   name: "setsignals",
-  components: {}
+  components: {},
+  data() {
+    return {
+      signalsArray: []
+    };
+  },
+  mounted() {
+    this.GetSignalsList();
+  },
+  methods: {
+    GetSignalsList() {
+      this.signalsArray = { "0": { signalid: "signal1", state: "red" } };
+      // Api()
+      //   .get("monitor/signals")
+      //   .then(response => {
+      //     if (response.status == 200) {
+      //       this.signalsArray = response.data;
+      //     }
+      //   })
+      //   .catch(e => {
+      //     console.error(e);
+      //   });
+    },
+    ChangeSignalState(id, stateValue) {
+      // alert(id + "   " + stateValue);
+      let formData = new FormData();
+      formData.append("state", stateValue);
+      // Api()
+      //   .post("controller/set-point", formData)
+      //   .then(response => {
+      //      this.GetPointList();
+      //   })
+      //   .catch(e => {
+      //     console.error(e);
+      //   });
+    }
+  }
 };
+</script>

@@ -51,6 +51,9 @@ export default {
       hidden: false
     };
   },
+  mounted() {
+    // this.setTheTimeOut();
+  },
   methods: {
     hide() {
       this.hidden = true;

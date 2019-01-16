@@ -8,24 +8,21 @@
               <tr>
                 <td>ID</td>
                 <td>Status(Normal/Reverse)</td>
-                <td></td>
+                <td>Change Point State</td>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Point1</td>
+              <tr v-for="point in pointsArray" :key="point.pointid">
+                <td>{{ point.pointid }}</td>
+                <td>{{ point.state }}</td>
                 <td>
-                  <basix-switch
-                    type="text"
-                    on="On"
-                    off="Off"
-                    variant="success"
-                    :pill="true"
-                    :checked="true"
-                    size="lg"
-                  />
+                  <input
+                    class="btn btn-success"
+                    type="submit"
+                    value="Change Point State"
+                    @click="ChangePointState(point.pointid,point.state)"
+                  >
                 </td>
-                <td></td>
               </tr>
             </tbody>
           </table>
@@ -36,7 +33,51 @@
 </template>
 
 <script>
+import Api from "../API";
+
 export default {
   name: "setpoints",
-  components: {}
+  components: {},
+  data() {
+    return {
+      pointsArray: []
+    };
+  },
+  mounted() {
+    this.GetPointList();
+  },
+  methods: {
+    GetPointList() {
+      this.pointsArray = { "0": { pointid: "point1", state: "reverse" } };
+      // Api()
+      //   .get("monitor/points")
+      //   .then(response => {
+      //     if (response.status == 200) {
+      //       this.pointsArray = response.data;
+      //     }
+      //   })
+      //   .catch(e => {
+      //     console.error(e);
+      //   });
+    },
+    ChangePointState(id, stateValue) {
+      if (stateValue == "normal") {
+        stateValue = "reverse";
+      } else stateValue = "normal";
+      let formData = new FormData();
+      formData.append("point", id);
+      formData.append("state", stateValue);
+      alert(id);
+      alert(stateValue);
+      // Api()
+      //   .post("controller/set-point", formData)
+      //   .then(response => {
+      //      this.GetPointList();
+      //   })
+      //   .catch(e => {
+      //     console.error(e);
+      //   });
+    }
+  }
 };
+</script>
