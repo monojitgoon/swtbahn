@@ -67,30 +67,30 @@ export default {
   },
   methods: {
     GetSignalsList() {
-      this.signalsArray = { "0": { signalid: "signal1", state: "red" } };
-      // Api()
-      //   .get("monitor/signals")
-      //   .then(response => {
-      //     if (response.status == 200) {
-      //       this.signalsArray = response.data;
-      //     }
-      //   })
-      //   .catch(e => {
-      //     console.error(e);
-      //   });
+      //this.signalsArray = { "0": { signalid: "signal1", state: "red" } };
+      Api()
+        .get("monitor/signals")
+        .then(response => {
+          if (response.status == 200) {
+            this.signalsArray = response.data;
+          }
+        })
+        .catch(e => {
+          console.error(e);
+        });
     },
     ChangeSignalState(id, stateValue) {
-      // alert(id + "   " + stateValue);
       let formData = new FormData();
+      formData.append("signal", id);
       formData.append("state", stateValue);
-      // Api()
-      //   .post("controller/set-point", formData)
-      //   .then(response => {
-      //      this.GetPointList();
-      //   })
-      //   .catch(e => {
-      //     console.error(e);
-      //   });
+      Api()
+        .post("controller/set-signal", formData)
+        .then(response => {
+          if (response.status == 200) this.GetSignalsList();
+        })
+        .catch(e => {
+          console.error(e);
+        });
     }
   }
 };

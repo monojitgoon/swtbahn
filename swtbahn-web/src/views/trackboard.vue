@@ -93,6 +93,10 @@ export default {
   created() {},
   computed: {},
   methods: {
+    UpdatelocalStorage(session_id, grab_id) {
+      localStorage.setItem("session_id", session_id);
+      localStorage.setItem("grab_id", grab_id);
+    },
     LoadStatistics() {
       this.GetTrainCount();
       this.GetSignalCount();
@@ -100,7 +104,7 @@ export default {
       this.GetPointCount();
     },
     CheckServerState() {
-      if (sessionStorage.getItem("serverState") == "true") {
+      if (localStorage.getItem("serverState") == "true") {
         this.checkedServerSwitch = true;
         this.LoadStatistics();
       } else {
@@ -109,11 +113,11 @@ export default {
     },
     SwitchServer(e) {
       if (e == true) {
-        sessionStorage.setItem("serverState", "true");
+        localStorage.setItem("serverState", "true");
         this.StartServer();
         this.LoadStatistics();
       } else {
-        sessionStorage.setItem("serverState", "false");
+        localStorage.setItem("serverState", "false");
         this.StopServer();
         this.LoadStatistics();
       }
@@ -122,8 +126,10 @@ export default {
       Api()
         .get("admin/startup")
         .then(response => {
-          if (response.status == 200) this.ServerStatus = "starting";
-          else this.ServerStatus = "running";
+          if (response.status == 200) {
+            this.UpdatelocalStorage(0, -1);
+            this.ServerStatus = "starting";
+          } else this.ServerStatus = "running";
         })
         .catch(e => {
           console.error(e);
@@ -133,8 +139,10 @@ export default {
       Api()
         .get("admin/shutdown")
         .then(response => {
-          if (response.status == 200) this.ServerStatus = "stopping";
-          else this.ServerStatus = "not running";
+          if (response.status == 200) {
+            this.UpdatelocalStorage(0, -1);
+            this.ServerStatus = "stopping";
+          } else this.ServerStatus = "not running";
         })
         .catch(e => {
           console.error(e);

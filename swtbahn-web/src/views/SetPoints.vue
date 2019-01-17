@@ -19,7 +19,7 @@
                   <input
                     class="btn btn-success"
                     type="submit"
-                    value="Change Point State"
+                    value="Toggle State"
                     @click="ChangePointState(point.pointid,point.state)"
                   >
                 </td>
@@ -40,6 +40,7 @@ export default {
   components: {},
   data() {
     return {
+      testVal: null,
       pointsArray: []
     };
   },
@@ -48,35 +49,33 @@ export default {
   },
   methods: {
     GetPointList() {
-      this.pointsArray = { "0": { pointid: "point1", state: "reverse" } };
-      // Api()
-      //   .get("monitor/points")
-      //   .then(response => {
-      //     if (response.status == 200) {
-      //       this.pointsArray = response.data;
-      //     }
-      //   })
-      //   .catch(e => {
-      //     console.error(e);
-      //   });
+      // this.pointsArray = { "0": { pointid: "point1", state: "reverse" } };
+      Api()
+        .get("monitor/points")
+        .then(response => {
+          if (response.status == 200) {
+            this.pointsArray = response.data;
+          }
+        })
+        .catch(e => {
+          console.error(e);
+        });
     },
     ChangePointState(id, stateValue) {
-      if (stateValue == "normal") {
-        stateValue = "reverse";
-      } else stateValue = "normal";
       let formData = new FormData();
       formData.append("point", id);
-      formData.append("state", stateValue);
-      alert(id);
-      alert(stateValue);
-      // Api()
-      //   .post("controller/set-point", formData)
-      //   .then(response => {
-      //      this.GetPointList();
-      //   })
-      //   .catch(e => {
-      //     console.error(e);
-      //   });
+      formData.append("state", stateValue == "normal" ? "reverse" : "reverse");
+
+      Api()
+        .post("controller/set-point", formData)
+        .then(response => {
+          if (response.status == 200) {
+            this.GetPointList();
+          }
+        })
+        .catch(e => {
+          console.error(e);
+        });
     }
   }
 };

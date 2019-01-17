@@ -37,7 +37,8 @@
 
 onion_connection_status handler_set_point(void *_, onion_request *req,
                                           onion_response *res) {
-	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
+    build_response_header(res);
+    if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
 		const char *data_point = onion_request_get_post(req, "point");
 		const char *data_state = onion_request_get_post(req, "state");
 		if (data_point == NULL || data_state == NULL) {
@@ -63,7 +64,8 @@ onion_connection_status handler_set_point(void *_, onion_request *req,
 
 onion_connection_status handler_set_signal(void *_, onion_request *req,
                                            onion_response *res) {
-	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
+    build_response_header(res);
+    if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
 		const char *data_signal = onion_request_get_post(req, "signal");
 		const char *data_state = onion_request_get_post(req, "state");
 		if (data_signal == NULL || data_state == NULL) {

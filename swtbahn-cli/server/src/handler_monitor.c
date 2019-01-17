@@ -113,6 +113,7 @@ onion_connection_status handler_get_train_state(void *_, onion_request *req,
 
 onion_connection_status handler_get_train_peripherals(void *_, onion_request *req,
                                                       onion_response *res) {
+    build_response_header(res);
 	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
 		const char *data_train = onion_request_get_post(req, "train");
 		if (data_train == NULL) {
@@ -122,21 +123,23 @@ onion_connection_status handler_get_train_peripherals(void *_, onion_request *re
 			t_bidib_id_list_query query =
 				bidib_get_train_peripherals(data_train);
 			if (query.length > 0) {
-				GString *train_peripherals = g_string_new("");
-				for (size_t i = 0; i < query.length; i++) {
+                onion_dict *dict = onion_dict_new();
+
+                for (size_t i = 0; i < query.length; i++) {
 					t_bidib_train_peripheral_state_query per_state =
 						bidib_get_train_peripheral_state(data_train, query.ids[i]);
-					g_string_append_printf(train_peripherals, "%s%s - state: %s",
-					                       i != 0 ? "\n" : "", query.ids[i],
-					                       per_state.state == 1 ? "on" : "off");
+
+                    char *id = malloc(6);
+                    sprintf(id, "%d", i);
+                    onion_dict *subd = onion_dict_new();
+
+                    onion_dict_add(subd, "peripheralid", convertme(query.ids[i]), 0);
+                    onion_dict_add(subd, "state",per_state.state == 1 ? "on" : "off", 0);
+                    onion_dict_add(dict, id, subd, OD_DICT | OD_FREE_VALUE);
 				}
 				bidib_free_id_list_query(query);
-				char response[train_peripherals->len + 1];
-				strcpy(response, train_peripherals->str);
-				g_string_free(train_peripherals, true);
-				onion_response_printf(res, response);
-				syslog(LOG_NOTICE, "Request: Get train peripherals");
-				return OCS_PROCESSED;
+                syslog(LOG_NOTICE, "Request: Get train peripherals");
+                return onion_shortcut_response_json(dict, req, res);
 			} else {
 				bidib_free_id_list_query(query);
 				syslog(LOG_ERR, "Request: Get train train peripherals - invalid "
@@ -153,6 +156,7 @@ onion_connection_status handler_get_train_peripherals(void *_, onion_request *re
 
 onion_connection_status handler_get_track_outputs(void *_, onion_request *req,
                                                   onion_response *res) {
+    build_response_header(res);
 	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
 		GString *track_outputs = g_string_new("");
 		t_bidib_id_list_query query = bidib_get_track_outputs();
