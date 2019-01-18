@@ -42,7 +42,7 @@ export default {
   methods: {
     GetSignalsList() {
       Api()
-        .get("monitor/signals")
+        .post("monitor/signals")
         .then(response => {
           if (response.status == 200) {
             this.signalsArray = response.data;

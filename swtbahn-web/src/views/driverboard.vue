@@ -150,6 +150,11 @@ export default {
       trainCurrentState: null
     };
   },
+  watch: {
+    trainCurrentState(val) {
+      if (val != null) this.GetTrainStatus(this.grabbedTrain);
+    }
+  },
   computed: {
     color() {
       if (this.speed < 20) return "indigo";
@@ -261,7 +266,7 @@ export default {
     GetTrainList() {
       this.trainsArray = { "0": { trainid: "train1", grabbed: "yes" } };
       Api()
-        .get("monitor/trains")
+        .post("monitor/trains")
         .then(response => {
           if (response.status == 200) {
             this.trainsArray = response.data;
@@ -283,12 +288,10 @@ export default {
               response.data.split(",")[0],
               response.data.split(",")[1]
             );
-            this.UpdateGrabbedTrainInLocalStorage(this.grabbedTrain);
-            this.GetPeripheralList(this.grabbedTrain);
-            this.GetTrainStatus(this.grabbedTrain);
-            this.TriggerSuccessAlert(
-              "Successfully Grabbed : " + this.grabbedTrain
-            );
+            this.UpdateGrabbedTrainInLocalStorage(trainid);
+            this.GetPeripheralList(trainid);
+            this.GetTrainStatus(trainid);
+            this.TriggerSuccessAlert("Successfully Grabbed : " + trainid);
           }
         })
         .catch(e => {

@@ -51,7 +51,7 @@ export default {
     GetPointList() {
       // this.pointsArray = { "0": { pointid: "point1", state: "reverse" } };
       Api()
-        .get("monitor/points")
+        .post("monitor/points")
         .then(response => {
           if (response.status == 200) {
             this.pointsArray = response.data;

@@ -77,7 +77,7 @@ export default {
     },
     GetTrainList() {
       Api()
-        .get("monitor/trains")
+        .post("monitor/trains")
         .then(response => {
           if (response.status == 200) {
             this.trainsArray = response.data;

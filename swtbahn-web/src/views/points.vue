@@ -42,7 +42,7 @@ export default {
   methods: {
     GetPointList() {
       Api()
-        .get("monitor/points")
+        .post("monitor/points")
         .then(response => {
           if (response.status == 200) {
             this.pointsArray = response.data;

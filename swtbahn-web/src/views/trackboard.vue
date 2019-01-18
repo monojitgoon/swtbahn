@@ -97,6 +97,9 @@ export default {
       localStorage.setItem("session_id", session_id);
       localStorage.setItem("grab_id", grab_id);
     },
+    UpdateGrabbedTrainInLocalStorage(grab_train) {
+      localStorage.setItem("grab_train", grab_train);
+    },
     LoadStatistics() {
       this.GetTrainCount();
       this.GetSignalCount();
@@ -124,10 +127,11 @@ export default {
     },
     StartServer() {
       Api()
-        .get("admin/startup")
+        .post("admin/startup")
         .then(response => {
           if (response.status == 200) {
             this.UpdatelocalStorage(0, -1);
+            this.UpdateGrabbedTrainInLocalStorage("");
             this.ServerStatus = "starting";
           } else this.ServerStatus = "running";
         })
@@ -137,10 +141,11 @@ export default {
     },
     StopServer() {
       Api()
-        .get("admin/shutdown")
+        .post("admin/shutdown")
         .then(response => {
           if (response.status == 200) {
             this.UpdatelocalStorage(0, -1);
+            this.UpdateGrabbedTrainInLocalStorage("");
             this.ServerStatus = "stopping";
           } else this.ServerStatus = "not running";
         })
@@ -150,7 +155,7 @@ export default {
     },
     GetTrainCount() {
       Api()
-        .get("monitor/trains")
+        .post("monitor/trains")
         .then(response => {
           if (response.status == 200) {
             this.trainsArray = response.data;
@@ -162,7 +167,7 @@ export default {
     },
     GetSignalCount() {
       Api()
-        .get("monitor/signals")
+        .post("monitor/signals")
         .then(response => {
           if (response.status == 200) {
             this.signalsArray = response.data;
@@ -174,7 +179,7 @@ export default {
     },
     GetSegmentCount() {
       Api()
-        .get("monitor/segments")
+        .post("monitor/segments")
         .then(response => {
           if (response.status == 200) {
             this.segmentsArray = response.data;
@@ -186,7 +191,7 @@ export default {
     },
     GetPointCount() {
       Api()
-        .get("monitor/points")
+        .post("monitor/points")
         .then(response => {
           if (response.status == 200) {
             this.pointsArray = response.data;

@@ -69,7 +69,7 @@ export default {
     GetSignalsList() {
       //this.signalsArray = { "0": { signalid: "signal1", state: "red" } };
       Api()
-        .get("monitor/signals")
+        .post("monitor/signals")
         .then(response => {
           if (response.status == 200) {
             this.signalsArray = response.data;

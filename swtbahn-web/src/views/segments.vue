@@ -44,7 +44,7 @@ export default {
   methods: {
     GetSegmentsList() {
       Api()
-        .get("monitor/segments")
+        .post("monitor/segments")
         .then(response => {
           if (response.status == 200) {
             this.segmentsArray = response.data;

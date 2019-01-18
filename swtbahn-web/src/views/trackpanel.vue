@@ -5,7 +5,7 @@
         <svg width="32" height="32">
           <g>
             <!-- Track -->
-            <path stroke="rgb(0,0,0)" fill="rgb(0,0,0)" d="M 0,12 L 19,31 L 11,31 L 0,20 z "></path>
+            <path stroke="rgb(0,0,0)" fill="rgb(0,0,0)" d="M 0,12 L 19,99 L 11,99 L 0,20 z "></path>
           </g>
         </svg>
       </div>
