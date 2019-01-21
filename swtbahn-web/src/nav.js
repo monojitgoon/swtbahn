@@ -16,7 +16,7 @@ export default {
     },
 
     {
-      name: "Aspects",
+      name: "Monitor",
       url: "/",
       icon: "fa fa-eye",
       children: [
@@ -77,33 +77,11 @@ export default {
     {
       title: true,
       name: "Administritive"
+    },
+    {
+      name: "Users",
+      url: "/users",
+      icon: "fa fa-users"
     }
-    // {
-    //   name: "Pages",
-    //   url: "/auth",
-    //   icon: "fa fa-paperclip",
-    //   children: [
-    //     {
-    //       name: "Login",
-    //       url: "/auth/login",
-    //       icon: "fa fa-sign-in"
-    //     },
-    //     {
-    //       name: "Register",
-    //       url: "/auth/register",
-    //       icon: "fa fa-sign-in"
-    //     },
-    //     {
-    //       name: "Error 404",
-    //       url: "/auth/Page404",
-    //       icon: "fa fa-paper-plane"
-    //     },
-    //     {
-    //       name: "Error 500",
-    //       url: "/auth/Page500",
-    //       icon: "fa fa-paper-plane"
-    //     }
-    //   ]
-    // }
   ]
 };

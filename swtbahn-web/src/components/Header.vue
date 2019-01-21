@@ -2,9 +2,7 @@
   <header id="basix-header" class="header">
     <div class="header-menu">
       <div class="row">
-        <div class="col-sm-7"></div>
-
-        <div class="col-sm-5">
+        <div class="col-sm-12">
           <div class="user-area dropdown float-right">
             <a
               href="#"
@@ -15,6 +13,7 @@
               :class="{'show': isActive, '': !isActive }"
               @click="handleClick"
             >
+              <h4>Welcome {{account.user.username}}</h4>
               <img class="user-avatar rounded-circle" src="../images/user.jpg" alt="User Avatar">
             </a>
 
@@ -24,7 +23,9 @@
               @click="handleClick"
             >
               <a class="nav-link" href="#">
-                <i class="fa fa-power -off"></i>Logout
+                <router-link to="auth/login">
+                  <i class="fa fa-power-off"></i>Logout
+                </router-link>
               </a>
             </div>
           </div>
@@ -37,8 +38,15 @@
 
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
   name: "basix-header",
+  computed: {
+    ...mapState({
+      account: state => state.account
+    })
+  },
   data() {
     return {
       isActive: false,

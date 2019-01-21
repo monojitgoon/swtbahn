@@ -7,6 +7,7 @@
         <Header/>
         <div class="content pb-0">
           <transition enter-active-class="animated fadeIn">
+            <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
             <router-view></router-view>
           </transition>
         </div>
@@ -19,6 +20,7 @@ import nav from "./nav";
 import Header from "./components/Header.vue";
 import Sidebar from "./components/Sidebar.vue";
 import AuthLayout from "./layouts/AuthLayout.vue";
+import { mapState, mapActions } from "vuex";
 
 export default {
   data() {
@@ -40,6 +42,20 @@ export default {
     },
     isAuth() {
       return this.$route.path.match("auth");
+    },
+    ...mapState({
+      alert: state => state.alert
+    })
+  },
+  methods: {
+    ...mapActions({
+      clearAlert: "alert/clear"
+    })
+  },
+  watch: {
+    $route(to, from) {
+      // clear alert on location change
+      this.clearAlert();
     }
   }
 };

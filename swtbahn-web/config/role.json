@@ -1,0 +1,10 @@
+[
+  {
+    "rolename": "Driver",
+    "pages": "/driver"
+  },
+  {
+    "rolename": "Monitor",
+    "pages": "/"
+  }
+]
