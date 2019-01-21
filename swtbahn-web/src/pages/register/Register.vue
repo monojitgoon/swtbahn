@@ -2,6 +2,7 @@
   <div class="register">
     <card header-text="Create User">
       <form @submit.prevent="handleSubmit">
+        <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
         <div class="form-group">
           <div class="input-group">
             <div class="input-group-addon">
@@ -102,7 +103,10 @@ export default {
     };
   },
   computed: {
-    ...mapState("account", ["status"])
+    ...mapState("account", ["status"]),
+    ...mapState({
+      alert: state => state.alert
+    })
   },
   methods: {
     ...mapActions("account", ["register"]),

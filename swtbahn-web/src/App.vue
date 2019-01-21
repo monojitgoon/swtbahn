@@ -7,7 +7,6 @@
         <Header/>
         <div class="content pb-0">
           <transition enter-active-class="animated fadeIn">
-            <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
             <router-view></router-view>
           </transition>
         </div>
@@ -16,22 +15,23 @@
   </div>
 </template>
 <script>
-import nav from "./nav";
 import Header from "./components/Header.vue";
 import Sidebar from "./components/Sidebar.vue";
 import AuthLayout from "./layouts/AuthLayout.vue";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
-    return {
-      nav: nav.items
-    };
+    return {};
   },
   components: {
     AuthLayout,
     Header,
     Sidebar
+  },
+
+  created() {
+    this.getUserWiseNav(this.account.user);
   },
   computed: {
     name() {
@@ -44,13 +44,23 @@ export default {
       return this.$route.path.match("auth");
     },
     ...mapState({
-      alert: state => state.alert
+      account: state => state.account,
+      alert: state => state.alert,
+      nav: state => state.system.navigationItems
     })
   },
   methods: {
     ...mapActions({
       clearAlert: "alert/clear"
-    })
+    }),
+    ...mapActions("system", {
+      getUserWiseNav: "loadNavForUserType"
+    }),
+
+    spliceNavItems: function(start, deleteCount) {
+      this.nav = nav.items;
+      this.nav.splice(start, deleteCount);
+    }
   },
   watch: {
     $route(to, from) {

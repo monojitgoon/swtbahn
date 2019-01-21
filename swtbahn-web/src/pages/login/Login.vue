@@ -3,6 +3,7 @@
     <card header-text="Welcome !">
       <div class="card-body card-block">
         <form @submit.prevent="handleSubmit">
+          <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
           <div class="form-group">
             <div class="input-group">
               <div class="input-group-addon">
@@ -67,7 +68,10 @@ export default {
     };
   },
   computed: {
-    ...mapState("account", ["status"])
+    ...mapState("account", ["status"]),
+    ...mapState({
+      alert: state => state.alert
+    })
   },
   created() {
     // reset login status

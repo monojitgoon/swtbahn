@@ -1,24 +1,41 @@
 <template>
-  <div>
-    <h1>Hi {{account.user.username}}!</h1>
-    <em v-if="users.loading">Loading users...</em>
-    <span v-if="users.error" class="text-danger">ERROR: {{users.error}}</span>
-    <ul v-if="users.items">
-      <li v-for="user in users.items" :key="user.id">
-        {{user.username }}
-        <span v-if="user.deleting">
-          <em>- Deleting...</em>
-        </span>
-        <span v-else-if="user.deleteError" class="text-danger">- ERROR: {{user.deleteError}}</span>
-        <span v-else>
-          -
-          <a @click="deleteUser(user.id)" class="text-danger">Delete</a>
-        </span>
-      </li>
-    </ul>
-    <p>
-      <router-link to="auth/login">Logout</router-link>
-    </p>
+  <div class="row">
+    <div class="col-xs-12 col-md-12">
+      <card header-text="Existing Users">
+        <em v-if="users.loading">Loading users...</em>
+        <span v-if="users.error" class="text-danger">ERROR: {{users.error}}</span>
+        <div class="table-responsive">
+          <table class="table table-striped first-td-padding">
+            <thead>
+              <tr>
+                <td>Username</td>
+                <td>UserType</td>
+                <td>Delete</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="user in users.items" :key="user.id">
+                <td>{{ user.username }}</td>
+                <td>{{ user.userType }}</td>
+                <td>
+                  <span v-if="user.deleting">
+                    <em>- Deleting...</em>
+                  </span>
+                  <span
+                    v-else-if="user.deleteError"
+                    class="text-danger"
+                  >- ERROR: {{user.deleteError}}</span>
+                  <span v-else>
+                    -
+                    <a @click="deleteUser(user.id)" class="text-danger">Delete</a>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </card>
+    </div>
   </div>
 </template>
 

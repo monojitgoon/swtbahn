@@ -2,7 +2,6 @@ import Vue from "vue";
 
 //Components
 import Alert from "./widgets/Alert.vue";
-import AnimateNumber from "./AnimateNumber.vue";
 
 //Importing Custom Components
 import SidebarCollapse from "./sidebar/SidebarCollapse.vue";
@@ -14,16 +13,7 @@ import VueSlider from "./widgets/VueSlider.vue";
 Vue.component("basix-alert", Alert);
 Vue.component("sidebar-collapse", SidebarCollapse);
 Vue.component("card", CardTemplate);
-Vue.component("basix-counter", AnimateNumber);
 Vue.component("basix-modal", BasixModal);
 Vue.component("vue-slider", VueSlider);
 
-export {
-  Alert,
-  SidebarCollapse,
-  CardTemplate,
-  AnimateNumber,
-  Tables,
-  BasixModal,
-  VueSlider
-};
+export { Alert, SidebarCollapse, CardTemplate, Tables, BasixModal, VueSlider };

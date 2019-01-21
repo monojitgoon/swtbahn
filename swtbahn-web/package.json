@@ -1,8 +1,8 @@
 {
-  "name": "SwtBahn",
+  "name": "SWTBahn",
   "description": "A railway track controller",
   "version": "1.0.0",
-  "author": "Monojit Goon",
+  "author": "Monojit Goon, Lucky Sutradhar",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -20,7 +20,6 @@
     "svg.js": "^2.7.1",
     "vee-validate": "^2.1.0-beta.6",
     "vue": "^2.5.11",
-    "vue-animate-number": "^0.4.2",
     "vue-router": "^3.0.1",
     "vuetify": "^1.4.1",
     "vuex": "^3.0.1"

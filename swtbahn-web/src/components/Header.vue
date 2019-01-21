@@ -13,7 +13,7 @@
               :class="{'show': isActive, '': !isActive }"
               @click="handleClick"
             >
-              <h4>Welcome {{account.user.username}}</h4>
+              <strong>Hi {{account.user.username}} &nbsp;</strong>
               <img class="user-avatar rounded-circle" src="../images/user.jpg" alt="User Avatar">
             </a>
 
