@@ -60,11 +60,6 @@ export default {
     },
     handleClick(e) {
       this.isActive = !this.isActive;
-      // if(e.target.className == "noclass"){
-      //     e.target.className = "link active";
-      // } else{
-      //     e.target.className = "noclass";
-      // }
     }
   }
 };

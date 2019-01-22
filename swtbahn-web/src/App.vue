@@ -2,7 +2,7 @@
   <div id="app">
     <auth-layout v-if="isAuth"></auth-layout>
     <div class="admin-container" v-else>
-      <Sidebar :navItems="nav"/>
+      <Sidebar :navItems="computedfilteredNavs"/>
       <div id="right-panel" class="right-panel">
         <Header/>
         <div class="content pb-0">
@@ -15,6 +15,8 @@
   </div>
 </template>
 <script>
+import nav from "./nav";
+
 import Header from "./components/Header.vue";
 import Sidebar from "./components/Sidebar.vue";
 import AuthLayout from "./layouts/AuthLayout.vue";
@@ -22,16 +24,14 @@ import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
-    return {};
+    return {
+      navs: nav.items
+    };
   },
   components: {
     AuthLayout,
     Header,
     Sidebar
-  },
-
-  created() {
-    this.getUserWiseNav(this.account.user);
   },
   computed: {
     name() {
@@ -45,22 +45,43 @@ export default {
     },
     ...mapState({
       account: state => state.account,
-      alert: state => state.alert,
-      nav: state => state.system.navigationItems
-    })
+      alert: state => state.alert
+    }),
+    computedfilteredNavs() {
+      if (this.account.user.userType === "Driver") {
+        let filteredNavs = this.navs.filter(n => {
+          return (
+            n.name === "Trackboard" ||
+            n.name === "Driver" ||
+            n.name === "User Options"
+          );
+        });
+        return filteredNavs;
+      } else if (this.account.user.userType === "Monitor") {
+        let filteredNavs = this.navs.filter(n => {
+          return (
+            n.name === "Trackboard" ||
+            n.name === "Monitor" ||
+            n.name === "User Options"
+          );
+        });
+        return filteredNavs;
+      } else if (this.account.user.userType === "Stellwerk") {
+        let filteredNavs = this.navs.filter(n => {
+          return (
+            n.name === "Trackboard" ||
+            n.name === "Stellwerk" ||
+            n.name === "User Options"
+          );
+        });
+        return filteredNavs;
+      } else return this.navs;
+    }
   },
   methods: {
     ...mapActions({
       clearAlert: "alert/clear"
-    }),
-    ...mapActions("system", {
-      getUserWiseNav: "loadNavForUserType"
-    }),
-
-    spliceNavItems: function(start, deleteCount) {
-      this.nav = nav.items;
-      this.nav.splice(start, deleteCount);
-    }
+    })
   },
   watch: {
     $route(to, from) {

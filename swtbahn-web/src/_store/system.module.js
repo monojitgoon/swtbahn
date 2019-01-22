@@ -1,26 +1,27 @@
 import nav from "../nav";
 
-const state = {
-  navigationItems: nav.items
+const getDefaultState = () => {
+  return {
+    navigationItems: nav.items
+  };
 };
+
+// initial state
+const state = getDefaultState();
 
 const actions = {
   loadNavForUser({ commit }, user) {
-    alert(true);
     commit("loadNavForUserType", user);
+  },
+  resetStateVuex({ commit }) {
+    commit("resetState");
   }
 };
 
 const mutations = {
-  loadNavForUserType(state, user) {
-    alert(true);
-    if (user.userType == "Driver") {
-      state.navigationItems.splice(2, 1);
-    } else if (user.userType == "Monitor") {
-      state.navigationItems.splice(3, 5);
-    } else if (user.userType == "Stellwerk") {
-      state.navigationItems.splice(2, 4);
-    }
+  loadNavForUserType(state, user) {},
+  resetState(state) {
+    Object.assign(state, getDefaultState());
   }
 };
 

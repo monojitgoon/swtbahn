@@ -26,8 +26,11 @@
                     class="text-danger"
                   >- ERROR: {{user.deleteError}}</span>
                   <span v-else>
-                    -
-                    <a @click="deleteUser(user.id)" class="text-danger">Delete</a>
+                    <a
+                      @click="deleteUser(user.id)"
+                      class="text-danger"
+                      v-if="user.userType != 'Admin'"
+                    >- Delete</a>
                   </span>
                 </td>
               </tr>
