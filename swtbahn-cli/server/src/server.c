@@ -49,6 +49,9 @@ volatile time_t session_id;
 volatile bool starting = false;
 volatile bool stopping = false;
 volatile bool running = false;
+volatile bool safety_layer_starting = false;
+volatile bool safety_layer_stopping = false;
+volatile bool safety_layer_running = false;
 char serial_device[INPUT_MAX_LEN];
 char config_directory[INPUT_MAX_LEN];
 

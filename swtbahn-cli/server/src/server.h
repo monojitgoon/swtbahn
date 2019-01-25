@@ -33,6 +33,9 @@ extern volatile time_t session_id;
 extern volatile bool starting;
 extern volatile bool stopping;
 extern volatile bool running;
+extern volatile bool safety_layer_starting;
+extern volatile bool safety_layer_running;
+extern volatile bool safety_layer_stopping;
 extern char serial_device[128];
 extern char config_directory[128];
 
