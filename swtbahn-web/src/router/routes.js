@@ -41,6 +41,11 @@ const SetSignals = resolve => {
     resolve(require("../views/SetSignals.vue"));
   });
 };
+const RouteRequests = resolve => {
+  require.ensure(["../views/RouteRequests.vue"], () => {
+    resolve(require("../views/RouteRequests.vue"));
+  });
+};
 // UI Components
 
 //User Info
@@ -88,6 +93,7 @@ export const routes = [
   { path: "/driverboard", name: "driverboard", component: Driverboard },
   { path: "/setpoints", name: "setpoints", component: SetPoints },
   { path: "/setsignals", name: "setsignals", component: SetSignals },
+  { path: "/routerequests", name: "routerequests", component: RouteRequests },
 
   { path: "/users", name: "users", component: User },
   {

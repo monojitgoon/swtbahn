@@ -60,6 +60,11 @@ export default {
       icon: "fa fa-compass",
       children: [
         {
+          name: "Route Requests",
+          url: "/routerequests",
+          icon: "fa fa-compass"
+        },
+        {
           name: "Set Points",
           url: "/setpoints",
           icon: "fa fa-compass"

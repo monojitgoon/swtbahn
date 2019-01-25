@@ -23,44 +23,53 @@
     <div class="row">
       <div class="col-lg-6">
         <card header-text="Train Options">
-          <div class="row form-group">
-            <div class="col col-md-3">
-              <label for="select" class="form-control-label">Select Train</label>
+          <div class="card-body card-block">
+            <div class="row form-group">
+              <div class="col col-md-3">
+                <label for="select" class="form-control-label">Select Train</label>
+              </div>
+              <div class="col col-md-3">
+                <select id="trainList" class="form-control" v-model="selectedTrain">
+                  <option
+                    v-for="train in trainsArray"
+                    v-bind:value="train.trainid"
+                    v-bind:key="train.trainid"
+                  >{{train.trainid}}</option>
+                </select>
+              </div>
+              <div class="col col-md-3">
+                <input
+                  class="btn btn-success"
+                  type="submit"
+                  value="Grab"
+                  @click="GrabTrainClicked(selectedTrain)"
+                >
+                <input
+                  class="btn btn-outline-success"
+                  type="submit"
+                  value="Release"
+                  @click="ReleaseTrain"
+                >
+              </div>
             </div>
-            <div class="col-12 col-md-9">
-              <select id="trainList" class="form-control" v-model="selectedTrain">
-                <option
-                  v-for="train in trainsArray"
-                  v-bind:value="train.trainid"
-                  v-bind:key="train.trainid"
-                >{{train.trainid}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-6">
-            Grab Train&nbsp;&nbsp;
-            <input
-              class="btn btn-success"
-              type="submit"
-              value="Grab"
-              @click="GrabTrainClicked(selectedTrain)"
-            >
-            <input
-              class="btn btn-outline-success"
-              type="submit"
-              value="Release"
-              @click="ReleaseTrain"
-            >
           </div>
         </card>
-        <card header-text="Peripherals">
+        <card header-text="Current Route Request">
+          <div class="col col-md-12">
+            <input
+              class="btn btn-info pull-right"
+              type="submit"
+              value="Add Route Request"
+              @click="AddRouteRequest(selectedTrain)"
+            >
+          </div>
           <div class="table-responsive">
             <table class="table table-striped first-td-padding">
               <thead>
                 <tr>
-                  <td>Peripheral Name</td>
-                  <td>State</td>
-                  <td>Change Peripheral State</td>
+                  <td>Train Name</td>
+                  <td>Starting Segment</td>
+                  <td>Ending Segment</td>
                 </tr>
               </thead>
               <tbody>
@@ -80,12 +89,43 @@
             </table>
           </div>
         </card>
+        <card header-text="Peripherals">
+          <div class="table-responsive">
+            <table class="table table-striped first-td-padding">
+              <thead>
+                <tr>
+                  <td>Peripheral Name</td>
+                  <td>State</td>
+                  <td>Change Peripheral State</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="peripheral in driverProperties.train_PeripheralArray"
+                  :key="peripheral.peripheralid"
+                >
+                  <td>{{ peripheral.peripheralid }}</td>
+                  <td>{{ peripheral.state }}</td>
+                  <td>
+                    <input
+                      class="btn btn-warning"
+                      type="submit"
+                      value="Toggle State"
+                      @click="ChangePeripheralState(peripheral.peripheralid,peripheral.state)"
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </card>
       </div>
       <!-- /# column -->
       <div class="col-lg-6">
+        <card header-text="Current State">{{trainCurrentState}}</card>
         <card header-text="Speed Control">
           <vue-slider :speedValue="speed">
-            <h4 slot="subheading">{{grabbedTrain}}</h4>
+            <h4 slot="subheading">Grabbed Train Name : {{driverProperties.trainID}}</h4>
             <template slot="transition">
               <v-avatar
                 v-if="isPlaying"
@@ -99,7 +139,7 @@
             </template>
             <template slot="playOrPauseButton">
               <v-btn :color="color" dark depressed fab @click="toggle">
-                <v-icon large>{{ isPlaying ? 'mdi-pause' : 'mdi-play' }}</v-icon>
+                <v-icon large>{{ trainProperties.train_IsPlaying ? 'mdi-stop' : 'mdi-play' }}</v-icon>
               </v-btn>
             </template>
             <template slot="sliderdiv">
@@ -118,24 +158,79 @@
             </template>
           </vue-slider>
         </card>
-        <card header-text="Current State">{{trainCurrentState}}</card>
       </div>
       <!-- /# column -->
     </div>
+    <basix-modal large="true" v-show="showModal">
+      <h4 slot="title">{{driverProperties.trainID}}</h4>
+      <card header-text="Route Request">
+        <div class="card-body card-block">
+          <div class="row form-group">
+            <div class="col col-md-3">
+              <label for="select" class="form-control-label">Select Starting Segment</label>
+            </div>
+            <div class="col col-md-3">
+              <select id="trainList" class="form-control" v-model="selectedTrain">
+                <option
+                  v-for="train in trainsArray"
+                  v-bind:value="train.trainid"
+                  v-bind:key="train.trainid"
+                >{{train.trainid}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col col-md-3">
+              <label for="select" class="form-control-label">Select Ending Segment</label>
+            </div>
+            <div class="col col-md-3">
+              <select id="trainList" class="form-control" v-model="selectedTrain">
+                <option
+                  v-for="train in driverProperties.trainsArray"
+                  v-bind:value="train.trainid"
+                  v-bind:key="train.trainid"
+                >{{train.trainid}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </card>
+      <div slot="footer">
+        <button type="submit" class="btn btn-primary btn-sm" @click="showModal = false">
+          <i class="fa fa-dot-circle-o"></i> Submit
+        </button>
+        <button type="reset" class="btn btn-danger btn-sm" @click="showModal = false">
+          <i class="fa fa-ban"></i> Reset
+        </button>
+      </div>
+    </basix-modal>
   </div>
   <!-- .animated -->
 </template>
 
 <script>
 import Api from "../API";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "trains",
   data() {
     return {
-      sessionID: null,
-      grabID: null,
-      grabbedTrain: null,
+      driverProps: [
+        {
+          grabID: -1,
+          trainID: null,
+          train_PeripheralArray: [],
+          train_RouteRequestArray: []
+        }
+      ],
+      trainProps: [
+        {
+          train_IsPlaying: false,
+          train_Speed: 0
+        }
+      ],
+      showModal: false,
       trainsArray: [],
       selectedTrain: null,
       GrabStatus: null,
@@ -165,16 +260,29 @@ export default {
     },
     animationDuration() {
       return `${20 / this.speed}s`;
-    }
+    },
+    ...mapState({
+      driverProperties: state => state.system.driverProperties,
+      trainProperties: state => state.system.trainProperties
+    })
   },
   created() {},
   mounted() {
+    this.InitialSpeedValueLoad();
     this.GetTrainList();
     this.GetGrabIDAndSessionID();
     this.GetGrabbedTrain();
   },
   methods: {
+    ...mapActions("system", [
+      "updateDriverProps",
+      "updateSession",
+      "updateTrainState"
+    ]),
     /* Component Action starts*/
+    InitialSpeedValueLoad() {
+      this.speed = this.trainProperties.train_Speed;
+    },
     SliderSpeedChange() {
       if (this.isPlaying) this.SetDCCSpeed(this.speed);
     },
@@ -210,10 +318,14 @@ export default {
       this.sessionID = localStorage.getItem("session_id");
       this.grabID = localStorage.getItem("grab_id");
     },
+    AddRouteRequest: function(selection) {
+      this.showModal = true;
+    },
     GrabTrainClicked: function(selection) {
-      if (selection != null) {
-        this.GetGrabIDAndSessionID();
-        this.GetGrabbedTrain();
+      this.GrabTrain(selection);
+      /* if (selection != null) {
+         this.GetGrabIDAndSessionID();
+         this.GetGrabbedTrain();
         if (this.sessionID == "0" && this.grabID == "-1") {
           this.GrabTrain(selection);
         } else {
@@ -221,7 +333,7 @@ export default {
         }
       } else {
         this.TriggerWarningAlert("No train has been selected");
-      }
+      }*/
     },
     UpdatelocalStorage(session_id, grab_id) {
       localStorage.setItem("session_id", session_id);
@@ -277,7 +389,15 @@ export default {
         });
     },
     GrabTrain(trainid) {
-      let formData = new FormData();
+      this.driverProps.grabID = 1;
+      this.driverProps.trainID = "train1";
+      this.driverProps.train_PeripheralArray = this.GetPeripheralList(trainid);
+
+      this.updateDriverProps(this.driverProps);
+
+      //this.GetTrainStatus(trainid);
+      this.TriggerSuccessAlert("Successfully Grabbed : " + trainid);
+      /* let formData = new FormData();
       formData.append("train", trainid);
       Api()
         .post("driver/grab-train", formData)
@@ -296,7 +416,7 @@ export default {
         })
         .catch(e => {
           console.error(e);
-        });
+        });*/
     },
     ReleaseTrain() {
       let formData = new FormData();
@@ -321,7 +441,13 @@ export default {
     },
 
     SetDCCSpeed(spd) {
-      let formData = new FormData();
+      alert(spd);
+      this.trainProps.train_IsPlaying = true;
+      this.trainProps.train_Speed = spd;
+
+      this.updateTrainState(this.trainProps);
+
+      /* let formData = new FormData();
       formData.append("session-id", this.sessionID);
       formData.append("grab-id", this.grabID);
       formData.append("speed", spd);
@@ -331,11 +457,13 @@ export default {
         .then(response => {
           if (response.status == 200) {
             if (spd > 0) {
+
               this.ResponseDataFeedback(
                 response.data,
                 this.grabbedTrain + " running: " + " with speed: " + spd
               );
             } else {
+
               this.ResponseDataFeedback(
                 response.data,
                 "Succesfully stopped: " +
@@ -348,15 +476,16 @@ export default {
         })
         .catch(e => {
           console.error(e);
-        });
+        });*/
     },
     GetPeripheralList(trainid) {
-      /*   this.peripheralArray = {
+      this.peripheralArray = {
         "0": { peripheralid: "light1", state: "on" },
         "1": { peripheralid: "light2", state: "on" },
         "2": { peripheralid: "horn", state: "on" }
-      }; */
-      let formData = new FormData();
+      };
+      return this.peripheralArray;
+      /*   let formData = new FormData();
       formData.append("train", trainid);
       Api()
         .post("monitor/train-peripherals", formData)
@@ -367,7 +496,7 @@ export default {
         })
         .catch(e => {
           console.error(e);
-        });
+        });*/
     },
     ChangePeripheralState(id, stateValue) {
       let formData = new FormData();
@@ -399,7 +528,6 @@ export default {
         .catch(e => {
           console.error(e);
         });
-      this.showModal = true;
     }
     /* Axios request ends*/
   }

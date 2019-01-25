@@ -1,27 +1,42 @@
-import nav from "../nav";
-
-const getDefaultState = () => {
-  return {
-    navigationItems: nav.items
-  };
+const state = {
+  sessionID: 0,
+  driverProperties: [
+    {
+      grabID: -1,
+      trainID: null,
+      train_PeripheralArray: [],
+      train_RouteRequestArray: []
+    }
+  ],
+  trainProperties: [
+    {
+      train_IsPlaying: false,
+      train_Speed: 0
+    }
+  ]
 };
 
-// initial state
-const state = getDefaultState();
-
 const actions = {
-  loadNavForUser({ commit }, user) {
-    commit("loadNavForUserType", user);
+  updateDriverProps({ commit }, driverProperties) {
+    commit("updateDriver", driverProperties);
   },
-  resetStateVuex({ commit }) {
-    commit("resetState");
+  updateSessionID({ commit }, sessionID) {
+    commit("updateSession", sessionID);
+  },
+  updateTrainState({ commit }, trainProperties) {
+    commit("updateTrain", trainProperties);
   }
 };
 
 const mutations = {
-  loadNavForUserType(state, user) {},
-  resetState(state) {
-    Object.assign(state, getDefaultState());
+  updateDriver(state, driverProperties) {
+    state.driverProperties = driverProperties;
+  },
+  updateSession(state, sessionID) {
+    state.sessionID = sessionID;
+  },
+  updateTrain(state, trainProperties) {
+    state.trainProperties = trainProperties;
   }
 };
 
