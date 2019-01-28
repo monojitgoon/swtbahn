@@ -85,7 +85,7 @@ int params_check_state(const char *data_state) {
 void build_response_header(onion_response *res)
 {
 	onion_response_set_header(res, "Access-Control-Allow-Origin", "*");
-	onion_response_set_header(res, "Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	onion_response_set_header(res, "Access-Control-Allow-Headers", "Authorization, Origin, X-Requested-With, Content-Type, Accept");
 	onion_response_set_header(res, "Access-Control-Allow-Methods", "POST, GET, OPTIONS");
 }
 

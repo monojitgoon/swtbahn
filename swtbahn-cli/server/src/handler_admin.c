@@ -95,10 +95,11 @@ onion_connection_status handler_startup(void *_, onion_request *req,
 		retval = OCS_PROCESSED;
 	} else {
 		syslog(LOG_ERR, "Request: Start - BiDiB system is already running");
-		retval = OCS_NOT_IMPLEMENTED;
+		retval = OCS_YIELD;
 	}
 	pthread_mutex_unlock(&start_stop_mutex);
-	return retval;
+    onion_response_printf(res, "%ld", session_id);
+    return retval;
 }
 
 static void *stop_bidib(void *_) {

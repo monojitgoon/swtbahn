@@ -2,22 +2,7 @@
   <div class="animated fadeIn">
     <div class="row">
       <div class="col-md-6">
-        <basix-alert
-          type="success"
-          :withCloseBtn="true"
-          :message="alertSuccessMessage"
-          :show="showSuccessAlert"
-        >
-          <span class="badge badge-pill badge-success">Success</span>
-        </basix-alert>
-        <basix-alert
-          type="warning"
-          :withCloseBtn="true"
-          :message="alertWarningMessage"
-          :show="showWarningAlert"
-        >
-          <span class="badge badge-pill badge-warning">Warning</span>
-        </basix-alert>
+        <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
       </div>
     </div>
     <div class="row">
@@ -31,19 +16,21 @@
               <div class="col col-md-3">
                 <select id="trainList" class="form-control" v-model="selectedTrain">
                   <option
-                    v-for="train in trainsArray"
+                    v-for="train in this.system.train_Array"
                     v-bind:value="train.trainid"
                     v-bind:key="train.trainid"
                   >{{train.trainid}}</option>
                 </select>
               </div>
-              <div class="col col-md-3">
+              <div class="col col-md-2">
                 <input
                   class="btn btn-success"
                   type="submit"
                   value="Grab"
                   @click="GrabTrainClicked(selectedTrain)"
                 >
+              </div>
+              <div class="col col-md-2">
                 <input
                   class="btn btn-outline-success"
                   type="submit"
@@ -101,7 +88,7 @@
               </thead>
               <tbody>
                 <tr
-                  v-for="peripheral in driverProperties.train_PeripheralArray"
+                  v-for="peripheral in this.system.train_PeripheralArray"
                   :key="peripheral.peripheralid"
                 >
                   <td>{{ peripheral.peripheralid }}</td>
@@ -125,7 +112,7 @@
         <card header-text="Current State">{{trainCurrentState}}</card>
         <card header-text="Speed Control">
           <vue-slider :speedValue="speed">
-            <h4 slot="subheading">Grabbed Train Name : {{driverProperties.trainID}}</h4>
+            <h4 slot="subheading">Grabbed Train Name : {{this.system.driverProperties.trainID}}</h4>
             <template slot="transition">
               <v-avatar
                 v-if="isPlaying"
@@ -139,7 +126,7 @@
             </template>
             <template slot="playOrPauseButton">
               <v-btn :color="color" dark depressed fab @click="toggle">
-                <v-icon large>{{ trainProperties.train_IsPlaying ? 'mdi-stop' : 'mdi-play' }}</v-icon>
+                <v-icon large>{{ isPlaying ? 'mdi-stop' : 'mdi-play' }}</v-icon>
               </v-btn>
             </template>
             <template slot="sliderdiv">
@@ -152,7 +139,6 @@
                 @change="SliderSpeedChange"
               >
                 <v-icon slot="prepend" :color="color" @click="decrement">mdi-minus</v-icon>
-
                 <v-icon slot="append" :color="color" @click="increment">mdi-plus</v-icon>
               </v-slider>
             </template>
@@ -161,8 +147,8 @@
       </div>
       <!-- /# column -->
     </div>
-    <basix-modal large="true" v-show="showModal">
-      <h4 slot="title">{{driverProperties.trainID}}</h4>
+    <basix-modal v-show="showModal">
+      <h4 slot="title">{{this.system.driverProperties.trainID}}</h4>
       <card header-text="Route Request">
         <div class="card-body card-block">
           <div class="row form-group">
@@ -172,7 +158,7 @@
             <div class="col col-md-3">
               <select id="trainList" class="form-control" v-model="selectedTrain">
                 <option
-                  v-for="train in trainsArray"
+                  v-for="train in this.system.train_Array"
                   v-bind:value="train.trainid"
                   v-bind:key="train.trainid"
                 >{{train.trainid}}</option>
@@ -184,12 +170,12 @@
               <label for="select" class="form-control-label">Select Ending Segment</label>
             </div>
             <div class="col col-md-3">
-              <select id="trainList" class="form-control" v-model="selectedTrain">
+              <select id="trainList" class="form-control" v-model="selectedSegment">
                 <option
-                  v-for="train in driverProperties.trainsArray"
-                  v-bind:value="train.trainid"
-                  v-bind:key="train.trainid"
-                >{{train.trainid}}</option>
+                  v-for="segment in this.system.segment_Array"
+                  v-bind:value="segment.segmentid"
+                  v-bind:key="segment.segmentid"
+                >{{segment.trainid}}</option>
               </select>
             </div>
           </div>
@@ -213,41 +199,22 @@ import Api from "../API";
 import { mapState, mapActions } from "vuex";
 
 export default {
-  name: "trains",
+  name: "driverboard",
   data() {
     return {
-      driverProps: [
-        {
-          grabID: -1,
-          trainID: null,
-          train_PeripheralArray: [],
-          train_RouteRequestArray: []
-        }
-      ],
-      trainProps: [
-        {
-          train_IsPlaying: false,
-          train_Speed: 0
-        }
-      ],
       showModal: false,
-      trainsArray: [],
       selectedTrain: null,
-      GrabStatus: null,
+      selectedSegment: null,
       speed: 0,
       interval: null,
       isPlaying: false,
-      alertSuccessMessage: null,
-      alertWarningMessage: null,
-      showWarningAlert: false,
-      showSuccessAlert: false,
-      peripheralArray: [],
       trainCurrentState: null
     };
   },
   watch: {
     trainCurrentState(val) {
-      if (val != null) this.GetTrainStatus(this.grabbedTrain);
+      if (val != null)
+        this.GetTrainStatus(this.system.driverProperties.trainID);
     }
   },
   computed: {
@@ -262,26 +229,40 @@ export default {
       return `${20 / this.speed}s`;
     },
     ...mapState({
-      driverProperties: state => state.system.driverProperties,
-      trainProperties: state => state.system.trainProperties
+      system: state => state.system,
+      alert: state => state.alert
     })
   },
   created() {},
   mounted() {
     this.InitialSpeedValueLoad();
-    this.GetTrainList();
-    this.GetGrabIDAndSessionID();
-    this.GetGrabbedTrain();
+    this.GetTrainsArray();
   },
   methods: {
     ...mapActions("system", [
+      "StartServer",
       "updateDriverProps",
-      "updateSession",
+      "updateTrainState",
+      "GetTrainsArray",
+      "GetPeripheralsArray",
+      "updateDriverPropsPostRelease",
+      "updateTrainProps",
+      "updatePeripheralState",
       "updateTrainState"
     ]),
+    ...mapActions("alert", ["error"]),
     /* Component Action starts*/
     InitialSpeedValueLoad() {
-      this.speed = this.trainProperties.train_Speed;
+      if (
+        Number.isNaN(this.system.trainProperties.train_Speed) ||
+        this.system.trainProperties.train_Speed > 0
+      ) {
+        this.speed = this.system.trainProperties.train_Speed;
+        this.isPlaying = this.system.trainProperties.train_IsPlaying;
+      } else {
+        this.speed = 0;
+        this.isPlaying = false;
+      }
     },
     SliderSpeedChange() {
       if (this.isPlaying) this.SetDCCSpeed(this.speed);
@@ -311,225 +292,66 @@ export default {
     },
     /* Component Action ends*/
     /* Method starts*/
-    GetGrabbedTrain() {
-      this.grabbedTrain = localStorage.getItem("grab_train");
-    },
-    GetGrabIDAndSessionID() {
-      this.sessionID = localStorage.getItem("session_id");
-      this.grabID = localStorage.getItem("grab_id");
-    },
     AddRouteRequest: function(selection) {
       this.showModal = true;
     },
     GrabTrainClicked: function(selection) {
-      this.GrabTrain(selection);
-      /* if (selection != null) {
-         this.GetGrabIDAndSessionID();
-         this.GetGrabbedTrain();
-        if (this.sessionID == "0" && this.grabID == "-1") {
-          this.GrabTrain(selection);
-        } else {
-          this.TriggerWarningAlert("You can only grab one train!");
+      if (this.system.driverProperties.grabID === -1) {
+        if (this.system.sessionID === 0) {
+          this.StartServer();
         }
-      } else {
-        this.TriggerWarningAlert("No train has been selected");
-      }*/
-    },
-    UpdatelocalStorage(session_id, grab_id) {
-      localStorage.setItem("session_id", session_id);
-      localStorage.setItem("grab_id", grab_id);
-      this.GetGrabIDAndSessionID();
-      this.GetGrabbedTrain();
-    },
-    UpdateGrabbedTrainInLocalStorage(grab_train) {
-      localStorage.setItem("grab_train", grab_train);
-    },
-    ResponseDataFeedback(response_data, success_msg) {
-      if (response_data == "invalid session id") {
-        this.UpdatelocalStorage(0, -1);
-        this.TriggerWarningAlert("Session id was not valid anymore");
-      } else if (response_data == "invalid grab id") {
-        this.UpdatelocalStorage(0, -1);
-        this.TriggerWarningAlert("Grab id was not valid");
-      } else this.TriggerSuccessAlert(success_msg);
-    },
-    TriggerSuccessAlert: function(msg) {
-      this.showSuccessAlert = true;
-      this.alertSuccessMessage = msg;
-      setTimeout(
-        function() {
-          this.showSuccessAlert = false;
-        }.bind(this),
-        2000
-      );
-    },
-    TriggerWarningAlert: function(msg) {
-      this.showWarningAlert = true;
-      this.alertWarningMessage = msg;
-      setTimeout(
-        function() {
-          this.showWarningAlert = false;
-        }.bind(this),
-        2000
-      );
-    },
-    /* Method ends*/
-    /* Axios request starts*/
-    GetTrainList() {
-      this.trainsArray = { "0": { trainid: "train1", grabbed: "yes" } };
-      Api()
-        .post("monitor/trains")
-        .then(response => {
-          if (response.status == 200) {
-            this.trainsArray = response.data;
-          }
-        })
-        .catch(e => {
-          console.error(e);
-        });
-    },
-    GrabTrain(trainid) {
-      this.driverProps.grabID = 1;
-      this.driverProps.trainID = "train1";
-      this.driverProps.train_PeripheralArray = this.GetPeripheralList(trainid);
-
-      this.updateDriverProps(this.driverProps);
-
-      //this.GetTrainStatus(trainid);
-      this.TriggerSuccessAlert("Successfully Grabbed : " + trainid);
-      /* let formData = new FormData();
-      formData.append("train", trainid);
-      Api()
-        .post("driver/grab-train", formData)
-        .then(response => {
-          if (response.status == 200) {
-            this.grabbedTrain = trainid;
-            this.UpdatelocalStorage(
-              response.data.split(",")[0],
-              response.data.split(",")[1]
-            );
-            this.UpdateGrabbedTrainInLocalStorage(trainid);
-            this.GetPeripheralList(trainid);
-            this.GetTrainStatus(trainid);
-            this.TriggerSuccessAlert("Successfully Grabbed : " + trainid);
-          }
-        })
-        .catch(e => {
-          console.error(e);
-        });*/
+        this.updateDriverProps(selection);
+        this.GetPeripheralsArray(selection);
+        this.updateTrainState(selection);
+      } else this.error("You can only grab one train!");
     },
     ReleaseTrain() {
-      let formData = new FormData();
-      formData.append("session-id", this.sessionID);
-      formData.append("grab-id", this.grabID);
-      Api()
-        .post("driver/release-train", formData)
-        .then(response => {
-          if (response.status == 200) {
-            this.UpdatelocalStorage(0, -1);
-            this.ResponseDataFeedback(
-              response.data,
-              "Succesfully released train :  " + this.grabbedTrain
-            );
-            this.UpdateGrabbedTrainInLocalStorage("");
-            this.ForceStop();
-          }
-        })
-        .catch(e => {
-          console.error(e);
-        });
+      if (this.system.sessionID != 0) {
+        if (this.system.driverProperties.grabID === -1)
+          this.error("There is no train grabbed yet!");
+        else {
+          this.updateDriverPropsPostRelease({
+            sessionid: this.system.sessionID,
+            grabid: this.system.driverProperties.grabID
+          });
+          this.ForceStop();
+        }
+      } else {
+        this.error("Server Session is not valid anymore!");
+      }
     },
-
     SetDCCSpeed(spd) {
-      alert(spd);
-      this.trainProps.train_IsPlaying = true;
-      this.trainProps.train_Speed = spd;
-
-      this.updateTrainState(this.trainProps);
-
-      /* let formData = new FormData();
-      formData.append("session-id", this.sessionID);
-      formData.append("grab-id", this.grabID);
-      formData.append("speed", spd);
-      formData.append("track-output", "master");
-      Api()
-        .post("driver/set-dcc-train-speed", formData)
-        .then(response => {
-          if (response.status == 200) {
-            if (spd > 0) {
-
-              this.ResponseDataFeedback(
-                response.data,
-                this.grabbedTrain + " running: " + " with speed: " + spd
-              );
-            } else {
-
-              this.ResponseDataFeedback(
-                response.data,
-                "Succesfully stopped: " +
-                  this.grabbedTrain +
-                  " with speed:" +
-                  spd
-              );
-            }
-          }
-        })
-        .catch(e => {
-          console.error(e);
-        });*/
-    },
-    GetPeripheralList(trainid) {
-      this.peripheralArray = {
-        "0": { peripheralid: "light1", state: "on" },
-        "1": { peripheralid: "light2", state: "on" },
-        "2": { peripheralid: "horn", state: "on" }
-      };
-      return this.peripheralArray;
-      /*   let formData = new FormData();
-      formData.append("train", trainid);
-      Api()
-        .post("monitor/train-peripherals", formData)
-        .then(response => {
-          if (response.status == 200) {
-            this.peripheralArray = response.data;
-          }
-        })
-        .catch(e => {
-          console.error(e);
-        });*/
+      if (this.system.sessionID != 0) {
+        if (this.system.driverProperties.grabID === -1)
+          this.error("There is no train grabbed yet!");
+        else {
+          this.updateTrainProps({
+            sessionid: this.system.sessionID,
+            grabid: this.system.driverProperties.grabID,
+            speed: spd
+          });
+        }
+      } else {
+        this.error("Server Session is not valid anymore!");
+      }
     },
     ChangePeripheralState(id, stateValue) {
-      let formData = new FormData();
-      formData.append("session-id", this.sessionID);
-      formData.append("grab-id", this.grabID);
-      formData.append("peripheral", id);
-      formData.append("state", stateValue == "on" ? "off" : "on");
-      formData.append("track-output", "master");
-
-      Api()
-        .post("driver/set-train-peripheral", formData)
-        .then(response => {
-          if (response.status == 200) {
-            this.GetPeripheralList(this.grabbedTrain);
-          }
-        })
-        .catch(e => {
-          console.error(e);
-        });
-    },
-    GetTrainStatus: function(trainid) {
-      let formData = new FormData();
-      formData.append("train", trainid);
-      Api()
-        .post("monitor/train-state", formData)
-        .then(response => {
-          this.trainCurrentState = response.data;
-        })
-        .catch(e => {
-          console.error(e);
-        });
+      if (this.system.sessionID != 0) {
+        if (this.system.driverProperties.grabID === -1)
+          this.error("There is no train grabbed yet!");
+        else {
+          this.updatePeripheralState({
+            sessionid: this.system.sessionID,
+            grabid: this.system.driverProperties.grabID,
+            peripheralid: id,
+            peripheralstate: stateValue == "on" ? "off" : "on",
+            trainid: this.system.driverProperties.trainID
+          });
+        }
+      } else {
+        this.error("Server Session is not valid anymore!");
+      }
     }
-    /* Axios request ends*/
   }
 };
 </script>
