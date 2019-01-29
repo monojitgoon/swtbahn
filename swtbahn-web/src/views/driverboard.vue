@@ -47,7 +47,7 @@
               class="btn btn-info pull-right"
               type="submit"
               value="Add Route Request"
-              @click="AddRouteRequest(selectedTrain)"
+              @click="AddRouteRequest"
             >
           </div>
           <div class="table-responsive">
@@ -60,17 +60,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="peripheral in peripheralArray" :key="peripheral.peripheralid">
-                  <td>{{ peripheral.peripheralid }}</td>
-                  <td>{{ peripheral.state }}</td>
-                  <td>
-                    <input
-                      class="btn btn-warning"
-                      type="submit"
-                      value="Toggle State"
-                      @click="ChangePeripheralState(peripheral.peripheralid,peripheral.state)"
-                    >
-                  </td>
+                <tr
+                  v-for="routerequest in this.system.train_RouteRequestArray"
+                  :key="routerequest.trainid"
+                >
+                  <td>{{ routerequest.trainid }}</td>
+                  <td>{{ routerequest.startingsegment }}</td>
+                  <td>{{ routerequest.endingsegment }}</td>
                 </tr>
               </tbody>
             </table>
@@ -109,7 +105,7 @@
       </div>
       <!-- /# column -->
       <div class="col-lg-6">
-        <card header-text="Current State">{{trainCurrentState}}</card>
+        <card header-text="Current State">{{this.system.trainCurrentState}}</card>
         <card header-text="Speed Control">
           <vue-slider :speedValue="speed">
             <h4 slot="subheading">Grabbed Train Name : {{this.system.driverProperties.trainID}}</h4>
@@ -148,47 +144,74 @@
       <!-- /# column -->
     </div>
     <basix-modal v-show="showModal">
-      <h4 slot="title">{{this.system.driverProperties.trainID}}</h4>
-      <card header-text="Route Request">
-        <div class="card-body card-block">
-          <div class="row form-group">
-            <div class="col col-md-3">
-              <label for="select" class="form-control-label">Select Starting Segment</label>
-            </div>
-            <div class="col col-md-3">
-              <select id="trainList" class="form-control" v-model="selectedTrain">
-                <option
-                  v-for="train in this.system.train_Array"
-                  v-bind:value="train.trainid"
-                  v-bind:key="train.trainid"
-                >{{train.trainid}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="row form-group">
-            <div class="col col-md-3">
-              <label for="select" class="form-control-label">Select Ending Segment</label>
-            </div>
-            <div class="col col-md-3">
-              <select id="trainList" class="form-control" v-model="selectedSegment">
+      <h4 slot="title">Grabbed Train Name :{{this.system.driverProperties.trainID}}</h4>
+
+      <form @submit.prevent="handleSubmit">
+        <card header-text="Route Request">
+          <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="fa fa-puzzle-piece"></i>
+              </div>
+              <select
+                name="startingsegment"
+                class="form-control"
+                v-model="routerequest.startingsegment"
+                v-validate="'required'"
+                :class="{ 'is-invalid': submitted && errors.has('startingsegment') }"
+              >
+                <option value>Select Starting Segment</option>
                 <option
                   v-for="segment in this.system.segment_Array"
                   v-bind:value="segment.segmentid"
                   v-bind:key="segment.segmentid"
-                >{{segment.trainid}}</option>
+                >{{segment.segmentid}}</option>
               </select>
+
+              <div
+                v-if="submitted && errors.has('startingsegment')"
+                class="invalid-feedback"
+              >{{ errors.first('startingsegment') }}</div>
             </div>
           </div>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="fa fa-puzzle-piece"></i>
+              </div>
+              <select
+                name="endingsegment"
+                class="form-control"
+                v-model="routerequest.endingsegment"
+                v-validate="'required'"
+                :class="{ 'is-invalid': submitted && errors.has('endingsegment') }"
+              >
+                <option value>Select Ending Segment</option>
+                <option
+                  v-for="segment in this.system.segment_Array"
+                  v-bind:value="segment.segmentid"
+                  v-bind:key="segment.segmentid"
+                >{{segment.segmentid}}</option>
+              </select>
+
+              <div
+                v-if="submitted && errors.has('endingsegment')"
+                class="invalid-feedback"
+              >{{ errors.first('endingsegment') }}</div>
+            </div>
+          </div>
+        </card>
+        <div class="form-actions form-group">
+          <button type="submit" class="btn btn-primary btn-sm" @click="showModal = false">
+            <i class="fa fa-dot-circle-o"></i> Submit
+          </button>
+          <button type="reset" class="btn btn-danger btn-sm" @click="showModal = false">
+            <i class="fa fa-ban"></i> Close
+          </button>
         </div>
-      </card>
-      <div slot="footer">
-        <button type="submit" class="btn btn-primary btn-sm" @click="showModal = false">
-          <i class="fa fa-dot-circle-o"></i> Submit
-        </button>
-        <button type="reset" class="btn btn-danger btn-sm" @click="showModal = false">
-          <i class="fa fa-ban"></i> Reset
-        </button>
-      </div>
+      </form>
+      <div slot="footer" v-show="false"></div>
     </basix-modal>
   </div>
   <!-- .animated -->
@@ -202,20 +225,18 @@ export default {
   name: "driverboard",
   data() {
     return {
+      routerequest: {
+        startingsegment: "",
+        endingsegment: ""
+      },
+      submitted: false,
       showModal: false,
       selectedTrain: null,
-      selectedSegment: null,
+
       speed: 0,
       interval: null,
-      isPlaying: false,
-      trainCurrentState: null
+      isPlaying: false
     };
-  },
-  watch: {
-    trainCurrentState(val) {
-      if (val != null)
-        this.GetTrainStatus(this.system.driverProperties.trainID);
-    }
   },
   computed: {
     color() {
@@ -237,20 +258,46 @@ export default {
   mounted() {
     this.InitialSpeedValueLoad();
     this.GetTrainsArray();
+    this.GetSegmentsArray();
+    this.RequestForTrainState(this.system.driverProperties.trainID);
+  },
+  beforeDestroy() {
+    clearInterval(this.system.RequestInterval);
   },
   methods: {
     ...mapActions("system", [
       "StartServer",
       "updateDriverProps",
-      "updateTrainState",
       "GetTrainsArray",
+      "GetSegmentsArray",
       "GetPeripheralsArray",
       "updateDriverPropsPostRelease",
       "updateTrainProps",
       "updatePeripheralState",
-      "updateTrainState"
+      "updateTrainState",
+      "registerRouteRequest"
     ]),
-    ...mapActions("alert", ["error"]),
+    ...mapActions("alert", ["error", "clear"]),
+    handleSubmit(e) {
+      if (this.system.sessionID != 0) {
+        if (this.system.driverProperties.grabID === -1)
+          this.error("There is no train grabbed yet!");
+        else {
+          this.submitted = true;
+          this.$validator.validate().then(valid => {
+            if (valid) {
+              this.registerRouteRequest({
+                sessionid: this.system.sessionID,
+                grabid: this.system.driverProperties.grabID,
+                routerequest: this.routerequest
+              });
+            }
+          });
+        }
+      } else {
+        this.error("Server Session is not valid anymore!");
+      }
+    },
     /* Component Action starts*/
     InitialSpeedValueLoad() {
       if (
@@ -292,8 +339,10 @@ export default {
     },
     /* Component Action ends*/
     /* Method starts*/
-    AddRouteRequest: function(selection) {
-      this.showModal = true;
+    AddRouteRequest: function() {
+      this.clear();
+      if (this.system.driverProperties.trainID != null) this.showModal = true;
+      else this.error("No train is grabbed yet!");
     },
     GrabTrainClicked: function(selection) {
       if (this.system.driverProperties.grabID === -1) {
@@ -302,7 +351,7 @@ export default {
         }
         this.updateDriverProps(selection);
         this.GetPeripheralsArray(selection);
-        this.updateTrainState(selection);
+        this.RequestForTrainState(selection);
       } else this.error("You can only grab one train!");
     },
     ReleaseTrain() {
@@ -350,6 +399,14 @@ export default {
         }
       } else {
         this.error("Server Session is not valid anymore!");
+      }
+    },
+    RequestForTrainState(trainid) {
+      if (trainid != null) {
+        this.updateTrainState(trainid);
+        /*   this.system.RequestInterval = setInterval(() => {
+          this.updateTrainState(trainid);
+        }, 1000);*/
       }
     }
   }

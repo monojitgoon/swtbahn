@@ -20,6 +20,7 @@ function initialState() {
     segment_Array: {},
     train_PeripheralArray: {},
     train_RouteRequestArray: {},
+    RequestInterval: 1000,
     status: {}
   };
 }
@@ -252,6 +253,24 @@ const actions = {
       .catch(e => {
         console.error(e);
       });
+  },
+  registerRouteRequest({ dispatch }, { sessionid, grabid, routerequest }) {
+    let formData = new FormData();
+    formData.append("session-id", sessionid);
+    formData.append("grab-id", grabid);
+    formData.append("startingsegment", routerequest.startingsegment);
+    formData.append("endingsegment", routerequest.endingsegment);
+    Api()
+      .post("driver/set-route-request", formData)
+      .then(response => {
+        if (response.status == 200) {
+          alert(true);
+          //dispatch("updateRouteRequestArray", routerequest);
+        }
+      })
+      .catch(e => {
+        console.error(e);
+      });
   }
 };
 
@@ -291,6 +310,9 @@ const mutations = {
   },
   updatePeripheralsArray(state, peripheralarray) {
     state.train_PeripheralArray = peripheralarray;
+  },
+  updateRouteRequestArray(state, routeRequestArray) {
+    state.train_RouteRequestArray = routeRequestArray;
   },
   grabFailure(state, error) {
     state.status = {};
