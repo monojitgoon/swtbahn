@@ -9,6 +9,7 @@ import { index } from "./components/index";
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import "@mdi/font/css/materialdesignicons.css";
+import SVG from "svg.js";
 
 Vue.use(Vuetify);
 Vue.use(VeeValidate);
@@ -21,6 +22,7 @@ export const router = new VueRouter({
   mode: "hash",
   routes,
   index,
+  SVG,
   linkActiveClass: "open active",
   scrollBehavior: () => ({ y: 0 })
 });

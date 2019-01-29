@@ -1,8 +1,28 @@
 <template>
   <div class="col-xs-12 col-md-12">
     <card header-text="Trackboard">
+      <input class="btn btn-success" type="submit" value="Start SVG" @click="Svghandler">
       <div class="card-body card-block">
-        <svg viewBox="0 0 700 300" style="border: black solid; border-style: dotted">>
+        <svg
+          id="track-master"
+          viewBox="0 0 700 300"
+          style="border: black solid; border-style: dotted"
+        >
+          <marker
+            id="triangle"
+            viewBox="0 0 10 10"
+            refX="1"
+            refY="5"
+            markerUnits="strokeWidth"
+            markerWidth="3"
+            markerHeight="3"
+            orient="auto"
+          >
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#f00"></path>
+          </marker>
+          <defs>
+            <circle id="circleid" cx="10" cy="10" r="10"></circle>
+          </defs>
           <g>
             <!-- vertical -->
             <path stroke="green" stroke-width=".2" d="M10 0 V300"></path>
@@ -20,7 +40,6 @@
             <path stroke="green" stroke-width=".2" d="M120 0 V300"></path>
             <path stroke="green" stroke-width=".2" d="M130 0 V300"></path>
             <path stroke="green" stroke-width=".2" d="M140 0 V300"></path>
-            <path stroke="green" stroke-width=".2" d="M150 0 V300"></path>
             <path stroke="green" stroke-width=".2" d="M150 0 V300"></path>
             <path stroke="green" stroke-width=".2" d="M160 0 V300"></path>
             <path stroke="green" stroke-width=".2" d="M170 0 V300"></path>
@@ -109,11 +128,85 @@
             <path stroke="green" stroke-width=".2" d="M0 280 H700"></path>
             <path stroke="green" stroke-width=".2" d="M0 290 H700"></path>
             <path stroke="green" stroke-width=".2" d="M0 300 H700"></path>
-
-            <!-- Track -->
-            <path stroke="black" stroke-width="1" fill="none" d="M250 20 H100 V0"></path>
-            <path stroke="black" stroke-width="1" fill="none" d="M250 20 H100 V0 L60 20"></path>
           </g>
+
+          <!-- Track -->
+          <path
+            id="seg10"
+            stroke="black"
+            stroke-width="3"
+            stroke-linecap="round"
+            fill="none"
+            d="M150 280 H150 C150 280 -80 160 150 20  H220 "
+            marker-end="url(#triangle)"
+          ></path>
+
+          <path
+            id="seg9"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M220 20 H280"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg8"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M280 20 H340"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg7"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M340 20 H400"
+            marker-end="url(#triangle)"
+          ></path>
+
+          <path
+            id="seg6"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M400 20 H540 C540 20 640 50 650 80"
+            marker-end="url(#triangle)"
+          ></path>
+
+          <path
+            id="seg5"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M650 80 C650 80 655 80 660 120"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg5"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M650 80 C650 80 655 80 660 120"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg4"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M660 120 C660 120 660 180 640 200"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg3"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M640 200 C640 200 660 200 600 270"
+            marker-end="url(#triangle)"
+          ></path>
         </svg>
       </div>
     </card>
@@ -123,6 +216,25 @@
 <script>
 export default {
   name: "trackpanel",
-  components: {}
+  components: {},
+  methods: {
+    Svghandler() {
+      var seg = document.getElementById("seg10").getAttribute("d");
+      var canvas = SVG("track-master"),
+        trainobj = canvas.image("../favicon.ico", 20, 20),
+        path = canvas.path(seg),
+        length = path.length();
+
+      path.fill("none").stroke({ width: 1, color: "#ccc" });
+
+      trainobj
+        .animate(5000, ">")
+        .during(function(pos, morph, eased) {
+          var p = path.pointAt(eased * length);
+          trainobj.center(p.x - 10, p.y - 10);
+        })
+        .once(true);
+    }
+  }
 };
 </script>
