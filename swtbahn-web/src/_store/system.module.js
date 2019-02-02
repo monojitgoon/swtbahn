@@ -5,29 +5,18 @@ function initialState() {
   return {
     /* .. initial state ... */
     sessionID: 0,
-    driverProperties: {
-      grabID: -1,
-      trainID: null
-    },
-    trainProperties: {
-      train_IsPlaying: false,
-      train_Speed: 0
-    },
-    trainCurrentState: null,
-    train_Array: {},
-    signal_Array: {},
-    point_Array: {},
-    segment_Array: {},
-    train_PeripheralArray: {},
-    train_RouteRequestArray: {},
-    RequestInterval: 1000,
-    status: {}
+    driverProperties: { grabID: -1, trainID: null },
+    trainProperties: { train_IsPlaying: false, train_Speed: 0 },
+    trainPeripheralArray: {},
+    trainRouteRequestArray: {},
+    systemRequestInterval: 0
   };
 }
 
 const state = initialState;
 
 const actions = {
+  //start server...
   StartServer({ dispatch, commit }) {
     Api()
       .post("admin/startup")
@@ -70,54 +59,7 @@ const actions = {
         console.error(e);
       });
   },
-  GetTrainsArray({ commit }) {
-    Api()
-      .post("monitor/trains")
-      .then(response => {
-        if (response.status == 200) {
-          commit("updateTrainsArray", response.data);
-        }
-      })
-      .catch(e => {
-        console.error(e);
-      });
-  },
-  GetPointsArray({ commit }) {
-    Api()
-      .post("monitor/points")
-      .then(response => {
-        if (response.status == 200) {
-          commit("updatePointsArray", response.data);
-        }
-      })
-      .catch(e => {
-        console.error(e);
-      });
-  },
-  GetSegmentsArray({ commit }) {
-    Api()
-      .post("monitor/segments")
-      .then(response => {
-        if (response.status == 200) {
-          commit("updateSegmentsArray", response.data);
-        }
-      })
-      .catch(e => {
-        console.error(e);
-      });
-  },
-  GetSignalsArray({ commit }) {
-    Api()
-      .post("monitor/signals")
-      .then(response => {
-        if (response.status == 200) {
-          commit("updateSignalsArray", response.data);
-        }
-      })
-      .catch(e => {
-        console.error(e);
-      });
-  },
+
   updateDriverProps({ dispatch, commit }, trainid) {
     if (trainid != null) {
       let formData = new FormData();
@@ -136,16 +78,7 @@ const actions = {
           }
         })
         .catch(e => {
-          commit("grabFailure", e);
-          dispatch("alert/error", e, {
-            root: true
-          });
-          setTimeout(
-            function() {
-              dispatch("alert/clear", e, { root: true });
-            }.bind(this),
-            2000
-          );
+          console.error(e);
         });
     } else {
       dispatch("alert/error", "No train has been selected", {
@@ -240,20 +173,22 @@ const actions = {
         console.error(e);
       });
   },
-  updateTrainState({ commit }, trainid) {
+
+  getSingleRouteRequest({ commit }, grabid) {
     let formData = new FormData();
-    formData.append("train", trainid);
+    formData.append("grab-id", grabid);
     Api()
-      .post("monitor/train-state", formData)
+      .post("driver/get-route-request", formData)
       .then(response => {
         if (response.status == 200) {
-          commit("updateTrainState", response.data);
+          commit("updateSingleRouteRequestArray", response.data);
         }
       })
       .catch(e => {
         console.error(e);
       });
   },
+
   registerRouteRequest({ dispatch }, { sessionid, grabid, routerequest }) {
     let formData = new FormData();
     formData.append("session-id", sessionid);
@@ -264,8 +199,7 @@ const actions = {
       .post("driver/set-route-request", formData)
       .then(response => {
         if (response.status == 200) {
-          alert(true);
-          //dispatch("updateRouteRequestArray", routerequest);
+          dispatch("getSingleRouteRequest", grabid);
         }
       })
       .catch(e => {
@@ -290,32 +224,14 @@ const mutations = {
     state.trainProperties.train_IsPlaying = isplaying;
     state.trainProperties.train_Speed = trainspeed;
   },
-  updateTrainState(state, trainstate) {
-    state.trainCurrentState = trainstate;
-  },
   updateSession(state, sessionid) {
     state.sessionID = sessionid;
   },
-  updateTrainsArray(state, trainarray) {
-    state.train_Array = trainarray;
-  },
-  updatePointsArray(state, pointarray) {
-    state.point_Array = pointarray;
-  },
-  updateSegmentsArray(state, segmentarray) {
-    state.segment_Array = segmentarray;
-  },
-  updateSignalsArray(state, signalarray) {
-    state.signal_Array = signalarray;
-  },
   updatePeripheralsArray(state, peripheralarray) {
-    state.train_PeripheralArray = peripheralarray;
+    state.trainPeripheralArray = peripheralarray;
   },
-  updateRouteRequestArray(state, routeRequestArray) {
-    state.train_RouteRequestArray = routeRequestArray;
-  },
-  grabFailure(state, error) {
-    state.status = {};
+  updateSingleRouteRequestArray(state, routeRequestArray) {
+    state.trainRouteRequestArray = routeRequestArray;
   }
 };
 

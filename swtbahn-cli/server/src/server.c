@@ -120,7 +120,10 @@ int main(int argc, char **argv) {
 	              handler_set_train_emergency_stop);
 	onion_url_add(urls, "driver/set-train-peripheral",
 	              handler_set_train_peripheral);
-
+	onion_url_add(urls, "driver/set-route-request",
+				  handler_set_route_request);
+	onion_url_add(urls, "driver/get-route-request",
+				  handler_get_route_request);
 	// --- monitor functions ---
 	onion_url_add(urls, "monitor/trains", handler_get_trains);
 	onion_url_add(urls, "monitor/train-state", handler_get_train_state);

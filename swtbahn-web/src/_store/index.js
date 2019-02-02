@@ -5,6 +5,8 @@ import { alert } from "./alert.module";
 import { account } from "./account.module";
 import { users } from "./users.module";
 import { system } from "./system.module";
+import { monitor } from "./monitor.module";
+import { controller } from "./controller.module";
 
 Vue.use(Vuex);
 
@@ -13,6 +15,8 @@ export const store = new Vuex.Store({
     alert,
     account,
     users,
-    system
+    system,
+    monitor,
+    controller
   }
 });

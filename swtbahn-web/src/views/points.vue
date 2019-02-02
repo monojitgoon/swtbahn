@@ -12,7 +12,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="point in pointsArray" :key="point.pointid">
+              <tr v-for="point in this.monitor.pointArray" :key="point.pointid">
                 <td>{{ point.pointid }}</td>
                 <td>{{ point.state }}</td>
                 <td></td>
@@ -26,32 +26,28 @@
 </template>
 
 <script>
-import Api from "../API";
+import { mapState, mapActions } from "vuex";
+import appConfig from "../../config/appConfig";
 
 export default {
   name: "points",
   components: {},
-  data() {
-    return {
-      pointsArray: []
-    };
+  computed: {
+    ...mapState({
+      monitor: state => state.monitor
+    })
   },
   mounted() {
-    this.GetPointList();
+    this.GetPointsArray();
+    this.monitor.monitorRequestInterval = setInterval(() => {
+      this.GetPointsArray();
+    }, appConfig.monitor_point_RequestInterval);
   },
   methods: {
-    GetPointList() {
-      Api()
-        .post("monitor/points")
-        .then(response => {
-          if (response.status == 200) {
-            this.pointsArray = response.data;
-          }
-        })
-        .catch(e => {
-          console.error(e);
-        });
-    }
+    ...mapActions("monitor", ["GetPointsArray"])
+  },
+  beforeDestroy() {
+    clearInterval(this.monitor.monitorRequestInterval);
   }
 };
 </script>

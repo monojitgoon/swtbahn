@@ -82,22 +82,22 @@ onion_connection_status handler_get_train_state(void *_, onion_request *req,
 		} else {
 			t_bidib_train_state_query train_state =
 				bidib_get_train_state(data_train);
+            onion_dict *dict = onion_dict_new();
+            char *temp = malloc(6);
+            sprintf(temp, "%d", train_state.data.set_speed_step);
 			if (train_state.known) {
-				GString *ret_string = g_string_new("");
-				g_string_append_printf(ret_string, "on track: %s - direction: %s"
-				                       " - speed step: %d",
-				                       train_state.data.on_track ? "yes" : "no",
-				                       train_state.data.direction ==
-				                       BIDIB_TRAIN_DIRECTION_FORWARD ?
-				                       "forward" : "backward",
-				                       train_state.data.set_speed_step);
-				bidib_free_train_state_query(train_state);
-				char response[ret_string->len + 1];
-				strcpy(response, ret_string->str);
-				g_string_free(ret_string, true);
-				onion_response_printf(res, response);
+                onion_dict *subd = onion_dict_new();
+
+                onion_dict_add(subd, "ontrack", train_state.data.on_track ? "yes" : "no", 0);
+                onion_dict_add(subd, "direction",train_state.data.direction ==
+                                                 BIDIB_TRAIN_DIRECTION_FORWARD ?
+                                                 "forward" : "backward", 0);
+                onion_dict_add(subd, "dccspeed", temp , 0);
+                onion_dict_add(dict, "0", subd, OD_DICT | OD_FREE_VALUE);
+                bidib_free_train_state_query(train_state);
+
 				syslog(LOG_NOTICE, "Request: Get train state");
-				return OCS_PROCESSED;
+                return onion_shortcut_response_json(dict, req, res);
 			} else {
 				syslog(LOG_ERR, "Request: Get train train state - invalid train");
 				return OCS_NOT_IMPLEMENTED;
@@ -131,11 +131,11 @@ onion_connection_status handler_get_train_peripherals(void *_, onion_request *re
 
                     char *id = malloc(6);
                     sprintf(id, "%d", i);
-                    onion_dict *subd = onion_dict_new();
+                    onion_dict *peripheral_dict = onion_dict_new();
 
-                    onion_dict_add(subd, "peripheralid", convertme(query.ids[i]), 0);
-                    onion_dict_add(subd, "state",per_state.state == 1 ? "on" : "off", 0);
-                    onion_dict_add(dict, id, subd, OD_DICT | OD_FREE_VALUE);
+                    onion_dict_add(peripheral_dict, "peripheral_id", convertme(query.ids[i]), 0);
+                    onion_dict_add(peripheral_dict, "state", per_state.state == 1 ? "on" : "off", 0);
+                    onion_dict_add(dict, id, peripheral_dict, OD_DICT | OD_FREE_VALUE);
 				}
 				bidib_free_id_list_query(query);
                 syslog(LOG_NOTICE, "Request: Get train peripherals");

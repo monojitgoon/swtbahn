@@ -16,7 +16,7 @@
               <div class="col col-md-3">
                 <select id="trainList" class="form-control" v-model="selectedTrain">
                   <option
-                    v-for="train in this.system.train_Array"
+                    v-for="train in this.monitor.trainArray"
                     v-bind:value="train.trainid"
                     v-bind:key="train.trainid"
                   >{{train.trainid}}</option>
@@ -57,16 +57,18 @@
                   <td>Train Name</td>
                   <td>Starting Segment</td>
                   <td>Ending Segment</td>
+                  <td>Status</td>
                 </tr>
               </thead>
               <tbody>
                 <tr
-                  v-for="routerequest in this.system.train_RouteRequestArray"
+                  v-for="routerequest in this.system.trainRouteRequestArray"
                   :key="routerequest.trainid"
                 >
                   <td>{{ routerequest.trainid }}</td>
                   <td>{{ routerequest.startingsegment }}</td>
                   <td>{{ routerequest.endingsegment }}</td>
+                  <td>{{ routerequest.status }}</td>
                 </tr>
               </tbody>
             </table>
@@ -84,7 +86,7 @@
               </thead>
               <tbody>
                 <tr
-                  v-for="peripheral in this.system.train_PeripheralArray"
+                  v-for="peripheral in this.system.trainPeripheralArray"
                   :key="peripheral.peripheralid"
                 >
                   <td>{{ peripheral.peripheralid }}</td>
@@ -105,10 +107,42 @@
       </div>
       <!-- /# column -->
       <div class="col-lg-6">
-        <card header-text="Current State">{{this.system.trainCurrentState}}</card>
+        <aside class="profile-nav alt">
+          <section class="card">
+            <ul
+              class="list-group list-group-flush"
+              v-for="trainState in this.monitor.trainstateArray"
+              v-bind:value="trainState.ontrack"
+              v-bind:key="trainState.ontrack"
+            >
+              <li class="list-group-item">
+                <a href="#">
+                  <i class="fa fa-train"></i> Currently OnTrack
+                  <span
+                    class="badge badge-primary pull-right"
+                  >{{trainState.ontrack}}</span>
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="#">
+                  <i class="fa fa-train"></i> Current Direction
+                  <span
+                    class="badge badge-danger pull-right"
+                  >{{trainState.direction}}</span>
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="#">
+                  <i class="fa fa-train"></i> Current Speed
+                  <span class="badge badge-success pull-right">{{trainState.dccspeed}}</span>
+                </a>
+              </li>
+            </ul>
+          </section>
+        </aside>
         <card header-text="Speed Control">
           <vue-slider :speedValue="speed">
-            <h4 slot="subheading">Grabbed Train Name : {{this.system.driverProperties.trainID}}</h4>
+            <h4 slot="subheading">Grabbed Train : {{this.system.driverProperties.trainID}}</h4>
             <template slot="transition">
               <v-avatar
                 v-if="isPlaying"
@@ -163,7 +197,7 @@
               >
                 <option value>Select Starting Segment</option>
                 <option
-                  v-for="segment in this.system.segment_Array"
+                  v-for="segment in this.monitor.segmentArray"
                   v-bind:value="segment.segmentid"
                   v-bind:key="segment.segmentid"
                 >{{segment.segmentid}}</option>
@@ -189,7 +223,7 @@
               >
                 <option value>Select Ending Segment</option>
                 <option
-                  v-for="segment in this.system.segment_Array"
+                  v-for="segment in this.monitor.segmentArray"
                   v-bind:value="segment.segmentid"
                   v-bind:key="segment.segmentid"
                 >{{segment.segmentid}}</option>
@@ -218,8 +252,8 @@
 </template>
 
 <script>
-import Api from "../API";
 import { mapState, mapActions } from "vuex";
+import appConfig from "../../config/appConfig";
 
 export default {
   name: "driverboard",
@@ -251,7 +285,8 @@ export default {
     },
     ...mapState({
       system: state => state.system,
-      alert: state => state.alert
+      alert: state => state.alert,
+      monitor: state => state.monitor
     })
   },
   created() {},
@@ -260,22 +295,26 @@ export default {
     this.GetTrainsArray();
     this.GetSegmentsArray();
     this.RequestForTrainState(this.system.driverProperties.trainID);
+    this.getSingleRouteRequest(this.system.driverProperties.grabID);
   },
   beforeDestroy() {
-    clearInterval(this.system.RequestInterval);
+    clearInterval(this.system.systemRequestInterval);
   },
   methods: {
     ...mapActions("system", [
       "StartServer",
       "updateDriverProps",
-      "GetTrainsArray",
-      "GetSegmentsArray",
       "GetPeripheralsArray",
       "updateDriverPropsPostRelease",
       "updateTrainProps",
       "updatePeripheralState",
-      "updateTrainState",
-      "registerRouteRequest"
+      "registerRouteRequest",
+      "getSingleRouteRequest"
+    ]),
+    ...mapActions("monitor", [
+      "GetTrainsArray",
+      "GetSegmentsArray",
+      "GetTrainStateArray"
     ]),
     ...mapActions("alert", ["error", "clear"]),
     handleSubmit(e) {
@@ -403,9 +442,9 @@ export default {
     },
     RequestForTrainState(trainid) {
       if (trainid != null) {
-        this.updateTrainState(trainid);
+        this.GetTrainStateArray(trainid);
         /*   this.system.RequestInterval = setInterval(() => {
-          this.updateTrainState(trainid);
+          this.GetTrainStateArray(trainid);
         }, 1000);*/
       }
     }

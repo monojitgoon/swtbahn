@@ -1,4 +1,12 @@
 {
   "apiUrl": "http://localhost:2048/",
-  "trackOutput": "master"
+  "trackOutput": "master",
+  "system_trackboard_RequestInterval": 200000,
+  "monitor_point_RequestInterval": 5000,
+  "monitor_segment_RequestInterval": 5000,
+  "monitor_signal_RequestInterval": 5000,
+  "monitor_train_RequestInterval": 5000,
+  "controller_routes_RequestInterval": 200000,
+  "controller_set_point_RequestInterval": 200000,
+  "controller_set_signal_RequestInterval": 200000
 }

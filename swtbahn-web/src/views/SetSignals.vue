@@ -15,7 +15,7 @@
             </thead>
             <tbody>
               <tr></tr>
-              <tr v-for="signal in signalsArray" :key="signal.signalid">
+              <tr v-for="signal in this.monitor.signalArray" :key="signal.signalid">
                 <td>{{ signal.signalid }}</td>
                 <td>{{ signal.state }}</td>
                 <td>
@@ -52,45 +52,35 @@
 </template>
 
 <script>
-import Api from "../API";
+import { mapState, mapActions } from "vuex";
+import appConfig from "../../config/appConfig";
 
 export default {
   name: "setsignals",
   components: {},
-  data() {
-    return {
-      signalsArray: []
-    };
+  computed: {
+    ...mapState({
+      monitor: state => state.monitor,
+      controller: state => state.controller
+    })
   },
   mounted() {
-    this.GetSignalsList();
+    this.GetSignalsArray();
+    this.controller.controllerRequestInterval = setInterval(() => {
+      this.GetSignalsArray();
+    }, appConfig.controller_set_signal_RequestInterval);
+  },
+  beforeDestroy() {
+    clearInterval(this.controller.controllerRequestInterval);
   },
   methods: {
-    GetSignalsList() {
-      //this.signalsArray = { "0": { signalid: "signal1", state: "red" } };
-      Api()
-        .post("monitor/signals")
-        .then(response => {
-          if (response.status == 200) {
-            this.signalsArray = response.data;
-          }
-        })
-        .catch(e => {
-          console.error(e);
-        });
-    },
+    ...mapActions("monitor", ["GetSignalsArray"]),
+    ...mapActions("controller", ["SetSignalState"]),
     ChangeSignalState(id, stateValue) {
-      let formData = new FormData();
-      formData.append("signal", id);
-      formData.append("state", stateValue);
-      Api()
-        .post("controller/set-signal", formData)
-        .then(response => {
-          if (response.status == 200) this.GetSignalsList();
-        })
-        .catch(e => {
-          console.error(e);
-        });
+      this.SetSignalState({
+        signalid: id,
+        state: stateValue
+      });
     }
   }
 };

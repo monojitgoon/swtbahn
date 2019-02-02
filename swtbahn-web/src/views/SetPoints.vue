@@ -12,7 +12,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="point in pointsArray" :key="point.pointid">
+              <tr v-for="point in this.monitor.pointArray" :key="point.pointid">
                 <td>{{ point.pointid }}</td>
                 <td>{{ point.state }}</td>
                 <td>
@@ -33,49 +33,35 @@
 </template>
 
 <script>
-import Api from "../API";
+import { mapState, mapActions } from "vuex";
+import appConfig from "../../config/appConfig";
 
 export default {
   name: "setpoints",
   components: {},
-  data() {
-    return {
-      testVal: null,
-      pointsArray: []
-    };
+  computed: {
+    ...mapState({
+      monitor: state => state.monitor,
+      controller: state => state.controller
+    })
   },
   mounted() {
-    this.GetPointList();
+    this.GetPointsArray();
+    this.controller.controllerRequestInterval = setInterval(() => {
+      this.GetPointsArray();
+    }, appConfig.controller_set_point_RequestInterval);
+  },
+  beforeDestroy() {
+    clearInterval(this.controller.controllerRequestInterval);
   },
   methods: {
-    GetPointList() {
-      // this.pointsArray = { "0": { pointid: "point1", state: "reverse" } };
-      Api()
-        .post("monitor/points")
-        .then(response => {
-          if (response.status == 200) {
-            this.pointsArray = response.data;
-          }
-        })
-        .catch(e => {
-          console.error(e);
-        });
-    },
+    ...mapActions("monitor", ["GetPointsArray"]),
+    ...mapActions("controller", ["SetPointState"]),
     ChangePointState(id, stateValue) {
-      let formData = new FormData();
-      formData.append("point", id);
-      formData.append("state", stateValue == "normal" ? "reverse" : "reverse");
-
-      Api()
-        .post("controller/set-point", formData)
-        .then(response => {
-          if (response.status == 200) {
-            this.GetPointList();
-          }
-        })
-        .catch(e => {
-          console.error(e);
-        });
+      this.SetPointState({
+        pointid: id,
+        state: stateValue == "normal" ? "reverse" : "reverse"
+      });
     }
   }
 };

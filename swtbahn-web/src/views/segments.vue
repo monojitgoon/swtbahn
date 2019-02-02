@@ -13,7 +13,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="segment in segmentsArray" :key="segment.segmentid">
+              <tr v-for="segment in this.monitor.segmentArray" :key="segment.segmentid">
                 <td>{{ segment.segmentid }}</td>
                 <td>{{ segment.occupied }}</td>
                 <td>{{ segment.trains }}</td>
@@ -28,32 +28,28 @@
 </template>
 
 <script>
-import Api from "../API";
+import { mapState, mapActions } from "vuex";
+import appConfig from "../../config/appConfig";
 
 export default {
   name: "segments",
   components: {},
-  data() {
-    return {
-      segmentsArray: []
-    };
+  computed: {
+    ...mapState({
+      monitor: state => state.monitor
+    })
   },
   mounted() {
-    this.GetSegmentsList();
+    this.GetSegmentsArray();
+    this.monitor.monitorRequestInterval = setInterval(() => {
+      this.GetSegmentsArray();
+    }, appConfig.monitor_segment_RequestInterval);
   },
   methods: {
-    GetSegmentsList() {
-      Api()
-        .post("monitor/segments")
-        .then(response => {
-          if (response.status == 200) {
-            this.segmentsArray = response.data;
-          }
-        })
-        .catch(e => {
-          console.error(e);
-        });
-    }
+    ...mapActions("monitor", ["GetSegmentsArray"])
+  },
+  beforeDestroy() {
+    clearInterval(this.monitor.monitorRequestInterval);
   }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="col-xs-12 col-md-12">
     <card header-text="Trackboard">
-      <input class="btn btn-success" type="submit" value="Start SVG" @click="Svghandler">
+      <input class="btn btn-success" type="submit" value="Start SVG" @click="Svghandler()">
       <div class="card-body card-block">
         <svg
           id="track-master"
@@ -137,7 +137,7 @@
             stroke-width="3"
             stroke-linecap="round"
             fill="none"
-            d="M150 280 H150 C150 280 -80 160 150 20  H220 "
+            d="M135 265  C135 265 -80 150 150 20  H220"
             marker-end="url(#triangle)"
           ></path>
 
@@ -150,11 +150,19 @@
             marker-end="url(#triangle)"
           ></path>
           <path
-            id="seg8"
+            id="seg8-normal"
             stroke="black"
             stroke-width="3"
             fill="none"
             d="M280 20 H340"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg8-reverse"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M310 20 Q310 20 280 37"
             marker-end="url(#triangle)"
           ></path>
           <path
@@ -171,7 +179,7 @@
             stroke="black"
             stroke-width="3"
             fill="none"
-            d="M400 20 H540 C540 20 640 50 650 80"
+            d="M400 20 H540 C540 20 630 40 650 80"
             marker-end="url(#triangle)"
           ></path>
 
@@ -180,23 +188,16 @@
             stroke="black"
             stroke-width="3"
             fill="none"
-            d="M650 80 C650 80 655 80 660 120"
+            d="M650 80 C650 80 658 100 658 142"
             marker-end="url(#triangle)"
           ></path>
-          <path
-            id="seg5"
-            stroke="black"
-            stroke-width="3"
-            fill="none"
-            d="M650 80 C650 80 655 80 660 120"
-            marker-end="url(#triangle)"
-          ></path>
+
           <path
             id="seg4"
             stroke="black"
             stroke-width="3"
             fill="none"
-            d="M660 120 C660 120 660 180 640 200"
+            d="M658 142 C658 142 655 180 640 220"
             marker-end="url(#triangle)"
           ></path>
           <path
@@ -204,7 +205,191 @@
             stroke="black"
             stroke-width="3"
             fill="none"
-            d="M640 200 C640 200 660 200 600 270"
+            d="M640 220 C640 220 600 280 550 280"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg2"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M550 280 H280"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg1"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M280 280 H245"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg12"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M245 280 H205"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg11"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M205 280 C150 280 165 280 135 265"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg16"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M644 210 C644 210 625 250 570 265"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg15"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M570 265 C570 265 570 265 320 265"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg14"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M320 265 H290"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg13-normal"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M290 265 H235"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg13-reverse"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M270 265 Q270 265 245 280"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg21-normal"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M235 265 H180"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg21-reverse"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M200 265 Q200 265 220 250"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg20"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M180 265 Q160 265 138 248"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg19"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M138 248 C138 248 -40 155 140 45 "
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg18"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M140 45 Q148 35 216 37"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg17"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M216 37 H280"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg27"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M280 37 H335"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg28"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M335 37 Q400 32 570 80"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg29"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M570 80 Q570 80 610 95"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg26"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M180 250 H220"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg22"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M220 250 H270"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg23"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M270 250 H290"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg24"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M290 250 H520"
+            marker-end="url(#triangle)"
+          ></path>
+          <path
+            id="seg25"
+            stroke="black"
+            stroke-width="3"
+            fill="none"
+            d="M520 250 H550"
             marker-end="url(#triangle)"
           ></path>
         </svg>
@@ -214,11 +399,53 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
   name: "trackpanel",
   components: {},
+  computed: {
+    ...mapState({
+      system: state => state.system
+    })
+  },
+  beforeDestroy() {
+    clearInterval(this.system.RequestInterval);
+  },
+  mounted() {
+    this.AsyncSegmentUpdate();
+  },
   methods: {
-    Svghandler() {
+    filterItems: function(items) {
+      return items.filter(function(item) {
+        return item.trains != null;
+      });
+    },
+    ...mapActions("system", ["GetSegmentsArray", "updateTrainState"]),
+    AsyncSegmentUpdate() {
+      this.system.RequestInterval = setInterval(() => {
+        //   this.GetSegmentsArray();
+        this.RunSVG();
+      }, 5000);
+    },
+    RunSVG() {
+      Object.keys(this.system.segment_Array).forEach(key => {
+        const segmentid = this.system.segment_Array[key]["segmentid"];
+        const occupied = this.system.segment_Array[key]["occupied"];
+        const trainid = this.system.segment_Array[key]["trains"];
+        if (occupied === "yes") {
+          RequestForTrainState(trainid);
+          const dccspeed = this.system.trainstate_Array[0]["dccspeed"];
+          Svghandler(segmentid, dccspeed);
+        }
+      });
+    },
+    RequestForTrainState(trainid) {
+      if (trainid != null) {
+        this.updateTrainState(trainid);
+      }
+    },
+    Svghandler(segmentid, trainspeed) {
       var seg = document.getElementById("seg10").getAttribute("d");
       var canvas = SVG("track-master"),
         trainobj = canvas.image("../favicon.ico", 20, 20),

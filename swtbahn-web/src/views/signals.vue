@@ -12,7 +12,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="signal in signalsArray" :key="signal.signalid">
+              <tr v-for="signal in this.monitor.signalArray" :key="signal.signalid">
                 <td>{{ signal.signalid }}</td>
                 <td>{{ signal.state }}</td>
                 <td></td>
@@ -26,32 +26,28 @@
 </template>
 
 <script>
-import Api from "../API";
+import { mapState, mapActions } from "vuex";
+import appConfig from "../../config/appConfig";
 
 export default {
   name: "signals",
   components: {},
-  data() {
-    return {
-      signalsArray: []
-    };
+  computed: {
+    ...mapState({
+      monitor: state => state.monitor
+    })
   },
   mounted() {
-    this.GetSignalsList();
+    this.GetSignalsArray();
+    this.monitor.monitorRequestInterval = setInterval(() => {
+      this.GetSignalsArray();
+    }, appConfig.monitor_signal_RequestInterval);
   },
   methods: {
-    GetSignalsList() {
-      Api()
-        .post("monitor/signals")
-        .then(response => {
-          if (response.status == 200) {
-            this.signalsArray = response.data;
-          }
-        })
-        .catch(e => {
-          console.error(e);
-        });
-    }
+    ...mapActions("monitor", ["GetSignalsArray"])
+  },
+  beforeDestroy() {
+    clearInterval(this.monitor.monitorRequestInterval);
   }
 };
 </script>

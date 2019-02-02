@@ -13,7 +13,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="train in trainsArray" :key="train.trainid">
+              <tr v-for="train in this.monitor.trainArray" :key="train.trainid">
                 <td>{{ train.trainid }}</td>
                 <td>{{ train.grabbed }}</td>
                 <td>
@@ -31,9 +31,41 @@
         </div>
       </card>
     </div>
-    <basix-modal large="true" v-show="showModal">
+    <basix-modal v-show="showModal">
       <h4 slot="title">{{trainname}}</h4>
-      <div>{{detailsData}}</div>
+      <aside class="profile-nav alt">
+        <section class="card">
+          <ul
+            class="list-group list-group-flush"
+            v-for="trainState in this.monitor.trainstateArray"
+            v-bind:value="trainState.ontrack"
+            v-bind:key="trainState.ontrack"
+          >
+            <li class="list-group-item">
+              <a href="#">
+                <i class="fa fa-train"></i> Currently OnTrack
+                <span
+                  class="badge badge-primary pull-right"
+                >{{trainState.ontrack}}</span>
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="#">
+                <i class="fa fa-train"></i> Current Direction
+                <span
+                  class="badge badge-danger pull-right"
+                >{{trainState.direction}}</span>
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="#">
+                <i class="fa fa-train"></i> Current Speed
+                <span class="badge badge-success pull-right">{{trainState.dccspeed}}</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+      </aside>
       <div slot="footer">
         <button class="btn btn-primary" @click="showModal = false">Close</button>
       </div>
@@ -44,48 +76,39 @@
 
 
 <script>
-import Api from "../API";
+import { mapState, mapActions } from "vuex";
+import appConfig from "../../config/appConfig";
+
 export default {
   name: "trains",
   components: {},
   data() {
     return {
       showModal: false,
-      trainsArray: [],
-      trainname: null,
-      detailsData: null
+      trainname: null
     };
   },
+  computed: {
+    ...mapState({
+      monitor: state => state.monitor
+    })
+  },
   mounted() {
-    this.GetTrainList();
+    this.GetTrainsArray();
+    this.monitor.monitorRequestInterval = setInterval(() => {
+      this.GetTrainsArray();
+    }, appConfig.monitor_train_RequestInterval);
   },
   created() {},
+  beforeDestroy() {
+    clearInterval(this.monitor.monitorRequestInterval);
+  },
   methods: {
+    ...mapActions("monitor", ["GetTrainsArray", "GetTrainStateArray"]),
     GetTrainStatus: function(id) {
       this.trainname = id;
-      let formData = new FormData();
-      formData.append("train", id);
-      Api()
-        .post("monitor/train-state", formData)
-        .then(response => {
-          this.detailsData = response.data;
-        })
-        .catch(e => {
-          console.error(e);
-        });
+      this.GetTrainStateArray(id);
       this.showModal = true;
-    },
-    GetTrainList() {
-      Api()
-        .post("monitor/trains")
-        .then(response => {
-          if (response.status == 200) {
-            this.trainsArray = response.data;
-          }
-        })
-        .catch(e => {
-          console.error(e);
-        });
     }
   }
 };
