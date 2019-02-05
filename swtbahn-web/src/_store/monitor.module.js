@@ -18,7 +18,12 @@ const actions = {
   //start server...
 
   GetTrainsArray({ commit }) {
-    Api()
+    var tempState = {
+      "0": { grabbed: "no", trainid: "train1" },
+      "1": { grabbed: "no", trainid: "train2" }
+    };
+    commit("updateTrainsArray", tempState);
+    /* Api()
       .post("monitor/trains")
       .then(response => {
         if (response.status == 200) {
@@ -27,7 +32,7 @@ const actions = {
       })
       .catch(e => {
         console.error(e);
-      });
+      });*/
   },
   GetPointsArray({ commit }) {
     Api()
@@ -66,6 +71,11 @@ const actions = {
       });
   },
   GetTrainStateArray({ commit }, trainid) {
+    var tempState = {
+      "0": { dccspeed: "9", direction: "forward", ontrack: "yes" }
+    };
+    commit("updateTrainState", tempState);
+    /*
     let formData = new FormData();
     formData.append("train", trainid);
     Api()
@@ -77,7 +87,7 @@ const actions = {
       })
       .catch(e => {
         console.error(e);
-      });
+      });*/
   }
 };
 

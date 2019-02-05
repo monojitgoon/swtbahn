@@ -41,69 +41,81 @@
             </div>
           </div>
         </card>
-        <card header-text="Current Route Request">
-          <div class="col col-md-12">
-            <input
-              class="btn btn-info pull-right"
-              type="submit"
-              value="Add Route Request"
-              @click="AddRouteRequest"
-            >
-          </div>
-          <div class="table-responsive">
-            <table class="table table-striped first-td-padding">
-              <thead>
-                <tr>
-                  <td>Train Name</td>
-                  <td>Starting Segment</td>
-                  <td>Ending Segment</td>
-                  <td>Status</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="routerequest in this.system.trainRouteRequestArray"
-                  :key="routerequest.trainid"
+
+        <v-tabs v-model="active" color="white" slider-color="yellow">
+          <v-tab ripple>Current Route Requests</v-tab>
+          <v-tab-item>
+            <v-card flat>
+              <div class="col col-md-12">
+                <input
+                  style="margin-top: 20px;"
+                  class="btn btn-info pull-right"
+                  type="submit"
+                  value="Add Route Request"
+                  @click="AddRouteRequest"
                 >
-                  <td>{{ routerequest.trainid }}</td>
-                  <td>{{ routerequest.startingsegment }}</td>
-                  <td>{{ routerequest.endingsegment }}</td>
-                  <td>{{ routerequest.status }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </card>
-        <card header-text="Peripherals">
-          <div class="table-responsive">
-            <table class="table table-striped first-td-padding">
-              <thead>
-                <tr>
-                  <td>Peripheral Name</td>
-                  <td>State</td>
-                  <td>Change Peripheral State</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="peripheral in this.system.trainPeripheralArray"
-                  :key="peripheral.peripheralid"
-                >
-                  <td>{{ peripheral.peripheralid }}</td>
-                  <td>{{ peripheral.state }}</td>
-                  <td>
-                    <input
-                      class="btn btn-warning"
-                      type="submit"
-                      value="Toggle State"
-                      @click="ChangePeripheralState(peripheral.peripheralid,peripheral.state)"
+              </div>
+              <div class="table-responsive">
+                <table class="table table-striped first-td-padding">
+                  <thead>
+                    <tr>
+                      <td>Train Name</td>
+                      <td>Starting Segment</td>
+                      <td>Ending Segment</td>
+                      <td>Path Details</td>
+                      <td>Status</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="routerequest in this.system.trainRouteRequestArray"
+                      :key="routerequest.trainid"
                     >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </card>
+                      <td>{{ routerequest.trainid }}</td>
+                      <td>{{ routerequest.startingsegment }}</td>
+                      <td>{{ routerequest.endingsegment }}</td>
+                      <td>{{ routerequest.path }}</td>
+                      <td>{{ routerequest.status }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </v-card>
+          </v-tab-item>
+          <v-tab ripple>Peripherals</v-tab>
+          <v-tab-item>
+            <v-card flat>
+              <div class="table-responsive">
+                <table class="table table-striped first-td-padding">
+                  <thead>
+                    <tr>
+                      <td>Peripheral Name</td>
+                      <td>State</td>
+                      <td>Change Peripheral State</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="peripheral in this.system.trainPeripheralArray"
+                      :key="peripheral.peripheralid"
+                    >
+                      <td>{{ peripheral.peripheralid }}</td>
+                      <td>{{ peripheral.state }}</td>
+                      <td>
+                        <input
+                          class="btn btn-warning"
+                          type="submit"
+                          value="Toggle State"
+                          @click="ChangePeripheralState(peripheral.peripheralid,peripheral.state)"
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </v-card>
+          </v-tab-item>
+        </v-tabs>
       </div>
       <!-- /# column -->
       <div class="col-lg-6">
@@ -117,23 +129,19 @@
             >
               <li class="list-group-item">
                 <a href="#">
-                  <i class="fa fa-train"></i> Currently OnTrack
-                  <span
-                    class="badge badge-primary pull-right"
-                  >{{trainState.ontrack}}</span>
+                  <i class="fa fa-train"></i> OnTrack
+                  <span class="badge badge-primary pull-right">{{trainState.ontrack}}</span>
                 </a>
               </li>
               <li class="list-group-item">
                 <a href="#">
-                  <i class="fa fa-train"></i> Current Direction
-                  <span
-                    class="badge badge-danger pull-right"
-                  >{{trainState.direction}}</span>
+                  <i class="fa fa-compass"></i> Direction
+                  <span class="badge badge-danger pull-right">{{trainState.direction}}</span>
                 </a>
               </li>
               <li class="list-group-item">
                 <a href="#">
-                  <i class="fa fa-train"></i> Current Speed
+                  <i class="fa fa-arrow-circle-right"></i> Speed
                   <span class="badge badge-success pull-right">{{trainState.dccspeed}}</span>
                 </a>
               </li>
@@ -179,7 +187,6 @@
     </div>
     <basix-modal v-show="showModal">
       <h4 slot="title">Grabbed Train Name :{{this.system.driverProperties.trainID}}</h4>
-
       <form @submit.prevent="handleSubmit">
         <card header-text="Route Request">
           <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
@@ -318,24 +325,24 @@ export default {
     ]),
     ...mapActions("alert", ["error", "clear"]),
     handleSubmit(e) {
-      if (this.system.sessionID != 0) {
+      /* if (this.system.sessionID != 0) {
         if (this.system.driverProperties.grabID === -1)
           this.error("There is no train grabbed yet!");
-        else {
-          this.submitted = true;
-          this.$validator.validate().then(valid => {
-            if (valid) {
-              this.registerRouteRequest({
-                sessionid: this.system.sessionID,
-                grabid: this.system.driverProperties.grabID,
-                routerequest: this.routerequest
-              });
-            }
+        else {*/
+      this.submitted = true;
+      this.$validator.validate().then(valid => {
+        if (valid) {
+          this.registerRouteRequest({
+            sessionid: this.system.sessionID,
+            grabid: this.system.driverProperties.grabID,
+            routerequest: this.routerequest
           });
         }
+      });
+      /* }
       } else {
         this.error("Server Session is not valid anymore!");
-      }
+      }*/
     },
     /* Component Action starts*/
     InitialSpeedValueLoad() {
@@ -380,8 +387,9 @@ export default {
     /* Method starts*/
     AddRouteRequest: function() {
       this.clear();
-      if (this.system.driverProperties.trainID != null) this.showModal = true;
-      else this.error("No train is grabbed yet!");
+      // if (this.system.driverProperties.trainID != null)
+      this.showModal = true;
+      // else this.error("No train is grabbed yet!");
     },
     GrabTrainClicked: function(selection) {
       if (this.system.driverProperties.grabID === -1) {

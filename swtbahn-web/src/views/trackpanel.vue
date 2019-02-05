@@ -2,6 +2,7 @@
   <div class="col-xs-12 col-md-12">
     <card header-text="Trackboard">
       <input class="btn btn-success" type="submit" value="Start SVG" @click="Svghandler()">
+      <input class="btn btn-success" type="submit" value="stop SVG" @click="stop()">
       <div class="card-body card-block">
         <svg
           id="track-master"
@@ -400,17 +401,25 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import appConfig from "../../config/appConfig";
+import img from "../images/logo2.png";
 
 export default {
   name: "trackpanel",
+  data() {
+    return {
+      trainobj: null
+    };
+  },
   components: {},
   computed: {
     ...mapState({
-      system: state => state.system
+      system: state => state.system,
+      monitor: state => state.monitor
     })
   },
   beforeDestroy() {
-    clearInterval(this.system.RequestInterval);
+    clearInterval(this.system.systemRequestInterval);
   },
   mounted() {
     this.AsyncSegmentUpdate();
@@ -421,46 +430,73 @@ export default {
         return item.trains != null;
       });
     },
-    ...mapActions("system", ["GetSegmentsArray", "updateTrainState"]),
+    ...mapActions("monitor", ["GetSegmentsArray", "GetTrainStateArray"]),
     AsyncSegmentUpdate() {
-      this.system.RequestInterval = setInterval(() => {
-        //   this.GetSegmentsArray();
+      this.system.systemRequestInterval = setInterval(() => {
+        this.GetSegmentsArray();
         this.RunSVG();
       }, 5000);
     },
     RunSVG() {
-      Object.keys(this.system.segment_Array).forEach(key => {
-        const segmentid = this.system.segment_Array[key]["segmentid"];
-        const occupied = this.system.segment_Array[key]["occupied"];
-        const trainid = this.system.segment_Array[key]["trains"];
-        if (occupied === "yes") {
-          RequestForTrainState(trainid);
-          const dccspeed = this.system.trainstate_Array[0]["dccspeed"];
-          Svghandler(segmentid, dccspeed);
+      var currentseg = null;
+      var currentTrain = null;
+      var currentSpeed = null;
+
+      Object.keys(this.monitor.segmentArray).forEach(key => {
+        const segmentid = this.monitor.segmentArray[key]["segmentid"];
+        const occupied = this.monitor.segmentArray[key]["occupied"];
+        const trainid = this.monitor.segmentArray[key]["trains"];
+        if (occupied === "yes" && trainid != null) {
+          this.GetTrainStateArray(trainid);
+          const dccspeed = this.monitor.trainstateArray[0]["dccspeed"];
+          // this.Svghandler(segmentid, dccspeed);
+
+          if (currentseg != segmentid) {
+            currentseg = segmentid;
+            var canvas = SVG("track-master");
+            var trainobj = canvas.image(img, 20, 20);
+            trainobj.addClass("display");
+
+            var path = canvas.path(
+              document.getElementById(currentseg).getAttribute("d")
+            );
+
+            if (currentTrain != trainid) {
+              currentTrain = trainid;
+              var length = path.length();
+              path.fill("none").stroke({ width: 1, color: "#ccc" });
+              if (currentSpeed != dccspeed) {
+                currentSpeed = dccspeed;
+                trainobj
+                  .animate(100000 / currentSpeed, "-")
+                  .during(function(pos, morph, eased) {
+                    var p = path.pointAt(eased * length);
+                    trainobj.center(p.x - 10, p.y - 10);
+                  })
+                  .once(true)
+                  .attr({ display: "none" });
+              }
+            }
+          }
         }
       });
     },
-    RequestForTrainState(trainid) {
-      if (trainid != null) {
-        this.updateTrainState(trainid);
-      }
-    },
-    Svghandler(segmentid, trainspeed) {
-      var seg = document.getElementById("seg10").getAttribute("d");
+    Stop() {},
+    Svghandler() {
       var canvas = SVG("track-master"),
-        trainobj = canvas.image("../favicon.ico", 20, 20),
-        path = canvas.path(seg),
+        trainobj = canvas.image(img, 20, 20),
+        path = canvas.path(document.getElementById("seg10").getAttribute("d")),
         length = path.length();
-
       path.fill("none").stroke({ width: 1, color: "#ccc" });
-
+      trainobj.addClass("display");
       trainobj
-        .animate(5000, ">")
+        .animate(50000 / 2, "-")
         .during(function(pos, morph, eased) {
           var p = path.pointAt(eased * length);
           trainobj.center(p.x - 10, p.y - 10);
         })
-        .once(true);
+        .once(true)
+        .attr({ display: "none" });
     }
   }
 };

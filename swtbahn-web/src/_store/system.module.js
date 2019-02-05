@@ -205,6 +205,22 @@ const actions = {
       .catch(e => {
         console.error(e);
       });
+  },
+  ResponseDataFeedback(response_data, success_msg) {
+    if (response_data == "invalid session id") {
+      commit("updateSession", 0);
+      commit("updateDriver", { trainid: null, grabid: -1 });
+      dispatch("alert/error", "Session id was not valid anymore", {
+        root: true
+      });
+    } else if (response_data == "invalid grab id") {
+      commit("updateSession", 0);
+      commit("updateDriver", { trainid: null, grabid: -1 });
+      dispatch("alert/error", "Grab id was not valid", { root: true });
+    } else
+      dispatch("alert/success", success_msg, {
+        root: true
+      });
   }
 };
 

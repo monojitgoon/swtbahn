@@ -78,9 +78,10 @@ static void *start_safety_layer(void *_) {
                     check_segment_for_collision(grabbed_trains[train_id]->str);
                     bidib_free_train_state_query(train_state);
                 }
+                usleep(500000);
             }
         }
-        usleep(500000);
+       // usleep(500000);
     }
     return NULL;
 }

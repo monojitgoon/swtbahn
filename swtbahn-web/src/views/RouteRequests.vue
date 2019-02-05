@@ -9,6 +9,7 @@ routerequests<template>
                 <td>Train Name</td>
                 <td>Starting Segment</td>
                 <td>Ending Segment</td>
+                <td>Path Details</td>
                 <td>Status</td>
                 <td>Accept</td>
                 <td>Reject</td>
@@ -16,19 +17,20 @@ routerequests<template>
             </thead>
             <tbody>
               <tr
-                v-for="routerequest in this.controller.controllerRouteRequestArray"
-                :key="routerequest.trainid"
+                v-for="route_request in this.controller.controllerRouteRequestArray"
+                :key="route_request.grabid"
               >
-                <td>{{ routerequest.trainid }}</td>
-                <td>{{ routerequest.startingsegment }}</td>
-                <td>{{ routerequest.endingsegment }}</td>
-                <td>{{ routerequest.status }}</td>
+                <td>{{ route_request.trainid }}</td>
+                <td>{{ route_request.startingsegment }}</td>
+                <td>{{ route_request.endingsegment }}</td>
+                <td>{{ route_request.path }}</td>
+                <td>{{ route_request.status }}</td>
                 <td>
                   <input
                     class="btn btn-success"
                     type="submit"
                     value="Accept Route"
-                    @click="AcceptRouteHandler(routerequest.trainid)"
+                    @click="AcceptRouteHandler(route_request.grabid,route_request.trainid )"
                   >
                 </td>
                 <td>
@@ -36,7 +38,7 @@ routerequests<template>
                     class="btn btn-success"
                     type="submit"
                     value="Reject Route"
-                    @click="RejectRouteHandler(routerequest.trainid)"
+                    @click="RejectRouteHandler(route_request.grabid)"
                   >
                 </td>
               </tr>
@@ -48,7 +50,7 @@ routerequests<template>
     <basix-modal v-show="showModal">
       <h4 slot="title">Train Name :{{this.selectedtrainID}}</h4>
       <form @submit.prevent="handleSubmit">
-        <card header-text="Route Request">
+        <card header-text="Path Details">
           <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
           <div class="form-group">
             <div class="input-group">
@@ -58,18 +60,18 @@ routerequests<template>
 
               <textarea
                 name="textarea-input"
-                v-model="routerequest.routedetails"
+                v-model="routerequest.path"
                 id="textarea-input"
                 v-validate="'required'"
                 rows="9"
-                placeholder="Route details..."
+                placeholder="Path Details..."
                 class="form-control"
-                :class="{ 'is-invalid': submitted && errors.has('routedetails') }"
+                :class="{ 'is-invalid': submitted && errors.has('path') }"
               ></textarea>
               <div
-                v-if="submitted && errors.has('routedetails')"
+                v-if="submitted && errors.has('path')"
                 class="invalid-feedback"
-              >{{ errors.first('routedetails') }}</div>
+              >{{ errors.first('path') }}</div>
             </div>
           </div>
         </card>
@@ -97,7 +99,9 @@ export default {
   data() {
     return {
       routerequest: {
-        routedetails: ""
+        grabid: null,
+        path: "",
+        status: ""
       },
       submitted: false,
       showModal: false,
@@ -120,11 +124,38 @@ export default {
     }, appConfig.controller_routes_RequestInterval);
   },
   methods: {
-    ...mapActions("controller", ["GetControllerRouteRequest"]),
+    ...mapActions("controller", [
+      "GetControllerRouteRequest",
+      "updateRouteRequest"
+    ]),
     ...mapActions("alert", ["error", "clear"]),
-    AcceptRouteHandler(trainid) {
+    AcceptRouteHandler(grabid, trainid) {
       this.selectedtrainID = trainid;
       this.showModal = true;
+      this.routerequest.grabid = grabid;
+      this.routerequest.path = "";
+    },
+    handleSubmit(e) {
+      this.submitted = true;
+      this.$validator.validate().then(valid => {
+        if (valid) {
+          this.routerequest.status = "Accepted";
+          this.updateRouteRequest({
+            routerequest: this.routerequest
+          });
+        }
+      });
+    },
+    RejectRouteHandler(grabid) {
+      var r = confirm("Are you sure to reject this route?");
+      if (r == true) {
+        this.routerequest.grabid = grabid;
+        this.routerequest.path = "";
+        this.routerequest.status = "Rejected";
+        this.updateRouteRequest({
+          routerequest: this.routerequest
+        });
+      }
     }
   }
 };

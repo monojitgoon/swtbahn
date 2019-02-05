@@ -133,7 +133,7 @@ onion_connection_status handler_get_train_peripherals(void *_, onion_request *re
                     sprintf(id, "%d", i);
                     onion_dict *peripheral_dict = onion_dict_new();
 
-                    onion_dict_add(peripheral_dict, "peripheral_id", convertme(query.ids[i]), 0);
+                    onion_dict_add(peripheral_dict, "peripheralid", convertme(query.ids[i]), 0);
                     onion_dict_add(peripheral_dict, "state", per_state.state == 1 ? "on" : "off", 0);
                     onion_dict_add(dict, id, peripheral_dict, OD_DICT | OD_FREE_VALUE);
 				}

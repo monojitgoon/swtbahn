@@ -43,6 +43,16 @@ const actions = {
       });
   },
   GetControllerRouteRequest({ commit }) {
+    /* var tempRoute = {
+      "0": {
+        grabid: "0",
+        endingsegment: "seg11",
+        startingsegment: "seg11",
+        status: "Pending",
+        trainid: "train1"
+      }
+    };
+    commit("updateControllerRouteRequestArray", tempRoute);*/
     Api()
       .post("driver/get-route-request")
       .then(response => {
@@ -54,14 +64,13 @@ const actions = {
         console.error(e);
       });
   },
-  updateRouteRequest({ dispatch }, { sessionid, grabid, routerequest }) {
+  updateRouteRequest({ dispatch }, { routerequest }) {
     let formData = new FormData();
-    formData.append("session-id", sessionid);
-    formData.append("grab-id", grabid);
-    formData.append("startingsegment", routerequest.startingsegment);
-    formData.append("endingsegment", routerequest.endingsegment);
+    formData.append("grab-id", routerequest.grabid);
+    formData.append("path", routerequest.path);
+    formData.append("status", routerequest.status);
     Api()
-      .post("driver/set-route-request", formData)
+      .post("driver/update-route-request", formData)
       .then(response => {
         if (response.status == 200) {
           dispatch("GetControllerRouteRequest");
