@@ -63,20 +63,8 @@
           <div class="card-body text-secondary">
             <span>{{alert.message}}</span>
             <br>
-            <input
-              class="btn btn-success"
-              type="submit"
-              :disabled="this.system.sessionID != 0"
-              value="Start"
-              @click="SwitchServer(true)"
-            >
-            <input
-              class="btn btn-danger"
-              type="submit"
-              :disabled="this.system.sessionID == 0"
-              value="Stop"
-              @click="SwitchServer(false)"
-            >
+            <input class="btn btn-success" type="submit" value="Start" @click="SwitchServer(true)">
+            <input class="btn btn-danger" type="submit" value="Stop" @click="SwitchServer(false)">
           </div>
         </section>
       </div>
@@ -98,15 +86,20 @@ export default {
   components: {
     Trackpanel
   },
-  mounted() {
+  created() {
+    this.StartServer();
     this.LoadStatistics();
-    this.system.systemRequestInterval = setInterval(() => {
+  },
+  mounted() {
+    this.StartServer();
+    this.LoadStatistics();
+    this.system.systemStatisticsRequestInterval = setInterval(() => {
       this.LoadStatistics();
-    }, appConfig.system_trackboard_RequestInterval);
+    }, appConfig.system_trackstatistics_RequestInterval);
   },
   created() {},
   beforeDestroy() {
-    clearInterval(this.system.systemRequestInterval);
+    clearInterval(this.system.systemStatisticsRequestInterval);
   },
   computed: {
     ...mapState({

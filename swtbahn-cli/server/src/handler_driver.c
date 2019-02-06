@@ -40,6 +40,7 @@
 #include "param_verification.h"
 #include "handler_safety.h"
 #include "swtbahn_cli_definitions_custom.h"
+#include "handler_interlocking.h"
 
 #define MAX_TRAINS 32
 
@@ -81,7 +82,7 @@ static void *start_safety_layer(void *_) {
                 usleep(500000);
             }
         }
-       // usleep(500000);
+        // usleep(500000);
     }
     return NULL;
 }
@@ -178,7 +179,8 @@ onion_connection_status handler_grab_train(void *_, onion_request *req,
                 int grab_id = grab_train(data_train);
                 if (grab_id == -1) {
                     syslog(LOG_ERR, "Request: Grab train - train already grabbed");
-                    return OCS_NOT_IMPLEMENTED;
+                    onion_response_printf(res, "%ld,%d", session_id, grab_id);
+                    return OCS_PROCESSED;
                 } else {
                     if (!safety_layer_running && !safety_layer_starting && !safety_layer_stopping) {
                         safety_layer_starting = true;
@@ -423,15 +425,36 @@ onion_connection_status handler_set_train_peripheral(void *_,
     }
 }
 
-static bool grab_request(const char *train, const char *startseg, const char *endseg) {
+static bool grab_request(const char *train, const char *startseg, const char *endseg, const char *controller) {
     pthread_mutex_lock(&grabbed_trains_mutex);
     for (size_t i = 0; i < MAX_TRAINS; i++) {
         if (grabbed_trains[i] != NULL && !strcmp(grabbed_trains[i]->str, train)) {
-
+            route_requests[i].grab_id = i;
             strcpy(route_requests[i].train_id, train);
             strcpy(route_requests[i].start_seg, startseg);
             strcpy(route_requests[i].end_seg, endseg);
             strcpy(route_requests[i].status, "Pending");
+            strcpy(route_requests[i].controller, controller);
+
+            if (!strcmp(controller, "false"))
+                pthread_create(&start_stop_thread, NULL, start_interlocking, NULL);
+
+            pthread_mutex_unlock(&grabbed_trains_mutex);
+            return true;
+        }
+    }
+    pthread_mutex_unlock(&grabbed_trains_mutex);
+    return false;;
+}
+
+
+static bool update_request(int grab_id, const char *path, const char *status) {
+    pthread_mutex_lock(&grabbed_trains_mutex);
+    for (size_t i = 0; i < MAX_TRAINS; i++) {
+        if (grabbed_trains[i] != NULL && i == grab_id) {
+            strcpy(route_requests[i].pathValue, path);
+            strcpy(route_requests[i].status, status);
+
             pthread_mutex_unlock(&grabbed_trains_mutex);
             return true;
         }
@@ -450,8 +473,7 @@ onion_connection_status handler_set_route_request(void *_, onion_request *req,
         const char *data_grab_id = onion_request_get_post(req, "grab-id");
         const char *data_startseg = onion_request_get_post(req, "startingsegment");
         const char *data_endseg = onion_request_get_post(req, "endingsegment");
-
-
+        const char *data_controller = onion_request_get_post(req, "controller");
 
         int client_session_id = params_check_session_id(data_session_id);
         int grab_id = params_check_grab_id(data_grab_id, MAX_TRAINS);
@@ -467,12 +489,51 @@ onion_connection_status handler_set_route_request(void *_, onion_request *req,
             return OCS_PROCESSED;
         } else {
             pthread_mutex_lock(&grabbed_trains_mutex);
-            if (grab_request(grabbed_trains[grab_id]->str, data_startseg, data_endseg))
-                syslog(LOG_NOTICE, "Request: Set train route request - train: %s ,seg1 : %s,seg2: %s",
-                       route_requests[grab_id].train_id, route_requests[grab_id].start_seg,
-                       route_requests[grab_id].end_seg);
-            pthread_mutex_unlock(&grabbed_trains_mutex);
+            if (grab_request(grabbed_trains[grab_id]->str, data_startseg, data_endseg, data_controller)) {
+                syslog(LOG_NOTICE, "Request: Set train route request - train: %s ,seg1 : %s,seg2: %s, grabid %d, controller : %s",
+                       route_requests[grab_id].train_id ,route_requests[grab_id].start_seg,route_requests[grab_id].end_seg,route_requests[grab_id].grab_id,route_requests[grab_id].controller );
+                pthread_mutex_unlock(&grabbed_trains_mutex);
+                return OCS_PROCESSED;
+            } else {
+                pthread_mutex_unlock(&grabbed_trains_mutex);
+                return OCS_NOT_IMPLEMENTED;
+            }
+        }
+
+
+    } else {
+        syslog(LOG_ERR, "Request: Set train route request - system not running or wrong request type");
+        return OCS_NOT_IMPLEMENTED;
+    }
+}
+
+onion_connection_status handler_update_route_request(void *_, onion_request *req,
+                                                     onion_response *res) {
+    build_response_header(res);
+
+    if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
+
+        const char *data_grab_id = onion_request_get_post(req, "grab-id");
+        const char *data_path = onion_request_get_post(req, "path");
+        const char *data_status = onion_request_get_post(req, "status");
+
+        int grab_id = params_check_grab_id(data_grab_id, MAX_TRAINS);
+
+        if (grab_id == -1 || grabbed_trains[grab_id] == NULL) {
+            syslog(LOG_ERR, "Request: Set train speed - bad grab id");
+            onion_response_printf(res, "invalid grab id");
             return OCS_PROCESSED;
+        } else {
+            pthread_mutex_lock(&grabbed_trains_mutex);
+            if (update_request(grab_id, data_path, data_status)) {
+                syslog(LOG_NOTICE, "Request: update train route request - path: %s ,status : %s",
+                       route_requests[grab_id].pathValue ,route_requests[grab_id].status);
+                pthread_mutex_unlock(&grabbed_trains_mutex);
+                return OCS_PROCESSED;
+            } else {
+                pthread_mutex_unlock(&grabbed_trains_mutex);
+                return OCS_NOT_IMPLEMENTED;
+            }
         }
 
 
@@ -491,46 +552,41 @@ onion_connection_status handler_get_route_request(void *_, onion_request *req,
         const char *data_grab_id = onion_request_get_post(req, "grab-id");
 
         onion_dict *dict = onion_dict_new();
+        int grab_id = params_check_grab_id(data_grab_id, MAX_TRAINS);
 
-        if (data_grab_id != NULL) {
-            int grab_id = params_check_grab_id(data_grab_id, MAX_TRAINS);
+        if (grab_id != -1 || grabbed_trains[grab_id] != NULL) {
+            onion_dict *subd = onion_dict_new();
 
-            if (grab_id == -1 || grabbed_trains[grab_id] == NULL) {
-                syslog(LOG_ERR, "Request: Get available Route Requests - bad grab id");
-                onion_response_printf(res, "invalid grab id");
-                return OCS_PROCESSED;
-            } else {
-
-                onion_dict *subd = onion_dict_new();
-
-                onion_dict_add(subd, "trainid", convertme(route_requests[grab_id].train_id), 0);
-                onion_dict_add(subd, "startingsegment", convertme(route_requests[grab_id].start_seg), 0);
-                onion_dict_add(subd, "endingsegment", convertme(route_requests[grab_id].end_seg), 0);
-                onion_dict_add(subd, "status", convertme(route_requests[grab_id].status), 0);
-                onion_dict_add(dict, "0", subd, OD_DICT | OD_FREE_VALUE);
-                syslog(LOG_NOTICE, "Request: Get available Route Requests");
-
-                return onion_shortcut_response_json(dict, req, res);
-            }
-
+            onion_dict_add(subd, "trainid", convertme(route_requests[grab_id].train_id), 0);
+            onion_dict_add(subd, "startingsegment", convertme(route_requests[grab_id].start_seg), 0);
+            onion_dict_add(subd, "endingsegment", convertme(route_requests[grab_id].end_seg), 0);
+            onion_dict_add(subd, "path", convertme(route_requests[grab_id].pathValue), 0);
+            onion_dict_add(subd, "status", convertme(route_requests[grab_id].status), 0);
+            onion_dict_add(dict, "0", subd, OD_DICT | OD_FREE_VALUE);
         } else {
 
             for (size_t i = 0; i < next_grab_id; i++) {
                 char *id = malloc(6);
                 sprintf(id, "%d", i);
+                char tmp[16];
+                snprintf(tmp, sizeof(tmp), "%d", route_requests[i].grab_id);
                 onion_dict *subd = onion_dict_new();
 
+                onion_dict_add(subd, "grabid", tmp, 0);
                 onion_dict_add(subd, "trainid", convertme(route_requests[i].train_id), 0);
                 onion_dict_add(subd, "startingsegment", convertme(route_requests[i].start_seg), 0);
                 onion_dict_add(subd, "endingsegment", convertme(route_requests[i].end_seg), 0);
+                onion_dict_add(subd, "controller", convertme(route_requests[i].controller), 0);
+                onion_dict_add(subd, "path", convertme(route_requests[i].pathValue), 0);
                 onion_dict_add(subd, "status", convertme(route_requests[i].status), 0);
                 onion_dict_add(dict, id, subd, OD_DICT | OD_FREE_VALUE);
 
             }
-            syslog(LOG_NOTICE, "Request: Get available Route Requests");
 
-            return onion_shortcut_response_json(dict, req, res);
         }
+        syslog(LOG_NOTICE, "Request: Get available Route Requests");
+
+        return onion_shortcut_response_json(dict, req, res);
 
     } else {
         syslog(LOG_ERR, "Request: Get available Route Requests - system not running or "

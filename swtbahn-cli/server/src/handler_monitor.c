@@ -2,7 +2,7 @@
  *
  * Copyright (C) 2017 University of Bamberg, Software Technologies Research Group
  * <https://www.uni-bamberg.de/>, <http://www.swt-bamberg.de/>
- * 
+ *
  * This file is part of the SWTbahn command line interface (swtbahn-cli), which is
  * a client-server application to interactively control a BiDiB model railway.
  *
@@ -24,7 +24,7 @@
  * - Nicolas Gross <https://github.com/nicolasgross>
  *
  */
- 
+
 #include <onion/onion.h>
 #include <bidib.h>
 #include <pthread.h>
@@ -40,38 +40,35 @@
 #include <onion/shortcuts.h>
 
 onion_connection_status handler_get_trains(void *_, onion_request *req,
-                                           onion_response *res) {
-		build_response_header(res);
-										   
+										   onion_response *res) {
+	build_response_header(res);
+
 	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
-		t_bidib_id_list_query query = bidib_get_trains();
-
-
 		onion_dict *dict = onion_dict_new();
 
-		for (size_t i = 0; i < query.length; i++)
+		t_bidib_track_state track_state = bidib_get_state();
+
+		for (size_t i = 0; i < track_state.trains_count; i++)
 		{
 			char *id = malloc(6);
 			sprintf(id, "%d", i);
 			onion_dict *subd = onion_dict_new();
 
-			onion_dict_add(subd, "trainid", convertme(query.ids[i]), 0);
-			onion_dict_add(subd, "grabbed", train_grabbed(query.ids[i]) ? "yes" : "no", 0);
+			onion_dict_add(subd, "trainid", convertme(track_state.trains[i]), 0);
+			onion_dict_add(subd, "grabbed", train_grabbed(track_state.trains[i]) ? "yes" : "no", 0);
 			onion_dict_add(dict, id, subd, OD_DICT | OD_FREE_VALUE);
 		}
-
-		bidib_free_id_list_query(query);
 		syslog(LOG_NOTICE, "Request: Get available trains");
 		return onion_shortcut_response_json(dict, req, res);
 	} else {
 		syslog(LOG_ERR, "Request: Get available trains - system not running or "
-		       "wrong request type");
+						"wrong request type");
 		return OCS_NOT_IMPLEMENTED;
 	}
 }
 
 onion_connection_status handler_get_train_state(void *_, onion_request *req,
-                                                onion_response *res) {
+												onion_response *res) {
 	build_response_header(res);
 
 	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
@@ -81,23 +78,23 @@ onion_connection_status handler_get_train_state(void *_, onion_request *req,
 			return OCS_NOT_IMPLEMENTED;
 		} else {
 			t_bidib_train_state_query train_state =
-				bidib_get_train_state(data_train);
-            onion_dict *dict = onion_dict_new();
-            char *temp = malloc(6);
-            sprintf(temp, "%d", train_state.data.set_speed_step);
+					bidib_get_train_state(data_train);
+			onion_dict *dict = onion_dict_new();
+			char *temp = malloc(6);
+			sprintf(temp, "%d", train_state.data.set_speed_step);
 			if (train_state.known) {
-                onion_dict *subd = onion_dict_new();
+				onion_dict *subd = onion_dict_new();
 
-                onion_dict_add(subd, "ontrack", train_state.data.on_track ? "yes" : "no", 0);
-                onion_dict_add(subd, "direction",train_state.data.direction ==
-                                                 BIDIB_TRAIN_DIRECTION_FORWARD ?
-                                                 "forward" : "backward", 0);
-                onion_dict_add(subd, "dccspeed", temp , 0);
-                onion_dict_add(dict, "0", subd, OD_DICT | OD_FREE_VALUE);
-                bidib_free_train_state_query(train_state);
+				onion_dict_add(subd, "ontrack", train_state.data.on_track ? "yes" : "no", 0);
+				onion_dict_add(subd, "direction",train_state.data.direction ==
+												 BIDIB_TRAIN_DIRECTION_FORWARD ?
+												 "forward" : "backward", 0);
+				onion_dict_add(subd, "dccspeed", temp , 0);
+				onion_dict_add(dict, "0", subd, OD_DICT | OD_FREE_VALUE);
+				bidib_free_train_state_query(train_state);
 
 				syslog(LOG_NOTICE, "Request: Get train state");
-                return onion_shortcut_response_json(dict, req, res);
+				return onion_shortcut_response_json(dict, req, res);
 			} else {
 				syslog(LOG_ERR, "Request: Get train train state - invalid train");
 				return OCS_NOT_IMPLEMENTED;
@@ -105,15 +102,15 @@ onion_connection_status handler_get_train_state(void *_, onion_request *req,
 		}
 	} else {
 		syslog(LOG_ERR, "Request: Get train state - system not running or "
-		       "wrong request type");
+						"wrong request type");
 		return OCS_NOT_IMPLEMENTED;
 	}
 
 }
 
 onion_connection_status handler_get_train_peripherals(void *_, onion_request *req,
-                                                      onion_response *res) {
-    build_response_header(res);
+													  onion_response *res) {
+	build_response_header(res);
 	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
 		const char *data_train = onion_request_get_post(req, "train");
 		if (data_train == NULL) {
@@ -121,48 +118,48 @@ onion_connection_status handler_get_train_peripherals(void *_, onion_request *re
 			return OCS_NOT_IMPLEMENTED;
 		} else {
 			t_bidib_id_list_query query =
-				bidib_get_train_peripherals(data_train);
+					bidib_get_train_peripherals(data_train);
 			if (query.length > 0) {
-                onion_dict *dict = onion_dict_new();
+				onion_dict *dict = onion_dict_new();
 
-                for (size_t i = 0; i < query.length; i++) {
+				for (size_t i = 0; i < query.length; i++) {
 					t_bidib_train_peripheral_state_query per_state =
-						bidib_get_train_peripheral_state(data_train, query.ids[i]);
+							bidib_get_train_peripheral_state(data_train, query.ids[i]);
 
-                    char *id = malloc(6);
-                    sprintf(id, "%d", i);
-                    onion_dict *peripheral_dict = onion_dict_new();
+					char *id = malloc(6);
+					sprintf(id, "%d", i);
+					onion_dict *peripheral_dict = onion_dict_new();
 
-                    onion_dict_add(peripheral_dict, "peripheralid", convertme(query.ids[i]), 0);
-                    onion_dict_add(peripheral_dict, "state", per_state.state == 1 ? "on" : "off", 0);
-                    onion_dict_add(dict, id, peripheral_dict, OD_DICT | OD_FREE_VALUE);
+					onion_dict_add(peripheral_dict, "peripheralid", convertme(query.ids[i]), 0);
+					onion_dict_add(peripheral_dict, "state", per_state.state == 1 ? "on" : "off", 0);
+					onion_dict_add(dict, id, peripheral_dict, OD_DICT | OD_FREE_VALUE);
 				}
 				bidib_free_id_list_query(query);
-                syslog(LOG_NOTICE, "Request: Get train peripherals");
-                return onion_shortcut_response_json(dict, req, res);
+				syslog(LOG_NOTICE, "Request: Get train peripherals");
+				return onion_shortcut_response_json(dict, req, res);
 			} else {
 				bidib_free_id_list_query(query);
 				syslog(LOG_ERR, "Request: Get train train peripherals - invalid "
-				       "train");
+								"train");
 				return OCS_NOT_IMPLEMENTED;
 			}
 		}
 	} else {
 		syslog(LOG_ERR, "Request: Get train peripherals - system not running or "
-		       "wrong request type");
+						"wrong request type");
 		return OCS_NOT_IMPLEMENTED;
 	}
 }
 
 onion_connection_status handler_get_track_outputs(void *_, onion_request *req,
-                                                  onion_response *res) {
-    build_response_header(res);
+												  onion_response *res) {
+	build_response_header(res);
 	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
 		GString *track_outputs = g_string_new("");
 		t_bidib_id_list_query query = bidib_get_track_outputs();
 		for (size_t i = 0; i < query.length; i++) {
 			t_bidib_track_output_state_query track_output_state =
-				bidib_get_track_output_state(query.ids[i]);
+					bidib_get_track_output_state(query.ids[i]);
 			if (track_output_state.known) {
 				char *state_string;
 				switch (track_output_state.cs_state) {
@@ -195,8 +192,8 @@ onion_connection_status handler_get_track_outputs(void *_, onion_request *req,
 						break;
 				}
 				g_string_append_printf(track_outputs, "%s%s - state: %s",
-				                       i != 0 ? "\n" : "", query.ids[i],
-				                       state_string);
+									   i != 0 ? "\n" : "", query.ids[i],
+									   state_string);
 			}
 		}
 		bidib_free_id_list_query(query);
@@ -208,13 +205,13 @@ onion_connection_status handler_get_track_outputs(void *_, onion_request *req,
 		return OCS_PROCESSED;
 	} else {
 		syslog(LOG_ERR, "Request: Get track outputs - system not running or "
-		       "wrong request type");
+						"wrong request type");
 		return OCS_NOT_IMPLEMENTED;
 	}
 }
 
 onion_connection_status handler_get_points(void *_, onion_request *req,
-                                           onion_response *res) {
+										   onion_response *res) {
 	build_response_header(res);
 
 	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
@@ -222,7 +219,7 @@ onion_connection_status handler_get_points(void *_, onion_request *req,
 		onion_dict *dict = onion_dict_new();
 		for (size_t i = 0; i < query.length; i++) {
 			t_bidib_unified_accessory_state_query point_state =
-				bidib_get_point_state(query.ids[i]);
+					bidib_get_point_state(query.ids[i]);
 			char *id = malloc(6);
 			sprintf(id, "%d", i);
 			onion_dict *subd = onion_dict_new();
@@ -239,13 +236,13 @@ onion_connection_status handler_get_points(void *_, onion_request *req,
 		return onion_shortcut_response_json(dict, req, res);
 	} else {
 		syslog(LOG_ERR, "Request: Get points - system not running or wrong "
-			   "request type");
+						"request type");
 		return OCS_NOT_IMPLEMENTED;
 	}
 }
 
 onion_connection_status handler_get_signals(void *_, onion_request *req,
-                                            onion_response *res) {
+											onion_response *res) {
 	build_response_header(res);
 
 	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
@@ -254,7 +251,7 @@ onion_connection_status handler_get_signals(void *_, onion_request *req,
 
 		for (size_t i = 0; i < query.length; i++) {
 			t_bidib_unified_accessory_state_query signal_state =
-				bidib_get_signal_state(query.ids[i]);
+					bidib_get_signal_state(query.ids[i]);
 			char *id = malloc(6);
 			sprintf(id, "%d", i);
 			onion_dict *subd = onion_dict_new();
@@ -271,13 +268,13 @@ onion_connection_status handler_get_signals(void *_, onion_request *req,
 		return onion_shortcut_response_json(dict, req, res);
 	} else {
 		syslog(LOG_ERR, "Request: Get signals - system not running or wrong "
-			   "request type");
+						"request type");
 		return OCS_NOT_IMPLEMENTED;
 	}
 }
 
 onion_connection_status handler_get_point_aspects(void *_, onion_request *req,
-                                                  onion_response *res) {
+												  onion_response *res) {
 	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
 		const char *data_point = onion_request_get_post(req, "point");
 		if (data_point == NULL) {
@@ -289,7 +286,7 @@ onion_connection_status handler_get_point_aspects(void *_, onion_request *req,
 				GString *aspects = g_string_new("");
 				for (size_t i = 0; i < query.length; i++) {
 					g_string_append_printf(aspects, "%s%s", i != 0 ? ", " : "",
-					                       query.ids[i]);
+										   query.ids[i]);
 				}
 				bidib_free_id_list_query(query);
 				char response[aspects->len + 1];
@@ -306,13 +303,13 @@ onion_connection_status handler_get_point_aspects(void *_, onion_request *req,
 		}
 	} else {
 		syslog(LOG_ERR, "Request: Get point aspects - system not running or "
-		       "wrong request type");
+						"wrong request type");
 		return OCS_NOT_IMPLEMENTED;
 	}
 }
 
 onion_connection_status handler_get_signal_aspects(void *_, onion_request *req,
-                                                   onion_response *res) {
+												   onion_response *res) {
 	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
 		const char *data_signal = onion_request_get_post(req, "signal");
 		if (data_signal == NULL) {
@@ -324,7 +321,7 @@ onion_connection_status handler_get_signal_aspects(void *_, onion_request *req,
 				GString *aspects = g_string_new("");
 				for (size_t i = 0; i < query.length; i++) {
 					g_string_append_printf(aspects, "%s%s", i != 0 ? ", " : "",
-					                       query.ids[i]);
+										   query.ids[i]);
 				}
 				bidib_free_id_list_query(query);
 				char response[aspects->len + 1];
@@ -341,27 +338,27 @@ onion_connection_status handler_get_signal_aspects(void *_, onion_request *req,
 		}
 	} else {
 		syslog(LOG_ERR, "Request: Get signal aspects - system not running or "
-		       "wrong request type");
+						"wrong request type");
 		return OCS_NOT_IMPLEMENTED;
 	}
 }
 
 onion_connection_status handler_get_segments(void *_, onion_request *req,
-                                             onion_response *res) {
+											 onion_response *res) {
 	build_response_header(res);
 
 	if (running && ((onion_request_get_flags(req) & OR_METHODS) == OR_POST)) {
-		t_bidib_id_list_query seg_query = bidib_get_connected_segments();
 		onion_dict *dict = onion_dict_new();
-		for (size_t i = 0; i < seg_query.length; i++) {
-			t_bidib_segment_state_query seg_state_query =
-				bidib_get_segment_state(seg_query.ids[i]);
+		t_bidib_track_state track_state = bidib_get_state();
+		for (size_t i = 0; i < track_state.segments_count; i++) {
 
+			t_bidib_segment_state_query seg_state_query =
+					bidib_get_segment_state(track_state.segments[i].id);
 			char *id = malloc(6);
 			sprintf(id, "%d", i);
 			onion_dict *subd = onion_dict_new();
 
-			onion_dict_add(subd, "segmentid", convertme(seg_query.ids[i]), 0);
+			onion_dict_add(subd, "segmentid", convertme(track_state.segments[i].id), 0);
 			onion_dict_add(subd, "occupied", seg_state_query.data.occupied ? "yes" : "no", 0);
 
 			if (seg_state_query.data.dcc_address_cnt > 0) {
@@ -379,12 +376,12 @@ onion_connection_status handler_get_segments(void *_, onion_request *req,
 			onion_dict_add(dict, id, subd, OD_DICT | OD_FREE_VALUE);
 			bidib_free_segment_state_query(seg_state_query);
 		}
-		bidib_free_id_list_query(seg_query);
+		//bidib_free_id_list_query(seg_query);
 		syslog(LOG_NOTICE, "Request: Get segments");
 		return onion_shortcut_response_json(dict, req, res);
 	} else {
 		syslog(LOG_ERR, "Request: Get segments - system not running or "
-		       "wrong request type");
+						"wrong request type");
 		return OCS_NOT_IMPLEMENTED;
 	}
 }

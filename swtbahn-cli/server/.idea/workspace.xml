@@ -10,42 +10,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d40d49da-2ec6-4e81-aa95-322b20d12058" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handler_admin.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/handler_admin.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handler_admin.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/handler_admin.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/handler_driver.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/handler_driver.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/handler_driver.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/handler_driver.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/handler_monitor.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/handler_monitor.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handler_safety.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/handler_safety.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/0.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/0.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/0.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/0.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/1.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/1.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/1.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/1.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/10.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/10.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/10.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/10.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/11.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/11.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/11.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/11.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/2.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/2.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/2.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/2.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/3.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/3.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/3.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/3.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/4.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/4.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/4.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/4.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/5.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/5.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/5.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/5.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/6.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/6.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/6.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/6.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/7.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/7.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/7.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/7.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/8.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/8.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/8.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/8.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/9.build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/9.build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/9.build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/9.build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/build.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/dist/build.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/dist/build.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/API.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/_store/controller.module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/src/_store/controller.module.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/pages/login/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/src/pages/login/Login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/pages/register/Register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/src/pages/register/Register.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/views/driverboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/src/views/driverboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/views/trackpanel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/src/views/trackpanel.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/swtbahn_cli_definitions_custom.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/swtbahn_cli_definitions_custom.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../swtbahn-web/src/_store/system.module.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../swtbahn-web/src/_store/system.module.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -69,23 +45,24 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="c" value="7" />
-          <entry key="h" value="3" />
+          <entry key="c" value="8" />
+          <entry key="h" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="ObjectiveC" value="10" />
+          <entry key="ObjectiveC" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="c" value="54" />
+          <entry key="c" value="99" />
+          <entry key="h" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="ObjectiveC" value="54" />
+          <entry key="ObjectiveC" value="103" />
         </counts>
       </usages-collector>
     </session>
@@ -95,8 +72,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/server.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="78" column="32" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="32" />
+            <state relative-caret-position="281">
+              <caret line="105" column="45" selection-start-line="105" selection-start-column="25" selection-end-line="105" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -104,11 +81,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/handler_monitor.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="151" column="37" lean-forward="true" selection-start-line="151" selection-start-column="37" selection-end-line="151" selection-end-column="37" />
-              <folding>
-                <element signature="e#1477#2476#0" />
-              </folding>
+            <state relative-caret-position="552">
+              <caret line="67" column="1" lean-forward="true" selection-start-line="41" selection-end-line="67" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/handler_safety.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="298">
+              <caret line="48" column="40" lean-forward="true" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="63" />
             </state>
           </provider>
         </entry>
@@ -123,17 +106,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/handler_driver.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="91">
-              <caret line="418" column="12" lean-forward="true" selection-start-line="418" selection-start-column="12" selection-end-line="418" selection-end-column="12" />
+            <state relative-caret-position="17">
+              <caret line="172" column="37" selection-start-line="172" selection-start-column="37" selection-end-line="172" selection-end-column="37" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/handler_driver.h">
+        <entry file="file://$PROJECT_DIR$/src/handler_admin.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="35" column="42" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="42" />
+            <state relative-caret-position="332">
+              <caret line="104" column="46" selection-start-line="104" selection-start-column="24" selection-end-line="104" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -142,7 +125,7 @@
         <entry file="file://$PROJECT_DIR$/src/param_verification.c">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="536">
-              <caret line="92" column="23" lean-forward="true" selection-start-line="92" selection-start-column="23" selection-end-line="92" selection-end-column="23" />
+              <caret line="92" column="23" selection-start-line="92" selection-start-column="23" selection-end-line="92" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -152,15 +135,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="502">
               <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/handler_safety.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1114">
-              <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
             </state>
           </provider>
         </entry>
@@ -179,6 +153,8 @@
       <find>t_bidib_id_query</find>
       <find>bidib_config_parse</find>
       <find>grab_request</find>
+      <find>update_request</find>
+      <find>system not running or wrong request type</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -190,8 +166,13 @@
         <option value="$PROJECT_DIR$/src/param_verification.c" />
         <option value="$PROJECT_DIR$/src/param_verification.h" />
         <option value="$PROJECT_DIR$/src/handler_controller.c" />
-        <option value="$PROJECT_DIR$/src/handler_monitor.c" />
+        <option value="$PROJECT_DIR$/src/swtbahn_cli_definitions_custom.h" />
+        <option value="$PROJECT_DIR$/src/handler_driver.h" />
         <option value="$PROJECT_DIR$/src/handler_driver.c" />
+        <option value="$PROJECT_DIR$/src/handler_monitor.c" />
+        <option value="$PROJECT_DIR$/src/handler_admin.h" />
+        <option value="$PROJECT_DIR$/src/handler_admin.c" />
+        <option value="$PROJECT_DIR$/src/server.c" />
       </list>
     </option>
   </component>
@@ -202,7 +183,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="OCFindUsagesOptions" text="false" ivars="false" properties="false" derivedClasses="false" />
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="85" />
     <option name="y" value="25" />
     <option name="width" value="1750" />
@@ -271,10 +252,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30757000" />
+    <option name="totallyTimeSpent" value="38101000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19865772" />
@@ -333,9 +314,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/handler_admin.h">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/handler_controller.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
@@ -343,48 +321,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/handler_monitor.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="151" column="37" lean-forward="true" selection-start-line="151" selection-start-column="37" selection-end-line="151" selection-end-column="37" />
-          <folding>
-            <element signature="e#1477#2476#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/param_verification.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="536">
-          <caret line="92" column="23" lean-forward="true" selection-start-line="92" selection-start-column="23" selection-end-line="92" selection-end-column="23" />
+          <caret line="92" column="23" selection-start-line="92" selection-start-column="23" selection-end-line="92" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/handler_admin.c">
+    <entry file="file://$PROJECT_DIR$/src/swtbahn_cli_definitions_custom.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1054">
-          <caret line="62" column="25" selection-start-line="62" selection-start-column="25" selection-end-line="62" selection-end-column="25" />
+        <state relative-caret-position="408">
+          <caret line="24" column="17" lean-forward="true" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/handler_driver.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="35" column="42" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="42" />
+        <state relative-caret-position="621">
+          <caret line="61" column="74" selection-start-line="61" selection-start-column="74" selection-end-line="61" selection-end-column="74" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/handler_driver.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="418" column="12" lean-forward="true" selection-start-line="418" selection-start-column="12" selection-end-line="418" selection-end-column="12" />
+        <state relative-caret-position="17">
+          <caret line="172" column="37" selection-start-line="172" selection-start-column="37" selection-end-line="172" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/handler_safety.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="48" column="40" lean-forward="true" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/handler_monitor.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="67" column="1" lean-forward="true" selection-start-line="41" selection-end-line="67" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/handler_admin.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="519">
+          <caret line="41" column="68" selection-start-line="41" selection-start-column="68" selection-end-line="41" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/handler_admin.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="104" column="46" selection-start-line="104" selection-start-column="24" selection-end-line="104" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/server.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="78" column="32" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="32" />
+        <state relative-caret-position="281">
+          <caret line="105" column="45" selection-start-line="105" selection-start-column="25" selection-end-line="105" selection-end-column="45" />
         </state>
       </provider>
     </entry>

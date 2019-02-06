@@ -18,12 +18,12 @@ const actions = {
   //start server...
 
   GetTrainsArray({ commit }) {
-    var tempState = {
+    /* var tempState = {
       "0": { grabbed: "no", trainid: "train1" },
       "1": { grabbed: "no", trainid: "train2" }
     };
-    commit("updateTrainsArray", tempState);
-    /* Api()
+    commit("updateTrainsArray", tempState);*/
+    Api()
       .post("monitor/trains")
       .then(response => {
         if (response.status == 200) {
@@ -32,7 +32,7 @@ const actions = {
       })
       .catch(e => {
         console.error(e);
-      });*/
+      });
   },
   GetPointsArray({ commit }) {
     Api()
@@ -71,11 +71,11 @@ const actions = {
       });
   },
   GetTrainStateArray({ commit }, trainid) {
-    var tempState = {
+    /* var tempState = {
       "0": { dccspeed: "9", direction: "forward", ontrack: "yes" }
     };
-    commit("updateTrainState", tempState);
-    /*
+    commit("updateTrainState", tempState);*/
+
     let formData = new FormData();
     formData.append("train", trainid);
     Api()
@@ -87,14 +87,17 @@ const actions = {
       })
       .catch(e => {
         console.error(e);
-      });*/
+      });
+  },
+  resetMonitor({ commit }) {
+    commit("resetMonitorState");
   }
 };
 
 const mutations = {
-  resetState(state) {
+  resetMonitorState(state) {
     // acquire initial state
-    const s = initialState();
+    const s = initialMonitorState();
     Object.keys(s).forEach(key => {
       state[key] = s[key];
     });

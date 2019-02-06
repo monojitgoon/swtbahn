@@ -242,9 +242,52 @@
               >{{ errors.first('endingsegment') }}</div>
             </div>
           </div>
+          <div class="row form-group">
+            <div class="col col-md-3">
+              <label class="form-control-label">Controller</label>
+            </div>
+            <div class="col col-md-9">
+              <div class="form-check">
+                <div class="radio">
+                  <label for="Stellwerk" class="form-check-label">
+                    <input
+                      type="radio"
+                      id="Stellwerk"
+                      name="Controller"
+                      value="true"
+                      placeholder="Controller"
+                      v-model="routerequest.controller"
+                      v-validate="'required'"
+                      class="form-check-input"
+                      :class="{ 'is-invalid': submitted && errors.has('controller') }"
+                    >Stellwerk
+                  </label>
+                </div>
+                <div class="radio">
+                  <label for="Automated" class="form-check-label">
+                    <input
+                      type="radio"
+                      id="Automated"
+                      name="Controller"
+                      value="false"
+                      placeholder="Controller"
+                      v-model="routerequest.controller"
+                      v-validate="'required'"
+                      class="form-check-input"
+                      :class="{ 'is-invalid': submitted && errors.has('controller') }"
+                    >Automated
+                  </label>
+                </div>
+                <div
+                  v-if="submitted && errors.has('controller')"
+                  class="invalid-feedback"
+                >{{ errors.first('controller') }}</div>
+              </div>
+            </div>
+          </div>
         </card>
         <div class="form-actions form-group">
-          <button type="submit" class="btn btn-primary btn-sm" @click="showModal = false">
+          <button type="submit" class="btn btn-primary btn-sm">
             <i class="fa fa-dot-circle-o"></i> Submit
           </button>
           <button type="reset" class="btn btn-danger btn-sm" @click="showModal = false">
@@ -268,7 +311,8 @@ export default {
     return {
       routerequest: {
         startingsegment: "",
-        endingsegment: ""
+        endingsegment: "",
+        controller: true
       },
       submitted: false,
       showModal: false,
@@ -296,16 +340,21 @@ export default {
       monitor: state => state.monitor
     })
   },
-  created() {},
-  mounted() {
+  created() {
+    this.StartServer();
     this.InitialSpeedValueLoad();
-    this.GetTrainsArray();
-    this.GetSegmentsArray();
-    this.RequestForTrainState(this.system.driverProperties.trainID);
-    this.getSingleRouteRequest(this.system.driverProperties.grabID);
+    this.AsyncUpdate();
+  },
+  mounted() {
+    this.StartServer();
+    this.InitialSpeedValueLoad();
+    this.AsyncUpdate();
+    this.system.driverboardRequestInterval = setInterval(() => {
+      this.AsyncUpdate();
+    }, appConfig.system_driverboard_RequestInterval);
   },
   beforeDestroy() {
-    clearInterval(this.system.systemRequestInterval);
+    clearInterval(this.system.driverboardRequestInterval);
   },
   methods: {
     ...mapActions("system", [
@@ -316,7 +365,8 @@ export default {
       "updateTrainProps",
       "updatePeripheralState",
       "registerRouteRequest",
-      "getSingleRouteRequest"
+      "getSingleRouteRequest",
+      "GetCurrentServerSessionId"
     ]),
     ...mapActions("monitor", [
       "GetTrainsArray",
@@ -324,26 +374,7 @@ export default {
       "GetTrainStateArray"
     ]),
     ...mapActions("alert", ["error", "clear"]),
-    handleSubmit(e) {
-      /* if (this.system.sessionID != 0) {
-        if (this.system.driverProperties.grabID === -1)
-          this.error("There is no train grabbed yet!");
-        else {*/
-      this.submitted = true;
-      this.$validator.validate().then(valid => {
-        if (valid) {
-          this.registerRouteRequest({
-            sessionid: this.system.sessionID,
-            grabid: this.system.driverProperties.grabID,
-            routerequest: this.routerequest
-          });
-        }
-      });
-      /* }
-      } else {
-        this.error("Server Session is not valid anymore!");
-      }*/
-    },
+
     /* Component Action starts*/
     InitialSpeedValueLoad() {
       if (
@@ -385,75 +416,75 @@ export default {
     },
     /* Component Action ends*/
     /* Method starts*/
+    AsyncUpdate() {
+      this.GetTrainsArray();
+      this.GetSegmentsArray();
+      if (this.system.driverProperties.trainID != null) {
+        this.GetTrainStateArray(this.system.driverProperties.trainID);
+        this.GetPeripheralsArray(this.system.driverProperties.trainID);
+        this.getSingleRouteRequest(this.system.driverProperties.grabID);
+      }
+    },
     AddRouteRequest: function() {
       this.clear();
-      // if (this.system.driverProperties.trainID != null)
-      this.showModal = true;
-      // else this.error("No train is grabbed yet!");
+      if (this.system.driverProperties.trainID != null) this.showModal = true;
+      else this.error("No train is grabbed yet!");
+    },
+    handleSubmit(e) {
+      this.CheckCurrentSession();
+      this.submitted = true;
+      this.$validator.validate().then(valid => {
+        if (valid) {
+          this.showModal = false;
+          this.registerRouteRequest({
+            sessionid: this.system.sessionID,
+            grabid: this.system.driverProperties.grabID,
+            routerequest: this.routerequest
+          });
+        }
+      });
     },
     GrabTrainClicked: function(selection) {
-      if (this.system.driverProperties.grabID === -1) {
-        if (this.system.sessionID === 0) {
-          this.StartServer();
-        }
-        this.updateDriverProps(selection);
-        this.GetPeripheralsArray(selection);
-        this.RequestForTrainState(selection);
-      } else this.error("You can only grab one train!");
+      if (selection != null) {
+        this.CheckCurrentSession();
+        if (this.system.driverProperties.grabID === -1) {
+          this.updateDriverProps(selection);
+          this.GetPeripheralsArray(selection);
+          this.GetTrainStateArray(selection);
+        } else this.error("You can only grab one train!");
+      } else this.error("No train has been selected!");
     },
     ReleaseTrain() {
-      if (this.system.sessionID != 0) {
-        if (this.system.driverProperties.grabID === -1)
-          this.error("There is no train grabbed yet!");
-        else {
-          this.updateDriverPropsPostRelease({
-            sessionid: this.system.sessionID,
-            grabid: this.system.driverProperties.grabID
-          });
-          this.ForceStop();
-        }
-      } else {
-        this.error("Server Session is not valid anymore!");
-      }
+      this.CheckCurrentSession();
+      this.ForceStop();
+      this.updateDriverPropsPostRelease({
+        sessionid: this.system.sessionID,
+        grabid: this.system.driverProperties.grabID
+      });
     },
     SetDCCSpeed(spd) {
-      if (this.system.sessionID != 0) {
-        if (this.system.driverProperties.grabID === -1)
-          this.error("There is no train grabbed yet!");
-        else {
-          this.updateTrainProps({
-            sessionid: this.system.sessionID,
-            grabid: this.system.driverProperties.grabID,
-            speed: spd
-          });
-        }
-      } else {
-        this.error("Server Session is not valid anymore!");
-      }
+      this.CheckCurrentSession();
+      this.updateTrainProps({
+        sessionid: this.system.sessionID,
+        grabid: this.system.driverProperties.grabID,
+        speed: spd
+      });
     },
     ChangePeripheralState(id, stateValue) {
-      if (this.system.sessionID != 0) {
-        if (this.system.driverProperties.grabID === -1)
-          this.error("There is no train grabbed yet!");
-        else {
-          this.updatePeripheralState({
-            sessionid: this.system.sessionID,
-            grabid: this.system.driverProperties.grabID,
-            peripheralid: id,
-            peripheralstate: stateValue == "on" ? "off" : "on",
-            trainid: this.system.driverProperties.trainID
-          });
-        }
-      } else {
-        this.error("Server Session is not valid anymore!");
-      }
+      this.CheckCurrentSession();
+      this.updatePeripheralState({
+        sessionid: this.system.sessionID,
+        grabid: this.system.driverProperties.grabID,
+        peripheralid: id,
+        peripheralstate: stateValue == "on" ? 0 : 1,
+        trainid: this.system.driverProperties.trainID
+      });
     },
-    RequestForTrainState(trainid) {
-      if (trainid != null) {
-        this.GetTrainStateArray(trainid);
-        /*   this.system.RequestInterval = setInterval(() => {
-          this.GetTrainStateArray(trainid);
-        }, 1000);*/
+    CheckCurrentSession() {
+      this.GetCurrentServerSessionId();
+      if (this.system.sessionID != this.system.currentServerSessionID) {
+        this.system.sessionID = this.system.currentServerSessionID;
+        this.ResetDriverProps({ trainid: null, grabid: -1 });
       }
     }
   }

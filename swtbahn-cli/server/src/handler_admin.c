@@ -102,6 +102,24 @@ onion_connection_status handler_startup(void *_, onion_request *req,
     return retval;
 }
 
+onion_connection_status handler_get_session_id(void *_, onion_request *req,
+                                               onion_response *res) {
+    build_response_header(res);
+
+    int retval;
+    pthread_mutex_lock(&start_stop_mutex);
+    if (running && !starting && !stopping && ((onion_request_get_flags(req) &
+                                               OR_METHODS) == OR_POST)) {
+        syslog(LOG_NOTICE, "Request: Current session id: %ld", session_id);
+        onion_response_printf(res, "%ld", session_id);
+        retval = OCS_PROCESSED;
+    } else {
+        syslog(LOG_ERR, "Request: Currently - BiDiB system is not running");
+        retval = OCS_NOT_IMPLEMENTED;
+    }
+    pthread_mutex_unlock(&start_stop_mutex);
+    return retval;
+}
 static void *stop_bidib(void *_) {
 	usleep (1000000); // wait for running functions
 	bidib_stop();

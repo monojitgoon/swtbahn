@@ -57,5 +57,8 @@ onion_connection_status handler_set_route_request(void *_, onion_request *req,
 
 onion_connection_status handler_get_route_request(void *_, onion_request *req,
                                                   onion_response *res);
+
+onion_connection_status handler_update_route_request(void *_, onion_request *req,
+                                                     onion_response *res);
 #endif
 

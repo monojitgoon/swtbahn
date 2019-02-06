@@ -38,6 +38,7 @@ onion_connection_status handler_shutdown(void *_, onion_request *req,
 onion_connection_status handler_set_track_output(void *_, onion_request *req,
                                                  onion_response *res);
 
-
+onion_connection_status handler_get_session_id(void *_, onion_request *req,
+                                               onion_response *res);
 #endif
 

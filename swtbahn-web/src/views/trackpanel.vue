@@ -2,7 +2,6 @@
   <div class="col-xs-12 col-md-12">
     <card header-text="Trackboard">
       <input class="btn btn-success" type="submit" value="Start SVG" @click="Svghandler()">
-      <input class="btn btn-success" type="submit" value="stop SVG" @click="stop()">
       <div class="card-body card-block">
         <svg
           id="track-master"
@@ -419,29 +418,21 @@ export default {
     })
   },
   beforeDestroy() {
-    clearInterval(this.system.systemRequestInterval);
+    clearInterval(this.system.systemTrackPanelRequestInterval);
   },
   mounted() {
-    this.AsyncSegmentUpdate();
+    this.RunSVG();
+    this.system.systemTrackPanelRequestInterval = setInterval(() => {
+      this.RunSVG();
+    }, appConfig.system_trackpanel_RequestInterval);
   },
   methods: {
-    filterItems: function(items) {
-      return items.filter(function(item) {
-        return item.trains != null;
-      });
-    },
     ...mapActions("monitor", ["GetSegmentsArray", "GetTrainStateArray"]),
-    AsyncSegmentUpdate() {
-      this.system.systemRequestInterval = setInterval(() => {
-        this.GetSegmentsArray();
-        this.RunSVG();
-      }, 5000);
-    },
     RunSVG() {
       var currentseg = null;
       var currentTrain = null;
       var currentSpeed = null;
-
+      this.GetSegmentsArray();
       Object.keys(this.monitor.segmentArray).forEach(key => {
         const segmentid = this.monitor.segmentArray[key]["segmentid"];
         const occupied = this.monitor.segmentArray[key]["occupied"];
@@ -481,7 +472,6 @@ export default {
         }
       });
     },
-    Stop() {},
     Svghandler() {
       var canvas = SVG("track-master"),
         trainobj = canvas.image(img, 20, 20),

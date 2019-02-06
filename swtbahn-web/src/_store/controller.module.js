@@ -79,13 +79,16 @@ const actions = {
       .catch(e => {
         console.error(e);
       });
+  },
+  resetController({ commit }) {
+    commit("resetControllerState");
   }
 };
 
 const mutations = {
-  resetState(state) {
+  resetControllerState(state) {
     // acquire initial state
-    const s = initialState();
+    const s = initialControllerState();
     Object.keys(s).forEach(key => {
       state[key] = s[key];
     });
@@ -95,7 +98,9 @@ const mutations = {
     state.driverProperties.grabID = grabid;
   },
   updateControllerRouteRequestArray(state, routeRequestArray) {
-    state.controllerRouteRequestArray = routeRequestArray;
+    state.controllerRouteRequestArray = routeRequestArray.filter(
+      route => route.controller !== "false"
+    );
   }
 };
 

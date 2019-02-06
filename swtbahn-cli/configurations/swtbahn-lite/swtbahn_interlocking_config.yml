@@ -1,0 +1,29 @@
+# Route configuration
+routes:
+  - id: route1
+    start-seg: seg2
+    start-seg: seg6
+    path:    
+      - seg1
+      - seg2
+      - seg3
+      - seg4
+      - seg5
+      - seg6
+    points:
+        - id: point1
+        direction: N
+    signals:
+      - id: signal2
+        direction: N
+    conflicts:
+      - id: signal8
+        direction: N
+      - id: signal3
+        direction: N
+      - id: signal5
+        direction: N
+      - id: signal9
+        direction: R
+      - id: signal4
+        direction: N

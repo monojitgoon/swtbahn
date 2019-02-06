@@ -103,6 +103,7 @@ int main(int argc, char **argv) {
 
 	// --- admin functions ---
 	onion_url_add(urls, "admin/startup", handler_startup);
+    onion_url_add(urls, "admin/get-session-id", handler_get_session_id);
 	onion_url_add(urls, "admin/shutdown", handler_shutdown);
 	onion_url_add(urls, "admin/set-track-output", handler_set_track_output);
 	
@@ -124,6 +125,8 @@ int main(int argc, char **argv) {
 				  handler_set_route_request);
 	onion_url_add(urls, "driver/get-route-request",
 				  handler_get_route_request);
+	onion_url_add(urls, "driver/update-route-request",
+				  handler_update_route_request);
 	// --- monitor functions ---
 	onion_url_add(urls, "monitor/trains", handler_get_trains);
 	onion_url_add(urls, "monitor/train-state", handler_get_train_state);
