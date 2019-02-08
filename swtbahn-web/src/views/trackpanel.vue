@@ -1,7 +1,6 @@
 <template>
   <div class="col-xs-12 col-md-12">
     <card header-text="Trackboard">
-      <input class="btn btn-success" type="submit" value="Start SVG" @click="Svghandler()">
       <div class="card-body card-block">
         <svg
           id="track-master"
@@ -150,7 +149,7 @@
             marker-end="url(#triangle)"
           ></path>
           <path
-            id="seg8-normal"
+            id="seg8"
             stroke="black"
             stroke-width="3"
             fill="none"
@@ -265,7 +264,7 @@
             marker-end="url(#triangle)"
           ></path>
           <path
-            id="seg13-normal"
+            id="seg13"
             stroke="black"
             stroke-width="3"
             fill="none"
@@ -281,7 +280,7 @@
             marker-end="url(#triangle)"
           ></path>
           <path
-            id="seg21-normal"
+            id="seg21"
             stroke="black"
             stroke-width="3"
             fill="none"
@@ -421,8 +420,15 @@ export default {
     clearInterval(this.system.systemTrackPanelRequestInterval);
   },
   mounted() {
-    this.RunSVG();
+    setTimeout(
+      function() {
+        this.GetSegmentsArray();
+        this.RunSVG();
+      }.bind(this),
+      5000
+    );
     this.system.systemTrackPanelRequestInterval = setInterval(() => {
+      this.GetSegmentsArray();
       this.RunSVG();
     }, appConfig.system_trackpanel_RequestInterval);
   },
@@ -430,9 +436,7 @@ export default {
     ...mapActions("monitor", ["GetSegmentsArray", "GetTrainStateArray"]),
     RunSVG() {
       var currentseg = null;
-      var currentTrain = null;
-      var currentSpeed = null;
-      this.GetSegmentsArray();
+
       Object.keys(this.monitor.segmentArray).forEach(key => {
         const segmentid = this.monitor.segmentArray[key]["segmentid"];
         const occupied = this.monitor.segmentArray[key]["occupied"];
@@ -440,47 +444,26 @@ export default {
         if (occupied === "yes" && trainid != null) {
           this.GetTrainStateArray(trainid);
           const dccspeed = this.monitor.trainstateArray[0]["dccspeed"];
-          // this.Svghandler(segmentid, dccspeed);
-
           if (currentseg != segmentid) {
             currentseg = segmentid;
-            var canvas = SVG("track-master");
-            var trainobj = canvas.image(img, 20, 20);
-            trainobj.addClass("display");
-
-            var path = canvas.path(
-              document.getElementById(currentseg).getAttribute("d")
-            );
-
-            if (currentTrain != trainid) {
-              currentTrain = trainid;
-              var length = path.length();
-              path.fill("none").stroke({ width: 1, color: "#ccc" });
-              if (currentSpeed != dccspeed) {
-                currentSpeed = dccspeed;
-                trainobj
-                  .animate(100000 / currentSpeed, "-")
-                  .during(function(pos, morph, eased) {
-                    var p = path.pointAt(eased * length);
-                    trainobj.center(p.x - 10, p.y - 10);
-                  })
-                  .once(true)
-                  .attr({ display: "none" });
-              }
-            }
+            this.Svghandler(currentseg, dccspeed);
           }
         }
       });
     },
-    Svghandler() {
-      var canvas = SVG("track-master"),
-        trainobj = canvas.image(img, 20, 20),
-        path = canvas.path(document.getElementById("seg10").getAttribute("d")),
-        length = path.length();
-      path.fill("none").stroke({ width: 1, color: "#ccc" });
+    Svghandler(currentseg, currentSpeed) {
+      var canvas = SVG("track-master");
+      var trainobj = canvas.image(img, 20, 20);
       trainobj.addClass("display");
+      var path = canvas.path(
+        document.getElementById(currentseg).getAttribute("d")
+      );
+
+      var length = path.length();
+      path.fill("none").stroke({ width: 1, color: "#ccc" });
+
       trainobj
-        .animate(50000 / 2, "-")
+        .animate(100000 / currentSpeed, "-")
         .during(function(pos, morph, eased) {
           var p = path.pointAt(eased * length);
           trainobj.center(p.x - 10, p.y - 10);

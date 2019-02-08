@@ -77,22 +77,24 @@
 </template>
 
 <script>
-import Trackpanel from "./trackpanel.vue";
 import { mapState, mapActions } from "vuex";
 import appConfig from "../../config/appConfig";
+import Trackpanel from "./trackpanel.vue";
 
 export default {
   name: "trackboard",
   components: {
     Trackpanel
   },
-  created() {
-    this.StartServer();
-    this.LoadStatistics();
-  },
   mounted() {
-    this.StartServer();
-    this.LoadStatistics();
+    this.GetCurrentServerSessionId(this.system.sessionID);
+    setTimeout(
+      function() {
+        this.LoadStatistics();
+      }.bind(this),
+      5000
+    );
+
     this.system.systemStatisticsRequestInterval = setInterval(() => {
       this.LoadStatistics();
     }, appConfig.system_trackstatistics_RequestInterval);
@@ -109,7 +111,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions("system", ["StartServer", "StopServer"]),
+    ...mapActions("system", ["GetCurrentServerSessionId", "StopServer"]),
     ...mapActions("monitor", [
       "GetTrainsArray",
       "GetPointsArray",
@@ -124,10 +126,13 @@ export default {
     },
     SwitchServer(e) {
       if (e == true) {
-        if (this.system.sessionID === 0) {
-          this.StartServer();
-          this.LoadStatistics();
-        }
+        this.GetCurrentServerSessionId(this.system.sessionID);
+        setTimeout(
+          function() {
+            this.LoadStatistics();
+          }.bind(this),
+          5000
+        );
       } else {
         this.StopServer();
       }

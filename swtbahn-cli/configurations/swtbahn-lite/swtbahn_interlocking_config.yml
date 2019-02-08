@@ -2,9 +2,8 @@
 routes:
   - id: route1
     start-seg: seg2
-    start-seg: seg6
+    end-seg: seg6
     path:    
-      - seg1
       - seg2
       - seg3
       - seg4
@@ -15,15 +14,15 @@ routes:
         direction: N
     signals:
       - id: signal2
-        direction: N
+        aspect: Proceed
     conflicts:
       - id: signal8
-        direction: N
+        aspect: blocked
       - id: signal3
-        direction: N
+        aspect: blocked
       - id: signal5
-        direction: N
+        aspect: blocked
       - id: signal9
-        direction: R
+        aspect: blocked
       - id: signal4
-        direction: N
+        aspect: blocked

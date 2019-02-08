@@ -11,7 +11,7 @@ import "vuetify/dist/vuetify.min.css";
 import "@mdi/font/css/materialdesignicons.css";
 import SVG from "svg.js";
 
-Vue.use(Vuetify);
+Vue.use(Vuetify, { iconfont: "fa4" });
 Vue.use(VeeValidate);
 // setup fake backend
 import { configureFakeBackend } from "./_helpers";

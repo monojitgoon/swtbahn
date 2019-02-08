@@ -46,6 +46,11 @@ const RouteRequests = resolve => {
     resolve(require("../views/RouteRequests.vue"));
   });
 };
+const RoutingTable = resolve => {
+  require.ensure(["../views/RoutingTable.vue"], () => {
+    resolve(require("../views/RoutingTable.vue"));
+  });
+};
 // UI Components
 
 //User Info
@@ -94,6 +99,7 @@ export const routes = [
   { path: "/setpoints", name: "setpoints", component: SetPoints },
   { path: "/setsignals", name: "setsignals", component: SetSignals },
   { path: "/routerequests", name: "routerequests", component: RouteRequests },
+  { path: "/routingtable", name: "routingtable", component: RoutingTable },
 
   { path: "/users", name: "users", component: User },
   {

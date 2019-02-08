@@ -1,8 +1,10 @@
 import Api from "./API";
+import routingConfig from "../../config/routingConfig";
 
 function initialControllerState() {
   return {
     /* .. initial state ... */
+    routingTable: {},
     controllerRouteRequestArray: {},
     controllerRequestInterval: 0
   };
@@ -11,6 +13,9 @@ function initialControllerState() {
 const state = initialControllerState;
 
 const actions = {
+  GetRoutingTable({ commit }) {
+    commit("updateRoutingTable", routingConfig);
+  },
   SetPointState({ dispatch }, { pointid, state }) {
     let formData = new FormData();
     formData.append("point", pointid);
@@ -45,9 +50,11 @@ const actions = {
   GetControllerRouteRequest({ commit }) {
     /* var tempRoute = {
       "0": {
+        controller: "true",
+        endingsegment: "seg29",
         grabid: "0",
-        endingsegment: "seg11",
-        startingsegment: "seg11",
+        path: "",
+        startingsegment: "seg29",
         status: "Pending",
         trainid: "train1"
       }
@@ -97,10 +104,11 @@ const mutations = {
     state.driverProperties.trainID = trainid;
     state.driverProperties.grabID = grabid;
   },
+  updateRoutingTable(state, routingtable) {
+    state.routingTable = routingtable;
+  },
   updateControllerRouteRequestArray(state, routeRequestArray) {
-    state.controllerRouteRequestArray = routeRequestArray.filter(
-      route => route.controller !== "false"
-    );
+    state.controllerRouteRequestArray = routeRequestArray;
   }
 };
 

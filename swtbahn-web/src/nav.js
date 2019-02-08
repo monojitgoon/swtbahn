@@ -60,6 +60,11 @@ export default {
       icon: "fa fa-compass",
       children: [
         {
+          name: "Routing Table",
+          url: "/routingtable",
+          icon: "fa fa-compass"
+        },
+        {
           name: "Route Requests",
           url: "/routerequests",
           icon: "fa fa-compass"
@@ -67,12 +72,12 @@ export default {
         {
           name: "Set Points",
           url: "/setpoints",
-          icon: "fa fa-compass"
+          icon: "fa fa-location-arrow"
         },
         {
           name: "Set Signals",
           url: "/setsignals",
-          icon: "fa fa-compass"
+          icon: "fa fa-signal"
         }
       ]
     },

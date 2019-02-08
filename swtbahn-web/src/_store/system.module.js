@@ -19,19 +19,8 @@ function initialSystemState() {
 const state = initialSystemState;
 
 const actions = {
-  GetCurrentServerSessionId({ commit }) {
-    Api()
-      .post("admin/get-session-id")
-      .then(response => {
-        if (response.status == 200)
-          commit("updateCurrentServerSession", response.data);
-      })
-      .catch(e => {
-        console.error(e);
-      });
-  },
   //start server...
-  StartServer({ dispatch, commit }) {
+  async StartServer({ dispatch, commit }) {
     Api()
       .post("admin/startup")
       .then(response => {
@@ -67,8 +56,24 @@ const actions = {
         console.error(e);
       });
   },
-  ResetDriverProps({ commit }, { trainid, grabid }) {
-    commit("updateDriver", { trainid, grabid });
+  async GetCurrentServerSessionId({ dispatch, commit }, sessionid) {
+    Api()
+      .post("admin/get-session-id")
+      .then(response => {
+        if (response.status == 200) {
+          var newSessionId = response.data;
+          if (newSessionId == 0) {
+            dispatch("StartServer");
+          } else if (newSessionId != sessionid) {
+            commit("updateSession", newSessionId);
+            commit("updateDriver", { trainid: null, grabid: -1 });
+          }
+        }
+        // commit("updateCurrentServerSession", response.data);
+      })
+      .catch(e => {
+        console.error(e);
+      });
   },
   updateDriverProps({ dispatch, commit }, trainid) {
     let formData = new FormData();
@@ -81,11 +86,14 @@ const actions = {
           commit("updateSession", sessionid);
           var grabid = response.data.split(",")[1];
           if (grabid == -1) {
+            commit("updateDriver", { trainid: null, grabid: -1 });
             dispatch("alert/error", "Train already Grabbed", {
               root: true
             });
           } else {
             commit("updateDriver", { trainid, grabid });
+            dispatch("GetPeripheralsArray", trainid);
+            dispatch("GetTrainStateArray", trainid);
             dispatch("alert/success", "Successfully Grabbed : " + trainid, {
               root: true
             });

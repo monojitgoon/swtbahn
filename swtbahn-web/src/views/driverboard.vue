@@ -249,10 +249,10 @@
             <div class="col col-md-9">
               <div class="form-check">
                 <div class="radio">
-                  <label for="Stellwerk" class="form-check-label">
+                  <label for="Manual" class="form-check-label">
                     <input
                       type="radio"
-                      id="Stellwerk"
+                      id="Manual"
                       name="Controller"
                       value="true"
                       placeholder="Controller"
@@ -260,7 +260,7 @@
                       v-validate="'required'"
                       class="form-check-input"
                       :class="{ 'is-invalid': submitted && errors.has('controller') }"
-                    >Stellwerk
+                    >Manual
                   </label>
                 </div>
                 <div class="radio">
@@ -287,7 +287,7 @@
           </div>
         </card>
         <div class="form-actions form-group">
-          <button type="submit" class="btn btn-primary btn-sm">
+          <button type="submit" class="btn btn-primary btn-sm" @click="handleSubmit">
             <i class="fa fa-dot-circle-o"></i> Submit
           </button>
           <button type="reset" class="btn btn-danger btn-sm" @click="showModal = false">
@@ -340,15 +340,16 @@ export default {
       monitor: state => state.monitor
     })
   },
-  created() {
-    this.StartServer();
-    this.InitialSpeedValueLoad();
-    this.AsyncUpdate();
-  },
   mounted() {
-    this.StartServer();
+    this.GetCurrentServerSessionId(this.system.sessionID);
     this.InitialSpeedValueLoad();
-    this.AsyncUpdate();
+    setTimeout(
+      function() {
+        this.AsyncUpdate();
+      }.bind(this),
+      10000
+    );
+
     this.system.driverboardRequestInterval = setInterval(() => {
       this.AsyncUpdate();
     }, appConfig.system_driverboard_RequestInterval);
@@ -358,7 +359,6 @@ export default {
   },
   methods: {
     ...mapActions("system", [
-      "StartServer",
       "updateDriverProps",
       "GetPeripheralsArray",
       "updateDriverPropsPostRelease",
@@ -410,9 +410,11 @@ export default {
       }
     },
     ForceStop() {
-      this.isPlaying = false;
-      this.speed = 0;
-      this.SetDCCSpeed(this.speed);
+      if (this.speed > 0) {
+        this.isPlaying = false;
+        this.speed = 0;
+        this.SetDCCSpeed(this.speed);
+      }
     },
     /* Component Action ends*/
     /* Method starts*/
@@ -427,11 +429,17 @@ export default {
     },
     AddRouteRequest: function() {
       this.clear();
-      if (this.system.driverProperties.trainID != null) this.showModal = true;
-      else this.error("No train is grabbed yet!");
+      if (
+        this.system.driverProperties.trainID != null &&
+        Object.keys(this.system.trainRouteRequestArray).length === 0
+      ) {
+        this.showModal = true;
+      } else {
+        this.error("No train is grabbed or one route request is already sent!");
+      }
     },
     handleSubmit(e) {
-      this.CheckCurrentSession();
+      this.GetCurrentServerSessionId(this.system.sessionID);
       this.submitted = true;
       this.$validator.validate().then(valid => {
         if (valid) {
@@ -446,46 +454,37 @@ export default {
     },
     GrabTrainClicked: function(selection) {
       if (selection != null) {
-        this.CheckCurrentSession();
         if (this.system.driverProperties.grabID === -1) {
+          this.GetCurrentServerSessionId(this.system.sessionID);
           this.updateDriverProps(selection);
-          this.GetPeripheralsArray(selection);
-          this.GetTrainStateArray(selection);
         } else this.error("You can only grab one train!");
       } else this.error("No train has been selected!");
     },
-    ReleaseTrain() {
-      this.CheckCurrentSession();
-      this.ForceStop();
-      this.updateDriverPropsPostRelease({
+    async ReleaseTrain() {
+      await this.GetCurrentServerSessionId(this.system.sessionID);
+      await this.ForceStop();
+      await this.updateDriverPropsPostRelease({
         sessionid: this.system.sessionID,
         grabid: this.system.driverProperties.grabID
       });
     },
-    SetDCCSpeed(spd) {
-      this.CheckCurrentSession();
-      this.updateTrainProps({
+    async SetDCCSpeed(spd) {
+      await this.GetCurrentServerSessionId(this.system.sessionID);
+      await this.updateTrainProps({
         sessionid: this.system.sessionID,
         grabid: this.system.driverProperties.grabID,
         speed: spd
       });
     },
-    ChangePeripheralState(id, stateValue) {
-      this.CheckCurrentSession();
-      this.updatePeripheralState({
+    async ChangePeripheralState(id, stateValue) {
+      await this.GetCurrentServerSessionId(this.system.sessionID);
+      await this.updatePeripheralState({
         sessionid: this.system.sessionID,
         grabid: this.system.driverProperties.grabID,
         peripheralid: id,
         peripheralstate: stateValue == "on" ? 0 : 1,
         trainid: this.system.driverProperties.trainID
       });
-    },
-    CheckCurrentSession() {
-      this.GetCurrentServerSessionId();
-      if (this.system.sessionID != this.system.currentServerSessionID) {
-        this.system.sessionID = this.system.currentServerSessionID;
-        this.ResetDriverProps({ trainid: null, grabid: -1 });
-      }
     }
   }
 };

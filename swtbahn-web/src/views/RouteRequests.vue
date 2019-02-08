@@ -18,6 +18,7 @@ routerequests<template>
             <tbody>
               <tr
                 v-for="route_request in this.controller.controllerRouteRequestArray"
+                v-if="route_request.controller == 'true'"
                 :key="route_request.grabid"
               >
                 <td>{{ route_request.trainid }}</td>
