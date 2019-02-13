@@ -60,7 +60,7 @@ export default {
       icon: "fa fa-compass",
       children: [
         {
-          name: "Routing Table",
+          name: "Interlocking Table",
           url: "/routingtable",
           icon: "fa fa-compass"
         },

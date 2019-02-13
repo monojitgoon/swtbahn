@@ -1,6 +1,6 @@
 /*
  *
- * Copyright (C) 2017 University of Bamberg, Software Technologies Research Group
+ * Copyright (C) 2019 University of Bamberg, Software Technologies Research Group
  * <https://www.uni-bamberg.de/>, <http://www.swt-bamberg.de/>
  *
  * This file is part of the SWTbahn command line interface (swtbahn-cli), which is
@@ -21,8 +21,8 @@
  * The following people contributed to the conception and realization of the
  * present swtbahn-cli (in alphabetic order by surname):
  *
- * - Nicolas Gross <https://github.com/nicolasgross>
- *
+ * - Monojit Goon
+ * - Lucky Sutradhar
  */
 
 #include <onion/onion.h>
@@ -54,8 +54,8 @@ onion_connection_status handler_get_trains(void *_, onion_request *req,
 			sprintf(id, "%d", i);
 			onion_dict *subd = onion_dict_new();
 
-			onion_dict_add(subd, "trainid", convertme(track_state.trains[i]), 0);
-			onion_dict_add(subd, "grabbed", train_grabbed(track_state.trains[i]) ? "yes" : "no", 0);
+			onion_dict_add(subd, "trainid", convertme(track_state.trains[i].id), 0);
+			onion_dict_add(subd, "grabbed", train_grabbed(track_state.trains[i].id) ? "yes" : "no", 0);
 			onion_dict_add(dict, id, subd, OD_DICT | OD_FREE_VALUE);
 		}
 		syslog(LOG_NOTICE, "Request: Get available trains");

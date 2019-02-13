@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-card>
-      <v-card-title>Routing Table
+      <v-card-title>Interlocking Table
         <v-spacer></v-spacer>
         <v-text-field v-model="search" label="Search" single-line hide-details></v-text-field>
       </v-card-title>

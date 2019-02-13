@@ -1,14 +1,15 @@
 {
   "apiUrl": "http://localhost:2048/",
   "trackOutput": "master",
-  "system_trackstatistics_RequestInterval": 200000,
-  "system_trackpanel_RequestInterval": 10000,
-  "system_driverboard_RequestInterval": 200000,
+  "system_trackstatistics_RequestInterval": 5000,
+  "system_trackpanel_RequestInterval": 5000,
+  "system_trackpanel_AnimationDurationDividend": 100000,
+  "system_driverboard_RequestInterval": 5000,
   "monitor_point_RequestInterval": 5000,
   "monitor_segment_RequestInterval": 5000,
   "monitor_signal_RequestInterval": 5000,
   "monitor_train_RequestInterval": 5000,
-  "controller_routes_RequestInterval": 200000,
-  "controller_set_point_RequestInterval": 200000,
-  "controller_set_signal_RequestInterval": 200000
+  "controller_routes_RequestInterval": 5000,
+  "controller_set_point_RequestInterval": 5000,
+  "controller_set_signal_RequestInterval": 5000
 }

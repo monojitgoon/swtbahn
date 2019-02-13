@@ -6,6 +6,645 @@
     "path": "seg2, seg3 , seg4, seg5, seg6",
     "points": "id: point1-> direction: N",
     "signals": "id: signal2 -> aspect: Proceed",
-    "conflicts": "id: signal8 -> aspect: blocked; id: signal3-> aspect: blocked;id: signal5-> aspect: blocked;id: signal9-> aspect: blocked; id: signal4-> aspect: blocked"
+    "conflicts": "id: signal8 -> aspect: stop; id: signal3-> aspect: stop;id: signal5-> aspect: stop;id: signal9-> aspect: stop; id: signal4-> aspect: stop"
+  },
+  {
+    "id": "route2",
+    "startseg": "seg2",
+    "endseg": "seg10",
+    "path": "seg2, seg1 , seg12, seg11, seg10",
+    "points": "id: point3-> direction: N",
+    "signals": "id: signal1 -> aspect: Proceed",
+    "conflicts": "id: signal4 -> aspect: stop; id: signal6-> aspect: stop;id: signal7-> aspect: stop;id: signal5-> aspect: stop"
+  },
+  {
+    "id": "route3",
+    "startseg": "seg2",
+    "endseg": "seg15",
+    "path": "seg2, seg3 , seg4, seg5, seg6, seg7, seg17, seg18, seg19, seg20, seg21, seg13, seg14, seg15",
+    "points": "id: point1-> direction: N; id: point2-> direction: R; id: point6-> direction: N; id: point4-> direction: N",
+    "signals": "id: signal2 -> aspect: Proceed; id: signal4-> aspect: Proceed; id: signal10-> direction: Proceed",
+    "conflicts": "id: signal3 -> aspect: stop; id: signal8-> aspect: stop;id: signal5-> aspect: stop;id: signal14-> aspect: stop; id: signal9-> aspect: stop; id: signal7-> aspect: stop; id: signal11-> aspect: stop;"
+  },
+  {
+    "id": "route4",
+    "startseg": "seg2",
+    "endseg": "seg19",
+    "path": "seg2, seg3 , seg4, seg5, seg6, seg7, seg17, seg18, seg19",
+    "points": "id: point1-> direction: N; id: point2-> direction: R; id: point3-> direction: N;",
+    "signals": "id: signal2 -> aspect: Proceed; id: signal4-> aspect: Proceed;",
+    "conflicts": "id: signal3 -> aspect: stop; id: signal8-> aspect: stop;id: signal5-> aspect: stop;id: signal14-> aspect: stop; id: signal9-> aspect: stop; id: signal7-> aspect: stop; id: signal11-> aspect: stop; id: signal10-> aspect: stop; id: signal4-> aspect: stop"
+  },
+  {
+    "id": "route5",
+    "startseg": "seg2",
+    "endseg": "seg124",
+    "path": "seg2, seg3 , seg4, seg5, seg6, seg7, seg17, seg18, seg19, seg20, seg21, seg22, seg23, seg24",
+    "points": "id: point1-> direction: N; id: point2-> direction: R; id: point6-> direction: R",
+    "signals": "id: signal2 -> aspect: Proceed; id: signal4-> aspect: Proceed; id: signal10-> direction: Proceed",
+    "conflicts": "id: signal3 -> aspect: stop; id: signal8-> aspect: stop;id: signal5-> aspect: stop;id: signal14-> aspect: stop; id: signal9-> aspect: stop; id: signal7-> aspect: stop; id: signal11-> aspect: stop; id:signal12-> aspect: stop"
+  },
+  {
+    "id": "route6",
+    "startseg": "seg2",
+    "endseg": "seg125",
+    "path": "seg2, seg3 , seg4, seg5, seg6, seg7, seg17, seg18, seg19, seg20, seg21, seg22, seg23, seg24, seg25",
+    "points": "id: point1-> direction: N; id: point2-> direction: R; id: point6-> direction: R",
+    "signals": "id: signal2 -> aspect: Proceed; id: signal4-> aspect: Proceed; id: signal10-> direction: Proceed",
+    "conflicts": "id: signal3 -> aspect: stop; id: signal8-> aspect: stop;id: signal5-> aspect: stop;id: signal14-> aspect: stop; id: signal9-> aspect: stop; id: signal7-> aspect: stop; id: signal11-> aspect: stop; id:signal12-> aspect: stop"
+  },
+  {
+    "id": "route7",
+    "startseg": "seg2",
+    "endseg": "seg128",
+    "path": "seg2, seg1 , seg12, seg11, seg10, seg9, seg8, seg6, seg5, seg16, seg15, seg14, seg13, seg21, seg20, seg19, seg18, seg17, seg27, seg28",
+    "points": "id: point1-> direction: R; id: point2-> direction: N; id: point6-> direction: N; id: point3-> direction: N; id: point5-> direction: N; id: point4-> direction: N;",
+    "signals": "id: signal1 -> aspect: Proceed; id: signal5-> aspect: Proceed; id: signal3-> direction: Proceed; id: signal7-> direction: Proceed; id: signal9-> direction: Proceed",
+    "conflicts": "id: signal7 -> aspect: stop; id: signal6-> aspect: stop;id: signal4-> aspect: stop;id: signal2-> aspect: stop; id: signal8-> aspect: stop; id: signal10-> aspect: stop; id: signal14-> aspect: stop; id:signal15-> aspect: stop"
+  },
+  {
+    "id": "route8",
+    "startseg": "seg2",
+    "endseg": "seg129",
+    "path": "seg2, seg1 , seg12, seg11, seg10, seg9, seg8, seg6, seg5, seg16, seg15, seg14, seg13, seg21, seg20, seg19, seg18, seg17, seg27, seg28, seg29",
+    "points": "id: point1-> direction: R; id: point2-> direction: N; id: point6-> direction: N; id: point3-> direction: N; id: point5-> direction: N; id: point4-> direction: N;",
+    "signals": "id: signal1 -> aspect: Proceed; id: signal5-> aspect: Proceed; id: signal3-> direction: Proceed; id: signal7-> direction: Proceed; id: signal9-> direction: Proceed",
+    "conflicts": "id: signal7 -> aspect: stop; id: signal6-> aspect: stop;id: signal4-> aspect: stop;id: signal2-> aspect: stop; id: signal8-> aspect: stop; id: signal10-> aspect: stop; id: signal14-> aspect: stop; id:signal15-> aspect: stop"
+  },
+  {
+    "id": "route9",
+    "startseg": "seg6",
+    "endseg": "seg2",
+    "path": "seg6, seg5 , seg4, seg3, seg2",
+    "points": "id: point1-> direction: N",
+    "signals": "id: signal5 -> aspect: Proceed",
+    "conflicts": "id: signal2 -> aspect: stop; id: signal8-> aspect: stop;id: signal6-> aspect: stop;id: signal1-> aspect: stop; id: signal4-> aspect: stop"
+  },
+  {
+    "id": "route10",
+    "startseg": "seg6",
+    "endseg": "seg10",
+    "path": "seg6, seg7 , seg8, seg9, seg10",
+    "points": "id: point2-> direction: N",
+    "signals": "id: signal4 -> aspect: Proceed",
+    "conflicts": "id: signal9 -> aspect: stop; id: signal5-> aspect: stop;id: signal7-> aspect: stop"
+  },
+  {
+    "id": "route11",
+    "startseg": "seg6",
+    "endseg": "seg15",
+    "path": "seg6, seg7 , seg17, seg18, seg19, seg20, seg21, seg13, seg14, seg15",
+    "points": "id: point2-> direction: R; id: point6-> direction: N; id: point4-> direction: N",
+    "signals": "id: signal4 -> aspect: Proceed; id: signal10-> aspect: Proceed",
+    "conflicts": "id: signal14 -> aspect: stop; id: signal9-> aspect: stop;id: signal5-> aspect: stop;id: signal11-> aspect: stop; id: signal7-> aspect: stop; id: signal6-> aspect: stop"
+  },
+  {
+    "id": "route12",
+    "startseg": "seg6",
+    "endseg": "seg19",
+    "path": "seg6, seg7 , seg17, seg18, seg19",
+    "points": "id: point2-> direction: R",
+    "signals": "id: signal4 -> aspect: Proceed",
+    "conflicts": "id: signal14 -> aspect: stop; id: signal9-> aspect: stop;id: signal10-> aspect: stop;id: signal5-> aspect: stop"
+  },
+  {
+    "id": "route13",
+    "startseg": "seg6",
+    "endseg": "seg124",
+    "path": "seg6, seg7 , seg17, seg18, seg19, seg20, seg21, seg22, seg23, seg24",
+    "points": "id: point2-> direction: R; id: point6-> direction: R",
+    "signals": "id: signal4 -> aspect: Proceed; id: signal10-> aspect: Proceed",
+    "conflicts": "id: signal14 -> aspect: stop; id: signal9-> aspect: stop;id: signal5-> aspect: stop;id: signal7-> aspect: stop; id: signal11-> aspect: stop"
+  },
+  {
+    "id": "route14",
+    "startseg": "seg6",
+    "endseg": "seg125",
+    "path": "seg6, seg7 , seg17, seg18, seg19, seg20, seg21, seg22, seg23, seg24, seg25",
+    "points": "id: point2-> direction: R; id: point6-> direction: R",
+    "signals": "id: signal4 -> aspect: Proceed; id: signal10-> aspect: Proceed",
+    "conflicts": "id: signal14 -> aspect: stop; id: signal9-> aspect: stop;id: signal5-> aspect: stop;id: signal7-> aspect: stop; id: signal11-> aspect: stop"
+  },
+  {
+    "id": "route15",
+    "startseg": "seg6",
+    "endseg": "seg128",
+    "path": "seg6, seg5 , seg16, seg15, seg14, seg13, seg21, seg20, seg19, seg18, seg17, seg27, seg28",
+    "points": "id: point1-> direction: R; id: point4-> direction: N; id: point5-> direction: N; id: point6-> direction: N",
+    "signals": "id: signal3 -> aspect: Proceed; id: signal7-> aspect: Proceed; id: signal9-> direction: Proceed",
+    "conflicts": "id: signal2-> aspect: stop;id: signal8-> aspect: stop;id: signal6-> aspect: stop; id: signal10-> aspect: stop; id: signal11-> aspect: stop; id: signal14-> aspect: stop; id:signal4-> aspect: stop"
+  },
+  {
+    "id": "route16",
+    "startseg": "seg6",
+    "endseg": "seg129",
+    "path": "seg6, seg5 , seg16, seg15, seg14, seg13, seg21, seg20, seg19, seg18, seg17, seg27, seg28, seg29",
+    "points": "id: point1-> direction: R; id: point4-> direction: N; id: point5-> direction: N; id: point6-> direction: N",
+    "signals": "id: signal3 -> aspect: Proceed; id: signal7-> aspect: Proceed; id: signal9-> direction: Proceed",
+    "conflicts": "id: signal2-> aspect: stop;id: signal8-> aspect: stop;id: signal6-> aspect: stop; id: signal10-> aspect: stop; id: signal11-> aspect: stop; id: signal14-> aspect: stop; id:signal4-> aspect: stop"
+  },
+  {
+    "id": "route17",
+    "startseg": "seg10",
+    "endseg": "seg2",
+    "path": "seg10, seg11 , seg12, seg1, seg2",
+    "points": "id: point3-> direction: N",
+    "signals": "id: signal6 -> aspect: Proceed",
+    "conflicts": "id: signal3 -> aspect: stop; id: signal7-> aspect: stop;id: signal1-> aspect: stop;id: signal2-> aspect: stop"
+  },
+  {
+    "id": "route18",
+    "startseg": "seg10",
+    "endseg": "seg6",
+    "path": "seg10, seg9 , seg8, seg7, seg6",
+    "points": "id: point2-> direction: N",
+    "signals": "id: signal5 -> aspect: Proceed",
+    "conflicts": "id: signal2 -> aspect: stop; id: signal8-> aspect: stop;id: signal3-> aspect: stop; signal9-> aspect: stop; signal4-> aspect: stop"
+  },
+  {
+    "id": "route19",
+    "startseg": "seg10",
+    "endseg": "seg15",
+    "path": "seg10, seg11 , seg12, seg13, seg14, seg15",
+    "points": "id: point3-> direction: R",
+    "signals": "id: signal6 -> aspect: Proceed",
+    "conflicts": "id: signal1 -> aspect: stop; id: signal10-> aspect: stop;id: signal3-> aspect: stop;id: signal7-> aspect: stop; id: signal8-> aspect: stop"
+  },
+  {
+    "id": "route20",
+    "startseg": "seg10",
+    "endseg": "seg19",
+    "path": "seg10, seg9 , seg8, seg7, seg6, seg5, seg4, seg16, seg15, seg14, seg13, seg21, seg20, seg19",
+    "points": "id: point2-> direction: N; id: point1-> direction: R; id: point4-> direction: N",
+    "signals": "id: signal5 -> aspect: Proceed; id: signal3 -> aspect: Proceed; id: signal7 -> aspect: Proceed",
+    "conflicts": "id: signal9-> aspect: stop;id: signal4-> aspect: stop;id: signal2-> aspect: stop; id: signal8-> aspect: stop; id: signal6-> aspect: stop; id: signal10-> aspect: stop; id:signal11-> aspect: stop; id:signal9-> aspect: stop; id:signal14-> aspect: stop"
+  },
+  {
+    "id": "route21",
+    "startseg": "seg10",
+    "endseg": "seg124",
+    "path": "seg10, seg11 , seg12, seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg17, seg18, seg19, seg20, seg21, seg22, seg23, seg24",
+    "points": "id: point3-> direction: N; id: point1-> direction: N; id: point2-> direction: R; id: point6-> direction: R",
+    "signals": "id: signal6 -> aspect: Proceed; id: signal2 -> aspect: Proceed; id: signal4 -> aspect: Proceed; id: signal10 -> aspect: Proceed",
+    "conflicts": "id: signal1-> aspect: stop;id: signal7-> aspect: stop;id: signal8-> aspect: stop; id: signal3-> aspect: stop; id: signal5-> aspect: stop; id: signal9-> aspect: stop; id:signal14-> aspect: stop; id:signal11-> aspect: stop; id:signal12-> aspect: stop"
+  },
+  {
+    "id": "route22",
+    "startseg": "seg10",
+    "endseg": "seg125",
+    "path": "seg10, seg11 , seg12, seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg17, seg18, seg19, seg20, seg21, seg22, seg23, seg24, seg25",
+    "points": "id: point3-> direction: N; id: point1-> direction: N; id: point2-> direction: R; id: point6-> direction: R",
+    "signals": "id: signal6 -> aspect: Proceed; id: signal2 -> aspect: Proceed; id: signal4 -> aspect: Proceed; id: signal10 -> aspect: Proceed",
+    "conflicts": "id: signal1-> aspect: stop;id: signal7-> aspect: stop;id: signal8-> aspect: stop; id: signal3-> aspect: stop; id: signal5-> aspect: stop; id: signal9-> aspect: stop; id:signal14-> aspect: stop; id:signal11-> aspect: stop; id:signal12-> aspect: stop"
+  },
+  {
+    "id": "route23",
+    "startseg": "seg10",
+    "endseg": "seg128",
+    "path": "seg10, seg9 , seg8, seg7, seg6, seg5, seg4, seg16, seg15, seg14, seg13, seg21, seg20, seg19, seg18, seg17, seg27, seg28",
+    "points": "id: point2-> direction: N; id: point1-> direction: R; id: point4-> direction: N; id: point5-> direction: N",
+    "signals": "id: signal5 -> aspect: Proceed; id: signal3-> aspect: Proceed; id: signal7-> direction: Proceed; id: signal9-> direction: Proceed",
+    "conflicts": "id: signal4 -> aspect: stop; id: signal9-> aspect: stop;id: signal8-> aspect: stop;id: signal2-> aspect: stop; id: signal6-> aspect: stop; id: signal10-> aspect: stop; id: signal14-> aspect: stop"
+  },
+  {
+    "id": "route24",
+    "startseg": "seg10",
+    "endseg": "seg29",
+    "path": "seg10, seg9 , seg8, seg7, seg6, seg5, seg4, seg16, seg15, seg14, seg13, seg21, seg20, seg19, seg18, seg17, seg27, seg28, seg29",
+    "points": "id: point2-> direction: N; id: point1-> direction: R; id: point4-> direction: N; id: point5-> direction: N",
+    "signals": "id: signal5 -> aspect: Proceed; id: signal3-> aspect: Proceed; id: signal7-> direction: Proceed; id: signal9-> direction: Proceed",
+    "conflicts": "id: signal4 -> aspect: stop; id: signal9-> aspect: stop;id: signal8-> aspect: stop;id: signal2-> aspect: stop; id: signal6-> aspect: stop; id: signal10-> aspect: stop; id: signal14-> aspect: stop"
+  },
+  {
+    "id": "route25",
+    "startseg": "seg15",
+    "endseg": "seg2",
+    "path": "seg15, seg14 , seg13, seg21, seg20, seg19, seg18, seg17, seg7, seg6, seg5, seg4, seg3, seg2",
+    "points": "id: point4-> direction: N; id: point5-> direction: R; id: point1-> direction: N",
+    "signals": "id: signal7 -> aspect: Proceed; id: signal9-> aspect: Proceed; id: signal3-> direction: Proceed",
+    "conflicts": "id: signal6 -> aspect: stop; id: signal11-> aspect: stop;id: signal10-> aspect: stop;id: signal4-> aspect: stop; id: signal14-> aspect: stop; id: signal8-> aspect: stop; id: signal2-> aspect: stop; id: signal1-> aspect: stop"
+  },
+  {
+    "id": "route26",
+    "startseg": "seg15",
+    "endseg": "seg6",
+    "path": "seg15, seg14 , seg13, seg21, seg20, seg19, seg18, seg17, seg7, seg6",
+    "points": "id: point4-> direction: N; id: point5-> direction: R",
+    "signals": "id: signal7 -> aspect: Proceed; id: signal9-> aspect: Proceed",
+    "conflicts": "id: signal10 -> aspect: stop; id: signal11-> aspect: stop;id: signal14-> aspect: stop;id: signal4-> aspect: stop; id: signal5-> aspect: stop"
+  },
+  {
+    "id": "route27",
+    "startseg": "seg15",
+    "endseg": "seg19",
+    "path": "seg15, seg14 , seg13, seg21, seg20, seg19",
+    "points": "id: point4-> direction: N",
+    "signals": "id: signal7 -> aspect: Proceed",
+    "conflicts": "id: signal6 -> aspect: stop; id: signal11-> aspect: stop;id: signal10-> aspect: stop;id: signal9-> aspect: stop; id: signal14-> aspect: stop; id: signal4-> aspect: stop"
+  },
+  {
+    "id": "route28",
+    "startseg": "seg15",
+    "endseg": "seg24",
+    "path": "seg15, seg16, seg4, seg5, seg6, seg7, seg17, seg18, seg19, seg20, seg21, seg22, seg23, seg24",
+    "points": "id: point1-> direction: N; id: point2-> direction: R; id: point6-> direction: R",
+    "signals": "id: signal8 -> aspect: Proceed; id: signal4 -> aspect: Proceed; id: signal10 -> aspect: Proceed",
+    "conflicts": "id: signal2-> aspect: stop;id: signal3-> aspect: stop;id: signal5-> aspect: stop; id: signal9-> aspect: stop; id: signal7-> aspect: stop; id: signal11-> aspect: stop"
+  },
+  {
+    "id": "route29",
+    "startseg": "seg15",
+    "endseg": "seg125",
+    "path": "seg15, seg16, seg4, seg5, seg6, seg7, seg17, seg18, seg19, seg20, seg21, seg22, seg23, seg24, seg25",
+    "points": "id: point1-> direction: N; id: point2-> direction: R; id: point6-> direction: R",
+    "signals": "id: signal8 -> aspect: Proceed; id: signal4 -> aspect: Proceed; id: signal10 -> aspect: Proceed",
+    "conflicts": "id: signal2-> aspect: stop;id: signal3-> aspect: stop;id: signal5-> aspect: stop; id: signal9-> aspect: stop; id: signal7-> aspect: stop; id: signal11-> aspect: stop"
+  },
+  {
+    "id": "route30",
+    "startseg": "seg15",
+    "endseg": "seg128",
+    "path": "seg15, seg14, seg13, seg21, seg20, seg19, seg18, seg17, seg27, seg28",
+    "points": "id: point4-> direction: N; id: point5-> direction: N",
+    "signals": "id: signal7 -> aspect: Proceed; id: signal9 -> aspect: Proceed",
+    "conflicts": "id: signal6-> aspect: stop;id: signal10-> aspect: stop;id: signal11-> aspect: stop; id: signal4-> aspect: stop; id: signal14-> aspect: stop"
+  },
+  {
+    "id": "route31",
+    "startseg": "seg15",
+    "endseg": "seg29",
+    "path": "seg15, seg14, seg13, seg21, seg20, seg19, seg18, seg17, seg27, seg28,seg29",
+    "points": "id: point4-> direction: N; id: point5-> direction: N",
+    "signals": "id: signal7 -> aspect: Proceed; id: signal9 -> aspect: Proceed",
+    "conflicts": "id: signal6-> aspect: stop;id: signal10-> aspect: stop;id: signal11-> aspect: stop; id: signal4-> aspect: stop; id: signal14-> aspect: stop"
+  },
+  {
+    "id": "route32",
+    "startseg": "seg15",
+    "endseg": "seg10",
+    "path": "seg15, seg16 , seg4, seg5, seg6, seg7, seg8, seg9, seg10",
+    "points": "id: point1-> direction: N; id: point2-> direction: N",
+    "signals": "id: signal8 -> aspect: Proceed; id: signal4-> aspect: Proceed",
+    "conflicts": "id: signal2 -> aspect: stop; id: signal3-> aspect: stop;id: signal5-> aspect: stop;id: signal9-> aspect: stop; id: signal7-> aspect: stop; id: signal1-> aspect: stop"
+  },
+  {
+    "id": "route33",
+    "startseg": "seg19",
+    "endseg": "seg2",
+    "path": "seg19, seg18 , seg17, seg7, seg6, seg5, seg4, seg3, seg2",
+    "points": "id: point5-> direction: R; id: point1-> direction: N",
+    "signals": "id: signal9 -> aspect: Proceed; id: signal3-> aspect: Proceed",
+    "conflicts": "id: signal14 -> aspect: stop; id: signal5-> aspect: stop;id: signal4-> aspect: stop;id: signal8-> aspect: stop; id: signal2-> aspect: stop; id: signal6-> aspect: stop; id: signal1-> aspect: stop"
+  },
+  {
+    "id": "route34",
+    "startseg": "seg19",
+    "endseg": "seg6",
+    "path": "seg19, seg18 , seg17, seg7, seg6",
+    "points": "id: point5-> direction: R",
+    "signals": "id: signal9 -> aspect: Proceed",
+    "conflicts": "id: signal4 -> aspect: stop; id: signal2-> aspect: stop;id: signal8-> aspect: stop;id: signal5-> aspect: stop; id: signal14-> aspect: stop; id: signal3-> aspect: stop"
+  },
+  {
+    "id": "route35",
+    "startseg": "seg19",
+    "endseg": "seg10",
+    "path": "seg19, seg20 , seg21, seg13, seg14, seg15, seg16, seg5, seg6, seg7, seg8, seg9, seg10",
+    "points": "id: point6-> direction: N; id: point1-> direction: N; id: point2-> direction: N",
+    "signals": "id: signal10 -> aspect: Proceed; id: signal8 -> aspect: Proceed; id: signal4 -> aspect: Proceed",
+    "conflicts": "id: signal6 -> aspect: stop; id: signal11-> aspect: stop;id: signal7-> aspect: stop;id: signal2-> aspect: stop; id: signal3-> aspect: stop; id: signal5-> aspect: stop; id: signal9-> aspect: stop; id: signal1-> aspect: stop; id: signal7-> aspect: stop"
+  },
+  {
+    "id": "route36",
+    "startseg": "seg19",
+    "endseg": "seg24",
+    "path": "seg19, seg20, seg21, seg22, seg23, seg24",
+    "points": "id: point6-> direction: R",
+    "signals": "id: signal10 -> aspect: Proceed",
+    "conflicts": "id: signal11-> aspect: stop;id: signal7-> aspect: stop;id: signal12-> aspect: stop"
+  },
+  {
+    "id": "route37",
+    "startseg": "seg19",
+    "endseg": "seg25",
+    "path": "seg19, seg20, seg21, seg22, seg23, seg24, seg25",
+    "points": "id: point6-> direction: R",
+    "signals": "id: signal10 -> aspect: Proceed",
+    "conflicts": "id: signal11-> aspect: stop;id: signal7-> aspect: stop;id: signal12-> aspect: stop"
+  },
+  {
+    "id": "route38",
+    "startseg": "seg19",
+    "endseg": "seg15",
+    "path": "seg19, seg20, seg21, seg13, seg14, seg15",
+    "points": "id: point6-> direction: N",
+    "signals": "id: signal10 -> aspect: Proceed",
+    "conflicts": "id: signal11-> aspect: stop;id: signal6-> aspect: stop;id: signal7-> aspect: stop; id: signal12-> aspect: stop; id: signal3-> aspect: stop"
+  },
+  {
+    "id": "route39",
+    "startseg": "seg19",
+    "endseg": "seg28",
+    "path": "seg19, seg18, seg17, seg27, seg28",
+    "points": "id: point5-> direction: N",
+    "signals": "id: signal9 -> aspect: Proceed",
+    "conflicts": "id: signal4-> aspect: stop;id: signal14-> aspect: stop;id: signal15-> aspect: stop"
+  },
+  {
+    "id": "route40",
+    "startseg": "seg19",
+    "endseg": "seg28",
+    "path": "seg19, seg18, seg17, seg27, seg28, seg29",
+    "points": "id: point5-> direction: N",
+    "signals": "id: signal9 -> aspect: Proceed",
+    "conflicts": "id: signal4-> aspect: stop;id: signal14-> aspect: stop;id: signal15-> aspect: stop"
+  },
+  {
+    "id": "route41",
+    "startseg": "seg24",
+    "endseg": "seg2",
+    "path": "seg24, seg23 , seg22, seg21, seg20, seg19, seg18, seg17, seg7, seg6, seg5, seg4, seg3, seg2",
+    "points": "id: point7-> direction: N; id: point5-> direction: R; id: point1-> direction: N",
+    "signals": "id: signal11 -> aspect: Proceed; id: signal9-> aspect: Proceed; id: signal3-> aspect: Proceed",
+    "conflicts": "id: signal10 -> aspect: stop; id: signal7-> aspect: stop;id: signal5-> aspect: stop;id: signal4-> aspect: stop; id: signal14-> aspect: stop; id: signal2-> aspect: stop; id: signal8-> aspect: stop; id: signal1-> aspect: stop; id: signal6-> aspect: stop"
+  },
+  {
+    "id": "route42",
+    "startseg": "seg24",
+    "endseg": "seg6",
+    "path": "seg24, seg23 , seg22, seg21, seg20, seg19, seg18, seg17, seg7, seg6",
+    "points": "id: point7-> direction: N; id: point5-> direction: R",
+    "signals": "id: signal11 -> aspect: Proceed; id: signal9-> aspect: Proceed",
+    "conflicts": "id: signal10 -> aspect: stop; id: signal7-> aspect: stop;id: signal5-> aspect: stop;id: signal4-> aspect: stop; id: signal14-> aspect: stop; id: signal2-> aspect: stop; id: signal8-> aspect: stop"
+  },
+  {
+    "id": "route43",
+    "startseg": "seg24",
+    "endseg": "seg10",
+    "path": "seg24, seg23 , seg22, seg21, seg20, seg19, seg18, seg17, seg7, seg6, seg5, seg4, seg3, seg2, seg1, seg12, seg11, seg10",
+    "points": "id: point7-> direction: N; id: point5-> direction: R; id: point1-> direction: N; id: point3-> direction: N",
+    "signals": "id: signal11 -> aspect: Proceed; id: signal9-> aspect: Proceed; id: signal3-> aspect: Proceed; id: signal1-> aspect: Proceed",
+    "conflicts": "id: signal10 -> aspect: stop; id: signal7-> aspect: stop;id: signal5-> aspect: stop;id: signal4-> aspect: stop; id: signal14-> aspect: stop; id: signal2-> aspect: stop; id: signal8-> aspect: stop; id: signal6-> aspect: stop"
+  },
+  {
+    "id": "route44",
+    "startseg": "seg24",
+    "endseg": "seg25",
+    "path": "seg24, seg25",
+    "points": "",
+    "signals": "",
+    "conflicts": "id: signal0 -> aspect: stop"
+  },
+  {
+    "id": "route45",
+    "startseg": "seg24",
+    "endseg": "seg15",
+    "path": "seg24, seg23 , seg22, seg21, seg20, seg19, seg18, seg17, seg7, seg6, seg5, seg4, seg16, seg15",
+    "points": "id: point7-> direction: R; id: point5-> direction: R; id: point1-> direction: R",
+    "signals": "id: signal11 -> aspect: Proceed; id: signal9-> aspect: Proceed; id: signal3-> aspect: Proceed",
+    "conflicts": "id: signal10-> aspect: stop;id: signal7-> aspect: stop;id: signal4-> aspect: stop;id: signal14-> aspect: stop;id: signal5-> aspect: stop;id: signal2-> aspect: stop;id: signal8-> aspect: stop;id: signal1-> aspect: stop;id: signal6-> aspect: stop"
+  },
+  {
+    "id": "route46",
+    "startseg": "seg24",
+    "endseg": "seg19",
+    "path": "seg24, seg23 , seg22, seg21, seg20, seg19",
+    "points": "id: point7-> direction: R",
+    "signals": "id: signal11 -> aspect: Proceed",
+    "conflicts": "id: signal10-> aspect: stop;id: signal7-> aspect: stop;id: signal9-> aspect: stop; id: signal14-> aspect: stop; id: signal4-> aspect: stop"
+  },
+  {
+    "id": "route47",
+    "startseg": "seg24",
+    "endseg": "seg28",
+    "path": "seg24, seg23 , seg22, seg21, seg20, seg19, seg18, seg17, seg27, seg28",
+    "points": "id: point7-> direction: R; id: point5-> direction: R;",
+    "signals": "id: signal11 -> aspect: Proceed; id: signal9 -> aspect: Proceed",
+    "conflicts": "id: signal10-> aspect: stop;id: signal7-> aspect: stop;id: signal14-> aspect: stop; id: signal4-> aspect: stop"
+  },
+  {
+    "id": "route48",
+    "startseg": "seg19",
+    "endseg": "seg29",
+    "path": "seg24, seg23 , seg22, seg21, seg20, seg19, seg18, seg17, seg27, seg28, seg29",
+    "points": "id: point7-> direction: R; id: point5-> direction: R;",
+    "signals": "id: signal11 -> aspect: Proceed; id: signal9 -> aspect: Proceed",
+    "conflicts": "id: signal10-> aspect: stop;id: signal7-> aspect: stop;id: signal14-> aspect: stop; id: signal4-> aspect: stop"
+  },
+  {
+    "id": "route49",
+    "startseg": "seg25",
+    "endseg": "seg2",
+    "path": "seg25, seg24, seg23 , seg22, seg21, seg20, seg19, seg18, seg17, seg7, seg6, seg5, seg4, seg3, seg2",
+    "points": "id: point7-> direction: N; id: point5-> direction: R; id: point1-> direction: N",
+    "signals": "id: signal11 -> aspect: Proceed; id: signal9-> aspect: Proceed; id: signal3-> aspect: Proceed",
+    "conflicts": "id: signal10 -> aspect: stop; id: signal7-> aspect: stop;id: signal5-> aspect: stop;id: signal4-> aspect: stop; id: signal14-> aspect: stop; id: signal2-> aspect: stop; id: signal8-> aspect: stop; id: signal1-> aspect: stop; id: signal6-> aspect: stop"
+  },
+  {
+    "id": "route50",
+    "startseg": "seg25",
+    "endseg": "seg6",
+    "path": "seg25, seg24, seg23 , seg22, seg21, seg20, seg19, seg18, seg17, seg7, seg6",
+    "points": "id: point7-> direction: N; id: point5-> direction: R",
+    "signals": "id: signal11 -> aspect: Proceed; id: signal9-> aspect: Proceed",
+    "conflicts": "id: signal10 -> aspect: stop; id: signal7-> aspect: stop;id: signal5-> aspect: stop;id: signal4-> aspect: stop; id: signal14-> aspect: stop; id: signal2-> aspect: stop; id: signal8-> aspect: stop"
+  },
+  {
+    "id": "route51",
+    "startseg": "seg25",
+    "endseg": "seg10",
+    "path": "seg25, seg24, seg23 , seg22, seg21, seg20, seg19, seg18, seg17, seg7, seg6, seg5, seg4, seg3, seg2, seg1, seg12, seg11, seg10",
+    "points": "id: point7-> direction: N; id: point5-> direction: R; id: point1-> direction: N; id: point3-> direction: N",
+    "signals": "id: signal11 -> aspect: Proceed; id: signal9-> aspect: Proceed; id: signal3-> aspect: Proceed; id: signal1-> aspect: Proceed",
+    "conflicts": "id: signal10 -> aspect: stop; id: signal7-> aspect: stop;id: signal5-> aspect: stop;id: signal4-> aspect: stop; id: signal14-> aspect: stop; id: signal2-> aspect: stop; id: signal8-> aspect: stop; id: signal6-> aspect: stop"
+  },
+  {
+    "id": "route52",
+    "startseg": "seg25",
+    "endseg": "seg24",
+    "path": "seg25, seg24",
+    "points": "",
+    "signals": "",
+    "conflicts": "id: signal10 -> aspect: stop"
+  },
+  {
+    "id": "route53",
+    "startseg": "seg25",
+    "endseg": "seg15",
+    "path": "seg25, seg24, seg23 , seg22, seg21, seg20, seg19, seg18, seg17, seg7, seg6, seg5, seg4, seg16, seg15",
+    "points": "id: point7-> direction: R; id: point5-> direction: R; id: point1-> direction: R",
+    "signals": "id: signal11 -> aspect: Proceed; id: signal9-> aspect: Proceed; id: signal3-> aspect: Proceed",
+    "conflicts": "id: signal10-> aspect: stop;id: signal7-> aspect: stop;id: signal4-> aspect: stop;id: signal14-> aspect: stop;id: signal5-> aspect: stop;id: signal2-> aspect: stop;id: signal8-> aspect: stop;id: signal1-> aspect: stop;id: signal6-> aspect: stop"
+  },
+  {
+    "id": "route54",
+    "startseg": "seg25",
+    "endseg": "seg19",
+    "path": "seg25, seg24, seg23 , seg22, seg21, seg20, seg19",
+    "points": "id: point7-> direction: R",
+    "signals": "id: signal11 -> aspect: Proceed",
+    "conflicts": "id: signal10-> aspect: stop;id: signal7-> aspect: stop;id: signal9-> aspect: stop; id: signal14-> aspect: stop; id: signal4-> aspect: stop"
+  },
+  {
+    "id": "route55",
+    "startseg": "seg25",
+    "endseg": "seg28",
+    "path": "seg25, seg24, seg23 , seg22, seg21, seg20, seg19, seg18, seg17, seg27, seg28",
+    "points": "id: point7-> direction: R; id: point5-> direction: R;",
+    "signals": "id: signal11 -> aspect: Proceed; id: signal9 -> aspect: Proceed",
+    "conflicts": "id: signal10-> aspect: stop;id: signal7-> aspect: stop;id: signal14-> aspect: stop; id: signal4-> aspect: stop"
+  },
+  {
+    "id": "route56",
+    "startseg": "seg25",
+    "endseg": "seg29",
+    "path": "seg25, seg24, seg23 , seg22, seg21, seg20, seg19, seg18, seg17, seg27, seg28, seg29",
+    "points": "id: point7-> direction: R; id: point5-> direction: R;",
+    "signals": "id: signal11 -> aspect: Proceed; id: signal9 -> aspect: Proceed",
+    "conflicts": "id: signal10-> aspect: stop;id: signal7-> aspect: stop;id: signal14-> aspect: stop; id: signal4-> aspect: stop"
+  },
+  {
+    "id": "route57",
+    "startseg": "seg28",
+    "endseg": "seg2",
+    "path": "seg28, seg27, seg17 , seg18, seg19, seg20, seg21, seg13, seg14, seg15, seg16, seg5, seg6, seg7, seg 8, seg9, seg10, seg11, seg12, seg1, seg2",
+    "points": "id: point5-> direction: N; id: point6-> direction: N; id: point1-> direction: N; id: point2-> direction: N; id: point3-> direction: N",
+    "signals": "id: signal14 -> aspect: Proceed; id: signal10-> aspect: Proceed; id: signal8-> aspect: Proceed; id: signal4-> aspect: Proceed; id: signal6-> aspect: Proceed",
+    "conflicts": "id: signal9-> aspect: stop;id: signal11-> aspect: stop;id: signal7-> aspect: stop; id: signal2-> aspect: stop; id: signal3-> aspect: stop; id: signal5-> aspect: stop; id: signal1-> aspect: stop"
+  },
+  {
+    "id": "route58",
+    "startseg": "seg28",
+    "endseg": "seg6",
+    "path": "seg28, seg27, seg17 , seg18, seg19, seg20, seg21, seg13, seg14, seg15, seg16, seg5, seg6",
+    "points": "id: point5-> direction: N; id: point6-> direction: N; id: point1-> direction: N",
+    "signals": "id: signal14 -> aspect: Proceed; id: signal10-> aspect: Proceed; id: signal8-> aspect: Proceed",
+    "conflicts": "id: signal4 -> aspect: stop; id: signal9-> aspect: stop;id: signal11-> aspect: stop;id: signal7-> aspect: stop; id: signal2-> aspect: stop; id: signal3-> aspect: stop; id: signal5-> aspect: stop; id: signal6-> aspect: stop"
+  },
+  {
+    "id": "route59",
+    "startseg": "seg28",
+    "endseg": "seg10",
+    "path": "seg28, seg27, seg17 , seg18, seg19, seg20, seg21, seg13, seg14, seg15, seg16, seg5, seg6, seg7, seg 8, seg9, seg10",
+    "points": "id: point5-> direction: N; id: point6-> direction: N; id: point1-> direction: N; id: point2-> direction: N",
+    "signals": "id: signal14 -> aspect: Proceed; id: signal10-> aspect: Proceed; id: signal8-> aspect: Proceed; id: signal4-> aspect: Proceed",
+    "conflicts": "id: signal9 -> aspect: stop; id: signal11-> aspect: stop;id: signal7-> aspect: stop;id: signal6-> aspect: stop; id: signal2-> aspect: stop; id: signal3-> aspect: stop; id: signal5-> aspect: stop; id: signal1-> aspect: stop"
+  },
+  {
+    "id": "route60",
+    "startseg": "seg28",
+    "endseg": "seg29",
+    "path": "seg28, seg29",
+    "points": "",
+    "signals": "",
+    "conflicts": "id: signal15 -> aspect: stop; id: signal9 -> aspect: stop"
+  },
+  {
+    "id": "route61",
+    "startseg": "seg28",
+    "endseg": "seg15",
+    "path": "seg28, seg27, seg17 , seg18, seg19, seg20, seg21, seg13, seg14, seg15",
+    "points": "id: point5-> direction: N; id: point6-> direction: N",
+    "signals": "id: signal14 -> aspect: Proceed; id: signal10-> aspect: Proceed",
+    "conflicts": "id: signal4-> aspect: stop;id: signal9-> aspect: stop;id: signal11-> aspect: stop;id: signal7-> aspect: stop;id: signal8-> aspect: stop;id: signal3-> aspect: stop"
+  },
+  {
+    "id": "route62",
+    "startseg": "seg28",
+    "endseg": "seg19",
+    "path": "seg28, seg27, seg17 , seg18, seg19",
+    "points": "id: point5-> direction: N",
+    "signals": "id: signal14 -> aspect: Proceed",
+    "conflicts": "id: signal4-> aspect: stop;id: signal9-> aspect: stop;id: signal11-> aspect: stop; id: signal7-> aspect: stop; id: signal12-> aspect: stop"
+  },
+  {
+    "id": "route63",
+    "startseg": "seg28",
+    "endseg": "seg24",
+    "path": "seg28, seg27, seg17 , seg18, seg19, seg20, seg21, seg22, seg23, seg24",
+    "points": "id: point5-> direction: N; id: point6-> direction: R;",
+    "signals": "id: signal14 -> aspect: Proceed; id: signal10 -> aspect: Proceed",
+    "conflicts": "id: signal4-> aspect: stop;id: signal9-> aspect: stop;id: signal11-> aspect: stop; id: signal7-> aspect: stop; id: signal2-> aspect: stop"
+  },
+  {
+    "id": "route64",
+    "startseg": "seg28",
+    "endseg": "seg25",
+    "path": "seg28, seg27, seg17 , seg18, seg19, seg20, seg21, seg22, seg23, seg24, seg25",
+    "points": "id: point5-> direction: N; id: point6-> direction: R;",
+    "signals": "id: signal14 -> aspect: Proceed; id: signal10 -> aspect: Proceed",
+    "conflicts": "id: signal4-> aspect: stop;id: signal9-> aspect: stop;id: signal11-> aspect: stop; id: signal7-> aspect: stop; id: signal2-> aspect: stop"
+  },
+  {
+    "id": "route65",
+    "startseg": "seg29",
+    "endseg": "seg2",
+    "path": "seg29, seg28, seg27, seg17 , seg18, seg19, seg20, seg21, seg13, seg14, seg15, seg16, seg5, seg6, seg7, seg 8, seg9, seg10, seg11, seg12, seg1, seg2",
+    "points": "id: point5-> direction: N; id: point6-> direction: N; id: point1-> direction: N; id: point2-> direction: N; id: point3-> direction: N",
+    "signals": "id: signal14 -> aspect: Proceed; id: signal10-> aspect: Proceed; id: signal8-> aspect: Proceed; id: signal4-> aspect: Proceed; id: signal6-> aspect: Proceed",
+    "conflicts": "id: signal9-> aspect: stop;id: signal11-> aspect: stop;id: signal7-> aspect: stop; id: signal2-> aspect: stop; id: signal3-> aspect: stop; id: signal5-> aspect: stop; id: signal1-> aspect: stop"
+  },
+  {
+    "id": "route66",
+    "startseg": "seg29",
+    "endseg": "seg6",
+    "path": "seg29, seg28, seg27, seg17 , seg18, seg19, seg20, seg21, seg13, seg14, seg15, seg16, seg5, seg6",
+    "points": "id: point5-> direction: N; id: point6-> direction: N; id: point1-> direction: N",
+    "signals": "id: signal14 -> aspect: Proceed; id: signal10-> aspect: Proceed; id: signal8-> aspect: Proceed",
+    "conflicts": "id: signal4 -> aspect: stop; id: signal9-> aspect: stop;id: signal11-> aspect: stop;id: signal7-> aspect: stop; id: signal2-> aspect: stop; id: signal3-> aspect: stop; id: signal5-> aspect: stop; id: signal6-> aspect: stop"
+  },
+  {
+    "id": "route67",
+    "startseg": "seg29",
+    "endseg": "seg10",
+    "path": "seg29, seg28, seg27, seg17 , seg18, seg19, seg20, seg21, seg13, seg14, seg15, seg16, seg5, seg6, seg7, seg 8, seg9, seg10",
+    "points": "id: point5-> direction: N; id: point6-> direction: N; id: point1-> direction: N; id: point2-> direction: N",
+    "signals": "id: signal14 -> aspect: Proceed; id: signal10-> aspect: Proceed; id: signal8-> aspect: Proceed; id: signal4-> aspect: Proceed",
+    "conflicts": "id: signal9 -> aspect: stop; id: signal11-> aspect: stop;id: signal7-> aspect: stop;id: signal6-> aspect: stop; id: signal2-> aspect: stop; id: signal3-> aspect: stop; id: signal5-> aspect: stop; id: signal1-> aspect: stop"
+  },
+  {
+    "id": "route68",
+    "startseg": "seg29",
+    "endseg": "seg28",
+    "path": "seg29, seg28",
+    "points": "",
+    "signals": "",
+    "conflicts": "id: signal15 -> aspect: stop; id: signal9 -> aspect: stop"
+  },
+  {
+    "id": "route69",
+    "startseg": "seg29",
+    "endseg": "seg15",
+    "path": "seg29, seg28, seg27, seg17 , seg18, seg19, seg20, seg21, seg13, seg14, seg15",
+    "points": "id: point5-> direction: N; id: point6-> direction: N",
+    "signals": "id: signal14 -> aspect: Proceed; id: signal10-> aspect: Proceed",
+    "conflicts": "id: signal4-> aspect: stop;id: signal9-> aspect: stop;id: signal11-> aspect: stop;id: signal7-> aspect: stop;id: signal8-> aspect: stop;id: signal3-> aspect: stop"
+  },
+  {
+    "id": "route70",
+    "startseg": "seg29",
+    "endseg": "seg19",
+    "path": "seg29, seg28, seg27, seg17 , seg18, seg19",
+    "points": "id: point5-> direction: N",
+    "signals": "id: signal14 -> aspect: Proceed",
+    "conflicts": "id: signal4-> aspect: stop;id: signal9-> aspect: stop;id: signal11-> aspect: stop; id: signal7-> aspect: stop; id: signal12-> aspect: stop"
+  },
+  {
+    "id": "route71",
+    "startseg": "seg29",
+    "endseg": "seg24",
+    "path": "seg29, seg28, seg27, seg17 , seg18, seg19, seg20, seg21, seg22, seg23, seg24",
+    "points": "id: point5-> direction: N; id: point6-> direction: R;",
+    "signals": "id: signal14 -> aspect: Proceed; id: signal10 -> aspect: Proceed",
+    "conflicts": "id: signal4-> aspect: stop;id: signal9-> aspect: stop;id: signal11-> aspect: stop; id: signal7-> aspect: stop; id: signal2-> aspect: stop"
+  },
+  {
+    "id": "route72",
+    "startseg": "seg29",
+    "endseg": "seg25",
+    "path": "seg29, seg28, seg27, seg17 , seg18, seg19, seg20, seg21, seg22, seg23, seg24, seg25",
+    "points": "id: point5-> direction: N; id: point6-> direction: R;",
+    "signals": "id: signal14 -> aspect: Proceed; id: signal10 -> aspect: Proceed",
+    "conflicts": "id: signal4-> aspect: stop;id: signal9-> aspect: stop;id: signal11-> aspect: stop; id: signal7-> aspect: stop; id: signal2-> aspect: stop"
   }
 ]

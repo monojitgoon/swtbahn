@@ -1,5 +1,6 @@
 <template>
   <div class="col-xs-12 col-md-12">
+    <input class="btn btn-success" type="submit" value="Start SVG" @click="Svg()">
     <card header-text="Trackboard">
       <div class="card-body card-block">
         <svg
@@ -436,40 +437,83 @@ export default {
     ...mapActions("monitor", ["GetSegmentsArray", "GetTrainStateArray"]),
     RunSVG() {
       var currentseg = null;
-
+      var currentTrain = null;
+      var occupiedCount = 0;
       Object.keys(this.monitor.segmentArray).forEach(key => {
         const segmentid = this.monitor.segmentArray[key]["segmentid"];
         const occupied = this.monitor.segmentArray[key]["occupied"];
         const trainid = this.monitor.segmentArray[key]["trains"];
-        if (occupied === "yes" && trainid != null) {
-          this.GetTrainStateArray(trainid);
+        if (
+          currentseg != segmentid &&
+          occupied === "yes" &&
+          trainid != null &&
+          !trainid.includes(",") &&
+          currentTrain != trainid
+        ) {
+          currentTrain = trainid;
+          occupiedCount++;
+
+          this.GetTrainStateArray(currentTrain);
           const dccspeed = this.monitor.trainstateArray[0]["dccspeed"];
-          if (currentseg != segmentid) {
+          const direction = this.monitor.trainstateArray[0]["direction"];
+
+          if (occupiedCount === 1 && dccspeed > 0) {
             currentseg = segmentid;
-            this.Svghandler(currentseg, dccspeed);
+            this.Svghandler(
+              currentseg,
+              dccspeed,
+              direction === "forward" ? true : false
+            );
           }
         }
       });
     },
-    Svghandler(currentseg, currentSpeed) {
+    Svghandler(currentseg, currentSpeed, direction) {
       var canvas = SVG("track-master");
       var trainobj = canvas.image(img, 20, 20);
       trainobj.addClass("display");
       var path = canvas.path(
         document.getElementById(currentseg).getAttribute("d")
       );
-
+      var animationDuration =
+        appConfig.system_trackpanel_AnimationDurationDividend / currentSpeed;
       var length = path.length();
       path.fill("none").stroke({ width: 1, color: "#ccc" });
 
       trainobj
-        .animate(100000 / currentSpeed, "-")
+        .animate(animationDuration, "-")
         .during(function(pos, morph, eased) {
           var p = path.pointAt(eased * length);
           trainobj.center(p.x - 10, p.y - 10);
         })
-        .once(true)
-        .attr({ display: "none" });
+        .reverse(direction);
+      setTimeout(
+        function() {
+          trainobj.attr({ display: "none" });
+        }.bind(this),
+        animationDuration
+      );
+    },
+    Svg() {
+      var canvas = SVG("track-master"),
+        path = canvas.path(document.getElementById("seg10").getAttribute("d")),
+        length = path.length();
+      var trainobj = canvas.image(img, 20, 20);
+      path.fill("none").stroke({ width: 1, color: "#ccc" });
+      trainobj.addClass("display");
+      trainobj
+        .animate(5000, "<>")
+        .during(function(pos, morph, eased) {
+          var p = path.pointAt(eased * length);
+          trainobj.center(p.x - 10, p.y - 10);
+        })
+        .reverse(true);
+      setTimeout(
+        function() {
+          trainobj.attr({ display: "none" });
+        }.bind(this),
+        5000
+      );
     }
   }
 };
