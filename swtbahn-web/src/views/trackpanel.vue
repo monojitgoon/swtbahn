@@ -1,6 +1,5 @@
 <template>
   <div class="col-xs-12 col-md-12">
-    <input class="btn btn-success" type="submit" value="Start SVG" @click="Svg()">
     <card header-text="Trackboard">
       <div class="card-body card-block">
         <svg
@@ -492,27 +491,6 @@ export default {
           trainobj.attr({ display: "none" });
         }.bind(this),
         animationDuration
-      );
-    },
-    Svg() {
-      var canvas = SVG("track-master"),
-        path = canvas.path(document.getElementById("seg10").getAttribute("d")),
-        length = path.length();
-      var trainobj = canvas.image(img, 20, 20);
-      path.fill("none").stroke({ width: 1, color: "#ccc" });
-      trainobj.addClass("display");
-      trainobj
-        .animate(5000, "<>")
-        .during(function(pos, morph, eased) {
-          var p = path.pointAt(eased * length);
-          trainobj.center(p.x - 10, p.y - 10);
-        })
-        .reverse(true);
-      setTimeout(
-        function() {
-          trainobj.attr({ display: "none" });
-        }.bind(this),
-        5000
       );
     }
   }
